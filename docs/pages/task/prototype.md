@@ -4,7 +4,7 @@ In this scenario the question is in format of text requesting the generation of 
 
 All of the following data is found in the `prototyping` directory.
 
-![alt text](../media/proto_structure.png)
+![alt text](media/proto_structure.png)
 
 First we need a directory for the organization.  In this cases these are questions derived from the RPG compiler tests and contributed by Barbara Morris.  We will give it the unique id `001compiler_tests` and that becomes the second level directory.
 It contains an `attribution.txt` of

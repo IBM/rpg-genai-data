@@ -5,8 +5,7 @@ We recognize that many customers have valuable assets and expertise and we want 
 
 ## How to contribute
 
-We would prefer contributing actual question and answer pairs to train the AI.
-Follow [these instructions](pages/how_to_contribute_to_AI_training)
+We would prefer contributing actual question and answer pairs to train the AI following [these instructions](pages/how_to_contribute_to_AI_training)
 
 It will also be useful to contribute RPG source code following [these instructions](pages/send_RPG_code)
 

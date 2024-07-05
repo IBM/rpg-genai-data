@@ -1,8 +1,11 @@
 - Welcome
   - [Overview](./README.md)
   - [How to contribute training data](pages/how_to_contribute_to_AI_training.md)
-    - [Explain existing RPG](pages/how_to_contribute_to_AI_training.md)
-    - [Generate new RPG](pages/how_to_contribute_to_AI_training.md)
-    - [Fixed to Free Format](pages/how_to_contribute_to_AI_training.md)
+    - [Training Data Format](pages/expanded_qna_format.md)
+    - Task Description and Examples
+      - [Explain Existing RPG](pages/task/explain.md)
+      - [Generate new RPG](pages/task/prototype.md)
+      - [Generate Unit Tests for Existing RPG](pages/task/unittest.md)
+      - [Fixed to Free Format](pages/task/fixed_to_free.md)
   - [How to contribute RPG source](pages/send_RPG_code.md)
-  - [How to create a pull request](pages/pull_request.md)
+  - [How to make contribution IBM Repo](pages/pull_request.md)

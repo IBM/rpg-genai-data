@@ -18,9 +18,13 @@ version : https://github.com/edmundreinhardt/rpg-genai-data/commit/d41c5d45a5865
 
 ## Anyone Who is Contributing Has Access
 
-If you generously want to let anyone contribute to this project, you can follow the steps outlined in the [pull request section](pages/pull_request.md) 
+If you generously want to let anyone contribute to this project, you can follow the steps outlined in the [pull request section](pages/pull_request.md)
 
 ## RPG Code That Is Already Open Source
 
 If you have an existing public repository with a permissive license, list it in the file:
 <https://github.com/AIforIBMi/rpg-genai-data/blob/main/src/repos_for_training.md>
+
+## Caveat
+
+Unfortunately we are unable to use plain RPG source to finetune the AI directly at this early point. We hope that after gathering sufficient source we will be able to use plain source in later stages.

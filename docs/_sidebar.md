@@ -1,8 +1,8 @@
 - Welcome
   - [Overview](./README.md)
-  - [How to contribute RPG source](pages/send_RPG_code.md)
   - [How to contribute training data](pages/how_to_contribute_to_AI_training.md)
     - [Explain existing RPG](pages/how_to_contribute_to_AI_training.md)
     - [Generate new RPG](pages/how_to_contribute_to_AI_training.md)
     - [Fixed to Free Format](pages/how_to_contribute_to_AI_training.md)
+  - [How to contribute RPG source](pages/send_RPG_code.md)
   - [How to create a pull request](pages/pull_request.md)

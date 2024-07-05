@@ -12,7 +12,7 @@ This data is then contributed to the IBM repository by following [these instruct
 
 The scenarios we are initially focused on are
 
-1. [#xplaining RPG in natural language](pages/task/explain.md)
+1. [Explaining RPG in natural language](pages/task/explain.md)
 2. [Prototyping new RPG code from a natural language description](pages/task/prototype.md)
 3. [Generating RPG unit tests](pages/task/unittest.md)
 4. [Converting Fixed form RPG to free format](pages/task/fixed-to-free.md)

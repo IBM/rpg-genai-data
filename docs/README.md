@@ -5,4 +5,4 @@ We recognize that many customers have valuable assets and expertise and we want 
 
 ## How contribute
 
-See this document [document](how_to_contribute_to_AI_training.md) for instructions on how to contribute to this exciting project
+See this [document](how_to_contribute_to_AI_training.md) for instructions on how to contribute to this exciting project

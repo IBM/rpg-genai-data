@@ -1,29 +1,5 @@
 # How to contribute to training the new RPG Generative AI
 
-## RPG Code
-
-The easiest way to contribute to training data to train the new RPG Code Assistant is through contributing code.
-
-There is a private enterprise github repository only visible to IBMers involved in this project to store this source.
-Please send a zip or savf to <AIforIBMi@ibm.com> to contribute.  The zip directory should have an `attribution.txt` file will will let us know who has contributed the source.  For example:
-
-```yaml
-title : ILE RPG Compiler Test Cases
-link : https://github.com/edmundreinhardt/rpg-genai-data/tree/main/src/001compiler_tests/
-creator : Barbara Morris
-license : Apache 2.0
-organization : IBM
-version : https://github.com/edmundreinhardt/rpg-genai-data/commit/d41c5d45a58653d7d12958be6c2b739cb5d7e902
-```
-
-If you generously want to let anyone contribute to this project, it can be [pull requested](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) to the repository, <https://github.com/AIforIBMi/rpg-genai-data>.  You would first have to added to the contributors by emailing <AIforIBMi@ibm.com>
-Please make sure that you do not PR <https://github.com/IBM/rpg-genai-data> which is a public repo.
-
-There is also an enterprise repository which only IBMers can see if you do not want anyone else browsing your code. It still is conceivable that the AI might offer snippets of your code in response to specific prompts.  If you are willing to share your code under these conditions, please send your code to <AIforIBMi@ibm.com>
-
-If you have an existing public repository with a permissive license, list it in the file:
-<https://github.com/AIforIBMi/rpg-genai-data/blob/main/src/repos_for_training.md>
-
 ## Training Data
 
 Unfortunately we are unable to use plain RPG source to finetune the AI directly. We hope to be able to use plain source in later stages.
@@ -37,20 +13,19 @@ The format used to train the AI is JSONL.  This is the file format where each li
 ```
 
 Where
-<dl>
-<dt>UNIQUE_ID</dt>
-<dd>unique alphanumeric string with no blanks<dd>
-<dt>QUESTION</dt>
-<dd>the request being made to the LLM</dd>
-<dt>CONTEXT</dt>
-<dd>files and definitions that the question is dependent on</dd>
-<dt>ANSWER</dt>
-<dd>the response that the LLM *should* provide</dd>
-<dt>TASK_TYPE</dt>
-<dd>What type of task is being attempted: explain/prototyping/fixed-to-free</dd>
-<dt>DIFFICULTY</dt>
-<dd>Difficulty of question on a scale from 0 to 5 where 5 is the most difficult and 0 is trival</dd>
-</dl>
+
+- *UNIQUE_ID*
+unique alphanumeric string with no blanks
+- *QUESTION*
+the request being made to the LLM
+- *CONTEXT*
+files and definitions that the question is dependent on
+- *ANSWER*
+the response that the LLM *should* provide
+- *TASK_TYPE*
+What type of task is being attempted: explain/prototyping/fixed-to-free
+- *DIFFICULTY*
+Difficulty of question on a scale from 0 to 5 where 5 is the most difficult and 0 is trival
 
 These JSONL files will be found in the [AIforIBMi repo](https://github.com/AIforIBMi/rpg-genai-data) under
 ```/data/<task_name>/<your_directory>```.
@@ -102,7 +77,7 @@ In this scenario the question is in format of RPG code and the output is an expl
 Since the task is to explain some RPG, all of the following data is found in the `data/explain` directory.
 For this example we will have a training pair submitted by IBM, so the data will be in the `data/explain/IBM` directory.
 
-![alt text](media/explain_structure.png)
+![alt text](../media/explain_structure.png)
 The main file used to do the training is `train_text_to_rpgle.jsonl`
 
 ```json
@@ -150,7 +125,7 @@ In this scenario the question is in format of text requesting the generation of 
 
 All of the following data is found in the `prototyping` directory.
 
-![alt text](media/proto_structure.png)
+![alt text](../media/proto_structure.png)
 
 First we need a directory for the organization.  In this cases these are questions derived from the RPG compiler tests and contributed by Barbara Morris.  We will give it the unique id `001compiler_tests` and that becomes the second level directory.
 It contains an `attribution.txt` of

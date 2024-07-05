@@ -1,11 +1,13 @@
-# EXPLAIN
+# Explain existing RPG in Natural Language
 
+A common problem for IBM i customers is coming across old code that is not easy to understand. The goal of this task is to train the AI to be able to produce a natural language description of some RPG.
 In this scenario the question is in format of RPG code and the output is an explanation of that code.
 
-Since the task is to explain some RPG, all of the following data is found in the `data/explain` directory.
+Since the task is to "explain" some RPG, all of the following data is found in the `data/explain` directory.
 For this example we will have a training pair submitted by IBM, so the data will be in the `data/explain/IBM` directory.
 
-![alt text](media/explain_structure.png)
+![alt text](../../media/explain_structure.png)
+
 The main file used to do the training is `train_text_to_rpgle.jsonl`
 
 ```json

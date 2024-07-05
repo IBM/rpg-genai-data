@@ -12,7 +12,7 @@ Where
 unique alphanumeric string with no blanks
 - **QUESTION** =
 the request being made to the LLM
-- **CONTEXT** = 
+- **CONTEXT** =
 files and definitions that the question is dependent on
 - **ANSWER** =
 the response that the LLM *should* provide

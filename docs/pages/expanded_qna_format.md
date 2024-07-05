@@ -37,8 +37,8 @@ version : https://github.com/edmundreinhardt/rpg-genai-data/commit/d41c5d45a5865
 Since RPG source in `jsonl` will be difficult to read as it all has to be on one line, we have an easier format to submit your training data.  Use the following data structure:
 
 - data/
-  - <task_name>/
-    - <your_org>/
+  - *task_name*/
+    - *your_org*/
       - any_id1
         - input.txt
         - i1_file1.rpgle
@@ -51,7 +51,7 @@ Since RPG source in `jsonl` will be difficult to read as it all has to be on one
 The above directory structure will automatically be transformed by IBM into a `jsonl` line of the form:
 
 ```json
-{"id": "any_id1", "input":”<input.txt contents>\n\nfile1.rpgle\n<i1_file1.rpgle contents>”, "context”: "MYDSPF.DSPF<c1_MYDSPF.DSPF contents>\n\nMYTABLE.TABLE\n<i3_MYTABLE.TABLE contents>", ”output”: ”<output.txt contents>\n\nsomefile.rpgle\no1_somefile.rpgle contents”, "task":"<task_name>", "difficulty":0}
+{"id": "any_id1", "input":”input.txt contents\n\nfile1.rpgle\n i1_file1.rpgle contents”, "context”: "MYDSPF.DSPF\n\n c1_MYDSPF.DSPF contents\n\nMYTABLE.TABLE\n i3_MYTABLE.TABLE contents", ”output”: ”output.txt contents\n\nsomefile.rpgle\no1_somefile.rpgle contents”, "task":"task_name", "difficulty":0}
 ```
 
 Note that the `i<number>_` prefix is used to impose an order in which the input files show up in the question.  The `c<number>_` prefix similarly orders the files that are needed to give the context for the question. Finally the `o<number>_` prefix similarly orders the output files that are embedded in the answer.  The `output.txt` could also be `output.rpgle` if the output only contains code.  The `metadata.txt` in this case contains the difficulty level.

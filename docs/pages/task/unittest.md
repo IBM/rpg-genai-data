@@ -1,4 +1,4 @@
-# Generate Unit Tests for exist RPG
+# Generate Unit Tests for Existing RPG
 
 Given existing RPG, generate unit tests for it.
 This will be a high value scenario for the RPG AI.  Since very few IBM i shops have unit tests, this should help them get to better quality and have more confidence to modernize their code bases.

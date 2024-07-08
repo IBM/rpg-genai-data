@@ -111,3 +111,21 @@ In our scenario we call the task `helloworld`.  If there is a name collision, IB
 5. Congratulations, you did it!.
 
 For more documentation on creating pull requests see <https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request>
+
+## Respond to pull request comments
+
+As IBM is reviewing your pull request, they might have some suggestions on how to improve it.  You will get an email notification of the requested change.
+![Email notification of review coment](../media/git_pr_email.png)
+
+Click on the link will take you to your pull request where you will see the comment.  The `view reviewed changes` link will take you to the context of the comment.
+![PR with comment](../media/git_pr_comment.png)
+
+Go back your own repository github page (in my case <https://github.com/edmundreinhardt/rpg-genai-data> and make sure that the branch with your changes on it is seleted.
+![Switch branch in github](../media/git_branch_switch.png)
+Press . to open it in gihub.dev (nless you still have the tab open from making the changes.  Opening github.dev is a little expensive, you would prefer to work with you existing tab).
+Make the suggested change.
+![Make change suggested by the PR](../media/git_make_pr_change.png)
+Commit and push the changes from the Git view
+![commit change to git](../media/git_commit_change.png)
+![alt text](image.png)
+This will let IBM reevaluate and merge your change for all the world to benefit from.

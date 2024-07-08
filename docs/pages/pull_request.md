@@ -127,5 +127,5 @@ Make the suggested change.
 ![Make change suggested by the PR](../media/git_make_pr_change.png)
 Commit and push the changes from the Git view
 ![commit change to git](../media/git_commit_change.png)
-![alt text](image.png)
+
 This will let IBM reevaluate and merge your change for all the world to benefit from.

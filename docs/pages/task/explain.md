@@ -11,7 +11,7 @@ For this example we will have a training pair submitted by IBM, so the data will
 The main file used to do the training is `train_text_to_rpgle.jsonl`
 
 ```json
-{"file_id": "helloworld", "input":"Explain the following ILE RPG code\n\nhelloworld.rpgle\n**free;\ndsply ‘hello world’;\n
+{"id": "helloworld", "input":"Explain the following ILE RPG code\n\nhelloworld.rpgle\n**free;\ndsply ‘hello world’;\n
 return;\n","output":"The fully free-form ILE RPG program displays the message ‘hello world’ to the user."}
 ```
 

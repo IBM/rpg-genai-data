@@ -109,5 +109,5 @@ difficulty: 3
 This produces the jsonl for training.
 
 ```json
-{"file_id": "001retrieve_streamf_contents", "input": "Generate an ILE RPG subprocedure that will return the contents of a stream file into a varying string of length 1000, given the library and module name that the stream file was compiled into.", "output": "**free\n...", "task": "prototyping", "difficulty": 3}
+{"id": "001retrieve_streamf_contents", "input": "Generate an ILE RPG subprocedure that will return the contents of a stream file into a varying string of length 1000, given the library and module name that the stream file was compiled into.", "output": "**free\n...", "task": "prototyping", "difficulty": 3}
 ```

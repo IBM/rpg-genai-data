@@ -20,7 +20,7 @@ You would first have to added to the contributors by emailing <AIforIBMi@ibm.com
 1. Sign in with your GitHub id
 2. Go to the IBM Repo <https://github.com/AIforIBMi/rpg-genai-data>
 3. Fork the repository, clicking on `Fork` and then `Create a new fork`
-![Click on Fork and then "Create a new fork"](..//media/fork_from_IBM.png)
+![Click on Fork and then "Create a new fork"](../media/fork_from_IBM.png)
 Press `Create Fork` button
 ![Create Fork page](../media/create_fork_page.png)
 Now a copy of the repository will exist under your personal GitHub id.  In the example here that is `edmundreinhardt`

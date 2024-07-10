@@ -18,12 +18,24 @@ version : https://github.com/edmundreinhardt/rpg-genai-data/commit/d41c5d45a5865
 
 ## Anyone Who is Contributing Has Access
 
-If you generously want to let anyone contribute to this project, you can follow the steps outlined in the [pull request section](pages/pull_request.md)
+If you generously want to let anyone contribute to this project,
+you can follow the steps outlined in the [pull request section](pull_request.md)
+
+1. Fork the <https://github.com/AIforIBMi/rpg-genai-data> repo and press '.' to edit in `code.dev` workspace
+2. Under the `src` directory, create a directory for your organization
+3. Add an `attribution.txt` file as described under the previous section
+4. Copy in all of your code
+
+![contribute RPG source](../media/rpg_src.png)
+
+5. Follow the instructions in the [pull request section](pull_request.md) to commit and create a pull request.
 
 ## RPG Code That Is Already Open Source
 
 If you have an existing public repository with a permissive license, list it in the file:
 <https://github.com/AIforIBMi/rpg-genai-data/blob/main/src/repos_for_training.md>
+Follow the steps outlined in the [pull request section](pull_request.md) and simple update
+the `src/repos_for_training.md` file.
 
 ## Caveat
 

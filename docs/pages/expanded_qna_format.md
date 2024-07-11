@@ -23,12 +23,13 @@ Difficulty of question on a scale from 0 to 5 where 5 is the most difficult and 
 
 These JSONL files will be found in the [AIforIBMi repo](https://github.com/AIforIBMi/rpg-genai-data) under
 ```/data/<task_name>/<your_directory>```.
-Please add to this directory a file `attribution.txt` with content of the form:
+Please add to this directory a file [`attribution.txt`](attribution.md) with content of the form:
 
 ```yaml
 title : ILE RPG Compiler Test Cases
 link : https://github.com/edmundreinhardt/rpg-genai-data/tree/main/src/001compiler_tests/
-creator : Barbara Morris
+contact : Barbara Morris
+email : bmorris@ca.ibm.com
 license : Apache 2.0
 organization : IBM
 version : https://github.com/edmundreinhardt/rpg-genai-data/commit/d41c5d45a58653d7d12958be6c2b739cb5d7e902

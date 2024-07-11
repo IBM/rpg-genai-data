@@ -4,10 +4,17 @@ In this scenario the question is in format of text requesting the generation of 
 
 All of the following data is found in the `prototyping` directory.
 
-![alt text](../../media/proto_structure.png)
+- data/
+  - prototype/
+    - compiler_tests
+      - attribution.txt
+      - get_src_strmf_name_qbnrmodi/
+        - input.txt
+        - output.rpgle
+        - metadata.txt
 
-First we need a directory for the organization.  In this cases these are questions derived from the RPG compiler tests and contributed by Barbara Morris.  We will give it the unique id `001compiler_tests` and that becomes the second level directory.
-It contains an `attribution.txt` of
+First we need a directory for the organization.  In this cases these are questions derived from the RPG compiler tests and contributed by Barbara Morris.  We will give it the unique id `compiler_tests` and that becomes the second level directory.
+It contains an [`attribution.txt`](attribution.md) of
 
 ```yaml
 title : ILE RPG Compiler Test Cases
@@ -19,7 +26,7 @@ organization : IBM
 version : https://github.com/edmundreinhardt/rpg-genai-data/commit/d41c5d45a58653d7d12958be6c2b739cb5d7e902
 ```
 
-Now if I had not place the source in a github repository, we could drop the link as long we can contact the own to track down the source.  For example:
+Now if I had not placed the source in a github repository, we could drop the link and commit/tag version as long we have a  contact to track down the source.  The version in this example is sufficient for the contact to identify the origin of the source.  For example:
 
 ```yaml
 title : ILE RPG Compiler Test Cases
@@ -30,7 +37,7 @@ organization : IBM
 version : V7R4M0 test bucket 
 ```
 
-The specific id of the particular question is `001_get_src_strmf_name_qbnrmodi`
+The specific id of the particular question is `get_src_strmf_name_qbnrmodi`
 The `input.txt` contains the question
 
 ```text
@@ -109,5 +116,5 @@ difficulty: 3
 This produces the jsonl for training.
 
 ```json
-{"id": "001retrieve_streamf_contents", "input": "Generate an ILE RPG subprocedure that will return the contents of a stream file into a varying string of length 1000, given the library and module name that the stream file was compiled into.", "output": "**free\n...", "task": "prototyping", "difficulty": 3}
+{"id": "get_src_strmf_name_qbnrmodi", "input": "Generate an ILE RPG subprocedure that will return the contents of a stream file into a varying string of length 1000, given the library and module name that the stream file was compiled into.", "output": "**free\n...", "task": "prototyping", "difficulty": 3}
 ```

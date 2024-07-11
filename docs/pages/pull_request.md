@@ -53,7 +53,7 @@ We are going to make the change the simplest way, right in the browser.
 
       ![Name the folder 'IBM'](../media/name_folder_IBM.png)
   - Add an `attibution.txt` file to specify who is contributing this with permission
-    - Create a `New File ...` in your organization dir and name it `attribution.txt`
+    - Create a `New File ...` in your organization dir and name it [`attribution.txt`](attribution.md)
         ![create "attribution.txt"](../media/name_attribution.png)
     - Fill in the details of your organization, contact and permission. If this is coming from a repo, feel free to provide a link.
 

@@ -6,6 +6,8 @@
       - [Explain Existing RPG](pages/task/explain.md)
       - [Generate new RPG](pages/task/prototype.md)
       - [Generate Unit Tests for Existing RPG](pages/task/unittest.md)
+      - [Ask questions about RPG](pages/task/chat.md)
       - [Fixed to Free Format](pages/task/fixed_to_free.md)
+      - [Generate a more modern version of RPG](pages/task/modernize.md)
   - [How to contribute RPG source](pages/send_RPG_code.md)
   - [How to make contribution IBM Repo](pages/pull_request.md)

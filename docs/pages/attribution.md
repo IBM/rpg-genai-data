@@ -1,4 +1,4 @@
-### For your attribution.txt file
+# Format of attribution.txt file
 
 An important part of contributing to the RPG AI project is citing your sources of information. This comes in the form of your `attribution.txt` that you add to the pull requests. Almost all instances of attribution can be covered by the parameters required for Creative Commons Attribution licenses. Some parameters are as follows:
 

@@ -20,3 +20,10 @@ This is the most valuable type of training.  There are many different types of m
       - c1_db.rpgle - any files needed for context to this question
       - output.rpgle - Provide modernized code
       - metadata.md - difficulty
+
+The `input.txt` will specify the type of modernization you want to have done to your RPG.
+The `i1_rpgsource.rpgle` file should have the code we want modernized.  
+
+Additional SQL and DDS files to provide field definitions can be suppllied as `c1_???.table` etc.
+
+Finally the `output.rpgle` can have the modernized version of the RPG.

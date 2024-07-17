@@ -32,7 +32,7 @@ The [RPG Gen AI Data Collector](https://marketplace.visualstudio.com/items?itemN
 
     ![Select Organization Attribution Prompt](../media/selectOrganizationAttributionPrompt.png)
 
-6. Fill in the fields in the **Attribution** tab will your relevant information.
+6. Fill in the fields in the **Attribution** tab with your relevant information.
 
     ![Attribution Tab](../media/attributionTab.png)
 

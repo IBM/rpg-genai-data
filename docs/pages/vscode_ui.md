@@ -47,7 +47,6 @@ from your local machine, from the IFS, and from QSYS. This will require connecti
 
     ![Create Pull Request Command](../media/createPullRequestCommand.png)
 
-2. If this process is successful, it will then launch a webpage in your browser to create the pull request on GitHub in the [rpg-genai-data
-](https://github.com/AIforIBMi/rpg-genai-data) repository. Note that the title will already be prefilled with the task and organization based on the changed files.
+2. If this process is successful, it will then launch a webpage in your browser to create the pull request on GitHub in the [rpg-genai-data](https://github.com/AIforIBMi/rpg-genai-data) repository. Note that the title will already be prefilled with the task and organization based on the changed files.
 
 3. Review the changed files and click the **Create pull request** button on the GitHub webpage.

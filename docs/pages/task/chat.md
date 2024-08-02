@@ -45,6 +45,7 @@ Make sure you have the `RPG Gen AI Data Collector` extension installed in your l
 ![question on alias](../../media/dc_chat_alias.png)
 
 8. By pressing the `Add Training Data` button on the bottom all of the files for this question will be generated.
+
 ![generated files](../../media/dc_generated.png)
 
 9. Commit the files

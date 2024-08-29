@@ -6,6 +6,16 @@
 4. Make your contribution in this branch in your repository
 5. Create a `pull request` to contribute your change to the IBM repository
 
+## Overview
+
+The diagram below outlines the one time setup required to setup a forked repository on your local machine:
+
+![One time setup](../media/oneTimeSetup.png)
+
+The diagram below outlines the process of contributing training data as well as the typical branch workflow that should be followed:
+
+![Contribute training data](../media/contributeTrainingData.png)
+
 ## Make sure you have a `GitHub` id
 
 If you already have a `GitHub`id you can skip this step.

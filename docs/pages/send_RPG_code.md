@@ -23,11 +23,10 @@ you can follow the steps outlined in the [pull request section](pull_request.md)
 
 1. Fork the <https://github.com/AIforIBMi/rpg-genai-data> repo and press '.' to edit in `code.dev` workspace
 2. Under the `src` directory, create a directory for your organization
-3. Add an [`attribution.txt`](attribution.md)  file as described under the previous section
-4. Copy in all of your code
-
+3. Copy in all of your code
 ![contribute RPG source](../media/rpg_src.png)
-
+4. Add a file under `source_attribution` with the same name as the directory of your organization under `src`. The contents of the file should be [as described here](attribution.md)
+![attribute RPG source](../media/rpg_src_attribution.png)
 5. Follow the instructions in the [pull request section](pull_request.md) to commit and create a pull request.
 
 ## RPG Code That Is Already Open Source

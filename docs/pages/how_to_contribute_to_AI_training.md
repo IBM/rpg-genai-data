@@ -2,7 +2,7 @@
 
 ## Training Data
 
-What would be most useful therefore is to contribute question and answer pairs.
+It is extremely useful to contribute question and answer pairs.  This can be used both to fine tune the AI and to evaluate if it is doing a good job.
 
 This is done by creating questions and answers in [this format](pages/expanded_qna_format.md)
 

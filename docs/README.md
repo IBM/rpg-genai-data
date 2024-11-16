@@ -11,8 +11,8 @@ We recognize that many customers have valuable assets and expertise and we want 
 4. IBM will add you as a contributor to the git repository <https://github.com/AIforIBMi/rpg-genai-data> where we gathering all of the training data.
 5. Now it is time to unleash your expertise.  Follow the instructions below
 
-- We would prefer contributing actual question and answer pairs to train the AI following [these instructions](pages/how_to_contribute_to_AI_training). We can start fine tuning our model with this data right away.
+- Contributing question and answer pairs to train the AI following [these instructions](pages/how_to_contribute_to_AI_training) will be very useful. We can start fine tuning our model with this data and also use some of it to test whether the AI is responding correctly.
 
-- It will also be useful to contribute RPG source code following [these instructions](pages/send_RPG_code).  If we get sufficient source we can do a general unlabeled training of our model.
+- It will also be useful to contribute RPG source code following [these instructions](pages/send_RPG_code).  This is very useful to get the AI trained on RPG and all of the associated supporting languages.
 
 - In either case, contributing to the IBM git repository for this data should follow [this process](pages/pull_request)

@@ -31,7 +31,7 @@ you can follow the steps outlined in the [pull request section](pull_request.md)
 
 ## RPG Code That Is Already Open Source
 
-If you have an existing public repository with a permissive license, list it in the file:
+If you have an existing public repository with a permissive license, and it is not listed in the file:
 <https://github.com/AIforIBMi/rpg-genai-data/blob/main/src/repos_for_training.md>
 Follow the steps outlined in the [pull request section](pull_request.md) and simple update
 the `src/repos_for_training.md` file.

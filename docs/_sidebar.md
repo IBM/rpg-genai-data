@@ -12,3 +12,4 @@
   - [How to contribute RPG source](pages/send_RPG_code.md)
   - [How to manually contribute to IBM Repo](pages/pull_request.md)
   - [How to use UI to contribute training data](pages/vscode_ui.md)
+  - [Video tutorial on all aspects of contributing](pages/video_tutorial.md)

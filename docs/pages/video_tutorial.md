@@ -12,3 +12,9 @@ for the purpose of support IBM i application development.
 The format of the contributed files used to do the training
 
 ![File Format Video ](https://youtu.be/KoEDYb1hqy4)
+
+## GitHub Repository Structure
+
+What is the structure of the GitHub repository containing the training data.  Where should contributions be stored.
+
+![GitHub Repo Structure](https://youtu.be/MkQoV1hNP5Q)

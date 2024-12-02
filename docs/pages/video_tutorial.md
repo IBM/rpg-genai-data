@@ -5,7 +5,7 @@ for the purpose of support IBM i application development.
 
 ## Overview
 
-https://youtu.be/Lt41bHcXPus
+<video src="https://youtu.be/Lt41bHcXPus" controls="controls" style="max-width: 730px;"></video>
 
 ## File Format
 

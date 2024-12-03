@@ -39,18 +39,18 @@ https://youtu.be/4F9Gr5sauZQ
 
 ## Frequently Asked Questions
 
-# What if I don't want others to see the source code I am contributing
+### What if I don't want others to see the source code I am contributing
 
 https://youtu.be/oxUe_b6VkLU
 
 - Just send an email to AIforIBMi@ibm.com 
 
-# Is there a limit to how much RPG I can contribute
+### Is there a limit to how much RPG I can contribute
 
 - No, the more the merrier.
 
 https://youtu.be/tBZQ_T_ABiE
-# How do I get the IBM data cloned into my VS Code workspace
+### How do I get the IBM data cloned into my VS Code workspace
 
 - See instructions at https://ibm.github.io/rpg-genai-data/#/pages/vscode_ui?id=add-new-training-data
 

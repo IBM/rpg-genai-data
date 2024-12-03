@@ -19,6 +19,12 @@ What is the structure of the GitHub repository containing the training data.  Wh
 
 https://youtu.be/MkQoV1hNP5Q
 
+## VS Code Extensions 
+
+Which extensions are needed and how do we get them.
+
+https://youtu.be/gXWaGhIawPA
+
 ## How to Contribute Raw Application Source
 
 How to contribute IBM i application source consisting of RPG and other languages

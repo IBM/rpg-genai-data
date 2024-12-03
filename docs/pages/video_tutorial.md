@@ -5,7 +5,7 @@ for the purpose of support IBM i application development.
 
 ## Overview
 
-<video src="https://youtu.be/Lt41bHcXPus" controls="controls" style="max-width: 730px;"></video>
+https://youtu.be/Lt41bHcXPus
 
 ## File Format
 
@@ -31,3 +31,16 @@ https://youtu.be/F8u-P0Hw9q0
 
 https://youtu.be/oxUe_b6VkLU
 
+- Just send an email to AIforIBMi@ibm.com 
+
+2) Is there a limit to how much RPG I can contribute
+
+- No, the more the merrier.
+
+https://youtu.be/tBZQ_T_ABiE
+
+3) How do I get the IBM data cloned into my VS Code workspace
+
+- See instructions at https://ibm.github.io/rpg-genai-data/#/pages/vscode_ui?id=add-new-training-data
+
+https://youtu.be/f5kt0JdehVo

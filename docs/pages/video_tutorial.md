@@ -19,11 +19,11 @@ What is the structure of the GitHub repository containing the training data.  Wh
 
 https://youtu.be/MkQoV1hNP5Q
 
-## VS Code Extensions 
+## VS Code Extensions
 
 Which extensions are needed and how do we get them.
 
-https://youtu.be/gXWaGhIawPA
+https://youtu.be/gSrBAF9Hn7s
 
 ## How to Contribute Raw Application Source
 

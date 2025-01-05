@@ -20,16 +20,15 @@ Finally the `metadata.md` documents how difficult you think this question is on 
 ## Example By "RPG Gen AI Data Collector" UI
 
 1. Make sure you have forked the `https://github.com/AIforIBMi/rpg-genai-data` repository and cloned it to your local PC.
-2. Start `VS Code` on 
-Make sure you have the `RPG Gen AI Data Collector` extension installed in your local VS Code.
+2. Start `VS Code` and make sure you have the `RPG Gen AI Data Collector` extension installed in your local VS Code.
 
 ![Install RPG Gen AI Data Collector VS Code extension](../../media/vs_extension.png)
 
-3.Select View->Command Pallette... or C-Shift-P
+3. Select View->Command Pallette... or C-Shift-P
 
 ![Command Pallette](../../media/vs_cmd_pallette.png)
 
-4.Select `RPG Gen AI Data Collector: Add New Training Data` and hit Enter
+4. Select `RPG Gen AI Data Collector: Add New Training Data` and hit Enter
 
 ![RPG Gen AI Data Collector: Add New Training Data](../../media/vs_rpg_data_cmd.png)
 

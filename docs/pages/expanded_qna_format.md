@@ -3,7 +3,8 @@
 The format used to train the AI is JSONL.  This is the file format where each line is a separate JSON with the format:
 
 ```json
-{"id": "<UNIQUE_ID>", "input":”<QUESTION>”, "context":"<CONTEXT>", ”output”:”<ANSWER>”, "task":"<TASK>", "difficulty" : "<DIFFICULTY>"}
+{"id":"CityFurnJulianDatePgm_how","code":"source from i1_julian.pgm.rpgle","context":"","explanation":"from how_output.md","task":"explain","metadata": {"provenance":"https://github.com/AIforIBMi/rpg-genai-data/blob/4bf9140019e237/data/explain/IBM/helloworld/how_output.txt","difficulty":1,"language":"rpg4fx","scope":"file","depth":"how"}}
+
 ```
 
 Where
@@ -18,8 +19,8 @@ files and definitions that the question is dependent on
 the response that the LLM *should* provide
 - **TASK_TYPE** =
 What type of task is being attempted: explain/prototype/unittest/fixed-to-free
-- **DIFFICULTY** =
-Difficulty of question on a scale from 0 to 5 where 5 is the most difficult and 0 is trival
+- **METADATA** =
+Additional metadata that document the difficulty of this question and relevant attributes that will determin the right prompt
 
 These JSONL files will be found in the [AIforIBMi repo](https://github.com/AIforIBMi/rpg-genai-data) under
 ```/data/<task_name>/<your_directory>```.

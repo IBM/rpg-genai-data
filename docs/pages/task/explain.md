@@ -12,9 +12,9 @@ The simple directory format would look like
 
 - helloworld\
   - i1_helloworld.rpgle
-  - sum_output.txt
-  - api_output.txt
-  - how_output.txt
+  - sum_output.md
+  - api_output.md
+  - how_output.md
   - metatdata.txt
 
 The `i1_helloworld.rpgle` contains the code to be explained.  The `i1_` prefix indicates that it is
@@ -26,30 +26,28 @@ dsply 'hello world';
 return;
 ```
 
-There are three explanations in the form of `<depth>_output.txt` where the `<depth>`  is one of:
+There are three explanations in the form of `<depth>_output.md` where the `<depth>`  is one of:
 
 - sum - business summary in a couple of sentences. i.e. what is the purpose
 - api - API level summary - what are the inputs, outputs, side effect of calling this procedure or program
 - how - details of how the code performs this task
 
-`sum_output.txt` has the content:
+`sum_output.md` has the content:
 
 ```text
 The fully free-form ILE RPG program displays the message 'hello world'.
 ```
 
-`api_output.txt` has the content:
+`api_output.md` has the content:
 
 ```text
-The fully free-form ILE RPG program displays the message 'hello world' to the 5250 workstation 
-that invoked the interactive program. 
+The fully free-form ILE RPG program displays the message 'hello world' to the 5250 workstation that invoked the interactive program. 
 ```
 
-`how_output.txt` has the content:
+`how_output.md` has the content:
 
 ```text
-The fully free-form ILE RPG program displays the message 'hello world' to the 5250 workstation 
-that invoked the interactive program. 
+The fully free-form ILE RPG program displays the message 'hello world' to the 5250 workstation that invoked the interactive program. 
 
 **free
 dsply 'hello world';
@@ -97,7 +95,7 @@ Where
 The main file used to do the training is `train_rpgle_to_text.jsonl` or it your example might be chosen to evaluate the model `eval_rpgle_to_text.jsonl`.  This whole directory will be summarized in single line similar to the following.
 
 ```json
-{"id":"helloworld_sum","code":"source from i1_helloworld.rpgle","context":"","explanation":"from sum_output.md","metadata": {"provenance":"https://github.com/AIforIBMi/rpg-genai-data/blob/4bf9140019e2377905ff019feaec1d4c49f9b8f1/data/explain/IBM/helloworld/sum_output.txt","difficulty":0,"language":"rpg4ff","scope":"file","depth":"sum"}}
-{"id":"helloworld_api","code":"source from i1_helloworld.rpgle","context":"","explanation":"from sum_output.md","metadata": {"provenance":"https://github.com/AIforIBMi/rpg-genai-data/blob/4bf9140019e2377905ff019feaec1d4c49f9b8f1/data/explain/IBM/helloworld/api_output.txt","difficulty":0,"language":"rpg4ff","scope":"file","depth":"api"}}
-{"id":"helloworld_how","code":"source from i1_helloworld.rpgle","context":"","explanation":"from sum_output.md","metadata": {"provenance":"https://github.com/AIforIBMi/rpg-genai-data/blob/4bf9140019e2377905ff019feaec1d4c49f9b8f1/data/explain/IBM/helloworld/how_output.txt","difficulty":0,"language":"rpg4ff","scope":"file","depth":"how"}}
+{"id":"helloworld_sum","code":"source from i1_helloworld.rpgle","context":"","explanation":"from sum_output.md","metadata": {"provenance":"https://github.com/AIforIBMi/rpg-genai-data/tree/main/data/explain/IBM/helloworld/sum_output.md","difficulty":0,"language":"rpg4ff","scope":"file","depth":"sum"}}
+{"id":"helloworld_api","code":"source from i1_helloworld.rpgle","context":"","explanation":"from sum_output.md","metadata": {"provenance":"https://github.com/AIforIBMi/rpg-genai-data/tree/main/data/explain/IBM/helloworld/api_output.md","difficulty":0,"language":"rpg4ff","scope":"file","depth":"api"}}
+{"id":"helloworld_how","code":"source from i1_helloworld.rpgle","context":"","explanation":"from sum_output.md","metadata": {"provenance":"https://github.com/AIforIBMi/rpg-genai-data/tree/main/data/explain/IBM/helloworld/how_output.md","difficulty":0,"language":"rpg4ff","scope":"file","depth":"how"}}
 ```

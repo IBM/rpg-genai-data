@@ -8,28 +8,17 @@ For this example we will have a training pair submitted by IBM, so the data will
 
 ![structure of explain](../../media/explain_structure.png)
 
-The main file used to do the training is `train_text_to_rpgle.jsonl`
-
-```json
-{"id": "helloworld", "input":"Explain the following ILE RPG code\n\nhelloworld.rpgle\n**free;\ndsply ‘hello world’;\n
-return;\n","output":"The fully free-form ILE RPG program displays the message ‘hello world’ to the user."}
-```
-
-If you used the directory method it would look like
+The simple directory format would look like
 
 - helloworld\
-  - input.txt
   - i1_helloworld.rpgle
-  - output.txt
+  - sum_output.txt
+  - api_output.txt
+  - how_output.txt
   - metatdata.txt
 
-where input.txt has the content:
-
-```text
-Explain the following ILE RPG code
-```
-
-and `i1_helloworld.rpgle` has the content:
+The `i1_helloworld.rpgle` contains the code to be explained.  The `i1_` prefix indicates that it is
+the first input.:
 
 ```rpgle
 **free
@@ -37,14 +26,78 @@ dsply 'hello world';
 return;
 ```
 
-and output.txt has the content:
+There are three explanations in the form of `<depth>_output.txt` where the `<depth>`  is one of:
+
+- sum - business summary in a couple of sentences. i.e. what is the purpose
+- api - API level summary - what are the inputs, outputs, side effect of calling this procedure or program
+- how - details of how the code performs this task
+
+`sum_output.txt` has the content:
 
 ```text
-The fully free-form ILE RPG program displays the message 'hello world' to the user.
+The fully free-form ILE RPG program displays the message 'hello world'.
+```
+
+`api_output.txt` has the content:
+
+```text
+The fully free-form ILE RPG program displays the message 'hello world' to the 5250 workstation 
+that invoked the interactive program. 
+```
+
+`how_output.txt` has the content:
+
+```text
+The fully free-form ILE RPG program displays the message 'hello world' to the 5250 workstation 
+that invoked the interactive program. 
+
+**free
+dsply 'hello world';
+return;
+
+The `**free` marks this a fully free ILE RPG program with no column restrictions.
+The DSPLY opcode is used which is documented here 
+https://www.ibm.com/docs/api/v1/content/ssw_ibm_i_75/rzasd/zzdsply.htm#zzdsply 
+The 'hello world' parameter is the message which will be sent.
+The `return` opcode ends the program.
 ```
 
 and `metadata.txt` has
 
 ```yaml
 difficulty: 0
+language: rpg4ff
+scope: file
+use: train
+```
+
+Where
+
+- difficulty - the difficulty of the explanation as rated from 1 to 5
+- language - the language of the snippet of code being explained
+  - rpg4ff     - RPG IV fully free
+  - rpg4ff-sql - RPG IV fully free with embedded SQL
+  - rpg4lf     - RPG IV column-limited free
+  - rpg4lf-sql - RPG IV column-limited free with embedded SQL
+  - rpg4fc     - RPG IV free form calcs
+  - rpg4fc-sql - RPG IV free form calcs with embedded SQL
+  - rpg4fx     - RPG IV fixed form
+  - rpg4fx-sql - RPG IV fixed form with embedded SQL
+  - rpg3       - RPG III OPM
+  - rpg2       - RPG II S/36
+- scope - the scope of the language being expalined
+  - line - selected lines
+  - subr - subroutine
+  - proc - sub-procedure
+  - file - source file
+- use - whether this data is being used for:
+  - train - training the LLM (which is the default)
+  - eval - for evaluating the quality of the LLM
+
+The main file used to do the training is `train_rpgle_to_text.jsonl` or it your example might be chosen to evaluate the model `eval_rpgle_to_text.jsonl`.  This whole directory will be summarized in single line similar to the following.
+
+```json
+{"id":"helloworld_sum","code":"source from i1_helloworld.rpgle","context":"","explanation":"from sum_output.md","metadata": {"provenance":"https://github.com/AIforIBMi/rpg-genai-data/blob/4bf9140019e2377905ff019feaec1d4c49f9b8f1/data/explain/IBM/helloworld/sum_output.txt","difficulty":0,"language":"rpg4ff","scope":"file","depth":"sum"}}
+{"id":"helloworld_api","code":"source from i1_helloworld.rpgle","context":"","explanation":"from sum_output.md","metadata": {"provenance":"https://github.com/AIforIBMi/rpg-genai-data/blob/4bf9140019e2377905ff019feaec1d4c49f9b8f1/data/explain/IBM/helloworld/api_output.txt","difficulty":0,"language":"rpg4ff","scope":"file","depth":"api"}}
+{"id":"helloworld_how","code":"source from i1_helloworld.rpgle","context":"","explanation":"from sum_output.md","metadata": {"provenance":"https://github.com/AIforIBMi/rpg-genai-data/blob/4bf9140019e2377905ff019feaec1d4c49f9b8f1/data/explain/IBM/helloworld/how_output.txt","difficulty":0,"language":"rpg4ff","scope":"file","depth":"how"}}
 ```

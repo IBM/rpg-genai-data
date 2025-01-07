@@ -3,19 +3,19 @@
 The format used to train the AI is JSONL.  This is the file format where each line is a separate JSON with the format:
 
 ```json
-{"id":"CityFurnJulianDatePgm_how","code":"source from i1_julian.pgm.rpgle","context":"","explanation":"from how_output.md","task":"explain","metadata": {"provenance":"https://github.com/AIforIBMi/rpg-genai-data/blob/4bf9140019e237/data/explain/IBM/helloworld/how_output.txt","difficulty":1,"language":"rpg4fx","scope":"file","depth":"how"}}
+{"id":"CityFurnJulianDatePgm_how","input_data":"source from i1_julian.pgm.rpgle","context":"","output":"from how_output.md","task":"explain","metadata": {"provenance":"https://github.com/AIforIBMi/rpg-genai-data/blob/4bf9140019e237/data/explain/IBM/helloworld/how_output.txt","difficulty":1,"language":"rpg4fx","scope":"file","depth":"how"}}
 
 ```
 
 Where
 
-- **UNIQUE_ID** =
+- **ID** =
 unique alphanumeric string with no blanks
-- **QUESTION** =
-the request being made to the LLM
+- **INPUT_DATA** =
+the raw data of the question being posed to the LLM
 - **CONTEXT** =
 files and definitions that the question is dependent on
-- **ANSWER** =
+- **OUTPUT** =
 the response that the LLM *should* provide
 - **TASK_TYPE** =
 What type of task is being attempted: explain/prototype/unittest/fixed-to-free
@@ -42,7 +42,6 @@ Since RPG source in `jsonl` will be difficult to read as it all has to be on one
   - *task_name*/
     - *your_org*/
       - any_id1
-        - input.txt
         - i1_file1.rpgle
         - c1_MYDSPF.DSPF
         - c2_MYTABLE.TABLE
@@ -53,7 +52,7 @@ Since RPG source in `jsonl` will be difficult to read as it all has to be on one
 The above directory structure will automatically be transformed by IBM into a `jsonl` line of the form:
 
 ```json
-{"id": "any_id1", "input":”input.txt contents\n\nfile1.rpgle\n i1_file1.rpgle contents”, "context”: "MYDSPF.DSPF\n\n c1_MYDSPF.DSPF contents\n\nMYTABLE.TABLE\n i3_MYTABLE.TABLE contents", ”output”: ”output.txt contents\n\nsomefile.rpgle\no1_somefile.rpgle contents”, "task":"task_name", "difficulty":0}
+{"id": "any_id1", "input_data":”input.txt contents\n\nfile1.rpgle\n i1_file1.rpgle contents”, "context”: "MYDSPF.DSPF\n\n c1_MYDSPF.DSPF contents\n\nMYTABLE.TABLE\n i3_MYTABLE.TABLE contents", ”output”: ”output.txt contents\n\nsomefile.rpgle\no1_somefile.rpgle contents”, "task":"task_name", "difficulty":0}
 ```
 
 Note that the `i<number>_` prefix is used to impose an order in which the input files show up in the question.  The `c<number>_` prefix similarly orders the files that are needed to give the context for the question. Finally the `o<number>_` prefix similarly orders the output files that are embedded in the answer.  The `output.txt` could also be `output.rpgle` if the output only contains code.  The `metadata.txt` in this case contains the difficulty level.

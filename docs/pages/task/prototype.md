@@ -111,10 +111,11 @@ The difficulty is set via `metadata.txt`
 
 ```yaml
 difficulty: 3
+language: rpg4ff
 ```
 
 This produces the jsonl for training.
 
 ```json
-{"id": "get_src_strmf_name_qbnrmodi", "input": "Generate an ILE RPG subprocedure that will return the contents of a stream file into a varying string of length 1000, given the library and module name that the stream file was compiled into.", "output": "**free\n...", "task": "prototyping", "difficulty": 3}
+{"id": "get_src_strmf_name_qbnrmodi", "input_data": "Generate an ILE RPG subprocedure that will return the contents of a stream file into a varying string of length 1000, given the library and module name that the stream file was compiled into.", "output": "**free\n...", "task": "prototyping", "difficulty": 3}
 ```

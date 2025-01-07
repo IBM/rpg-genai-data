@@ -15,13 +15,11 @@ This is the most valuable type of training.  There are many different types of m
   - {unique contributor id}
     - attribution.txt
     - {unique test id}
-      - input.txt - Ask to modernize the given RPG in a specific way
       - i1_old.rpgle - the RPG you want to modernize
       - c1_db.rpgle - any files needed for context to this question
       - output.rpgle - Provide modernized code
-      - metadata.md - difficulty
+      - metadata.md - difficulty, language, transform, task
 
-The `input.txt` will specify the type of modernization you want to have done to your RPG.
 The `i1_rpgsource.rpgle` file should have the code we want modernized.  
 
 Additional SQL and DDS files to provide field definitions can be suppllied as `c1_???.table` etc.

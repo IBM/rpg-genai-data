@@ -18,7 +18,7 @@ The simple directory format would look like
   - metatdata.txt
 
 The `i1_helloworld.rpgle` contains the code to be explained.  The `i1_` prefix indicates that it is
-the first input.:
+the first input:
 
 ```rpgle
 **free
@@ -73,26 +73,10 @@ use: train
 
 Where
 
-- difficulty - the difficulty of the explanation as rated from 1 to 5
-- language - the language of the snippet of code being explained
-  - rpg4ff     - RPG IV fully free
-  - rpg4ff-sql - RPG IV fully free with embedded SQL
-  - rpg4lf     - RPG IV column-limited free
-  - rpg4lf-sql - RPG IV column-limited free with embedded SQL
-  - rpg4fc     - RPG IV free form calcs
-  - rpg4fc-sql - RPG IV free form calcs with embedded SQL
-  - rpg4fx     - RPG IV fixed form
-  - rpg4fx-sql - RPG IV fixed form with embedded SQL
-  - rpg3       - RPG III OPM
-  - rpg2       - RPG II S/36
-- scope - the scope of the language being expalined
-  - line - selected lines
-  - subr - subroutine
-  - proc - sub-procedure
-  - file - source file
-- use - whether this data is being used for:
-  - train - training the LLM (which is the default)
-  - eval - for evaluating the quality of the LLM
+- `difficulty` - the difficulty of the explanation as rated up to 5.  Since this is trivial we rate it as 0.
+- `language` - the language of the snippet of code being explained in this case `rpg4ff` which is RPG IV fully free
+- `scope` - the scope of the language being explained in this case `file` i.e. the source file
+- `use` - `train` means the data is used for training the LLM
 
 The main file used to do the training is `train_rpgle_to_text.jsonl` or it your example might be chosen to evaluate the model `eval_rpgle_to_text.jsonl`.  This whole directory will be summarized in single line similar to the following.
 

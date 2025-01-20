@@ -55,8 +55,12 @@ The above directory structure will automatically be transformed by IBM into a `j
 {"id": "any_id1", "input_data":”input.txt contents\n\nfile1.rpgle\n i1_file1.rpgle contents”, "context”: "MYDSPF.DSPF\n\n c1_MYDSPF.DSPF contents\n\nMYTABLE.TABLE\n i3_MYTABLE.TABLE contents", ”output”: ”output.txt contents\n\nsomefile.rpgle\no1_somefile.rpgle contents”, "task":"task_name", "difficulty":0}
 ```
 
-Note that the `i<number>_` prefix is used to impose an order in which the input files show up in the question.  The `c<number>_` prefix similarly orders the files that are needed to give the context for the question. Finally the `o<number>_` prefix similarly orders the output files that are embedded in the answer.  The `output.txt` could also be `output.rpgle` if the output only contains code.  The `metadata.txt` in this case contains the difficulty level.
+Note that the `i<number>_` prefix is used to impose an order in which the input files show up in the question.  The `c<number>_` prefix similarly orders the files that are needed to give the context for the question. Finally the `o<number>_` prefix similarly orders the output files that are embedded in the answer.  The `output.txt` could also be `output.rpgle` if the output only contains code.  
+The `metadata.txt` contains important attributes as described [here](metadata.md).
 
 ```yaml
  difficulty: 0
+ language: rpg4ff
+ scope: file
+ use: train
 ```

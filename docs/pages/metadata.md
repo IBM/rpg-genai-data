@@ -38,8 +38,8 @@ Where
   - `sqlTable`    - SQL DDL for a TABLE
   - `sqlView`     - SQL DDL for a VIEW
   - `sqlProcedure`- SQL DDL for a PROCEDURE
-  - `sqlTrigger`  - `SQL DDL for a TABLE
-- `scope` - the scope of the language being expalined
+  - `sqlTrigger`  - SQL DDL for a TRIGGER
+- `scope` - the scope of the language being explained
   - `line` - selected lines
   - `subr` - subroutine
   - `proc` - sub-procedure

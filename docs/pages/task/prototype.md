@@ -112,6 +112,8 @@ The difficulty is set via `metadata.txt`
 ```yaml
 difficulty: 3
 language: rpg4ff
+scope: proc
+use: train
 ```
 
 This produces the jsonl for training.

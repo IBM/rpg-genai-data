@@ -56,7 +56,7 @@ The above directory structure will automatically be transformed by IBM into a `j
 ```
 
 Note that the `i<number>_` prefix is used to impose an order in which the input files show up in the question.  The `c<number>_` prefix similarly orders the files that are needed to give the context for the question. Finally the `o<number>_` prefix similarly orders the output files that are embedded in the answer.  The `output.txt` could also be `output.rpgle` if the output only contains code.  
-The `metadata.txt` contains important attributes as described [here](pages/metadata.md).
+The `metadata.txt` contains important attributes as described [here](/pages/metadata.md).
 
 ```yaml
  difficulty: 0

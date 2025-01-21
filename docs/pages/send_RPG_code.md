@@ -5,7 +5,7 @@ The easiest way to contribute to training data to train the new RPG Code Assista
 ## Only IBM has access
 
 There is a private enterprise github repository only visible to IBMers involved in this project to store this source.
-Please send a zip or savf to <AIforIBMi@ibm.com> to contribute.  The zip directory should have an [`attribution.txt`](../pages/attribution.md) file will will let us know who has contributed the source.  For example:
+Please send a zip or savf to <AIforIBMi@ibm.com> to contribute.  The zip directory should have an [`attribution.txt`](/pages/attribution.md) file will will let us know who has contributed the source.  For example:
 
 ```yaml
 title : ILE RPG Compiler Test Cases

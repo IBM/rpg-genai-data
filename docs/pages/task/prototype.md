@@ -119,5 +119,6 @@ use: train
 This produces the jsonl for training.
 
 ```json
-{"id": "get_src_strmf_name_qbnrmodi", "input_data": "Generate an ILE RPG subprocedure that will return the contents of a stream file into a varying string of length 1000, given the library and module name that the stream file was compiled into.", "output": "**free\n...", "task": "prototyping", "difficulty": 3}
+{"id": "get_src_strmf_name_qbnrmodi", "input_data": "Generate an ILE RPG subprocedure that will return the contents of a stream file into a varying string of length 1000, given the library and module name that the stream file was compiled into.", "output": "**free\n...", "task": "prototyping",  {"provenance":"https://github.com/edmundreinhardt/rpg-genai-data/blob/e8cc42460e49a5a40bd9b86b738be99c40a4021b/data/prototyping/compiler_tests/get_src_strmf_name_qbnrmodi/output.rpgle","difficulty":3,"language":"rpg4ff","scope":"proc"}}
+{"id":"get_src_strmf_name_qbnrmodi","code":"source from i1_helloworld.rpgle","context":"","explanation":"from sum_output.md","metadata":}
 ```

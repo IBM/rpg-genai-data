@@ -116,6 +116,7 @@ scope: proc
 use: train
 ```
 
+In this case the `language` and `scope` refer to what is being generated.  I.e. are asking to generate a procedure or program, which variant of RPG do we want to generate into.
 Full description of all the metadata variants can be found [here](/pages/metadata.md).
 
 This produces the jsonl for training.

@@ -116,6 +116,8 @@ scope: proc
 use: train
 ```
 
+Full description of all the metadata variants can be found [here](/pages/metadata.md).
+
 This produces the jsonl for training.
 
 ```json

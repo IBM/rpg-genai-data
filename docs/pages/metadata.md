@@ -45,11 +45,13 @@ Where
   - `sqlProcedure`- SQL DDL for a PROCEDURE
   - `sqlTrigger`  - SQL DDL for a TRIGGER
 - `scope` - the scope of the language being explained
-  - `line` - selected lines
-  - `subr` - subroutine
-  - `proc` - sub-procedure
-  - `file` - source file
-  - `record` - DDS record format
+  - `line` - selected lines, this is a selection of lines that does comprise one of the following
+  - `subr` - subroutine, no other language elements besides `**free` and comments are present
+  - `proc` - sub-procedure, no other language elements besides `**free` and comments are present
+  - `file` - source file that can be compiles cleanly into an object
+  - `record` - DDS record format, an entire DDS record
 - `use` - whether this data is being used for:
   - `train` - training the LLM (which is the default)
   - `eval` - for evaluating the quality of the LLM
+
+Note that for the `line` scope, it is not appropriate to have an API level description as it cannot be called.

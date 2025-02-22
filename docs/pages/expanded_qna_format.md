@@ -16,7 +16,7 @@ the raw data of the question being posed to the LLM
 - **CONTEXT** =
 files and definitions that the question is dependent on
 - **OUTPUT** =
-the response that the LLM *should* provide
+the response that the LLM *should* provide in markdown format
 - **TASK_TYPE** =
 What type of task is being attempted: explain/prototype/unittest/fixed-to-free
 - **METADATA** =
@@ -39,13 +39,13 @@ version : https://github.com/edmundreinhardt/rpg-genai-data/commit/d41c5d45a5865
 Since RPG source in `jsonl` will be difficult to read as it all has to be on one line, we have an easier format to submit your training data.  Use the following data structure:
 
 - data/
-  - *task_name*/
+  - *task_type*/
     - *your_org*/
       - any_id1
         - i1_file1.rpgle
         - c1_MYDSPF.DSPF
         - c2_MYTABLE.TABLE
-        - output.txt
+        - output.md
         - o1_somefile.rpgle
         - metadata.txt
 
@@ -55,7 +55,7 @@ The above directory structure will automatically be transformed by IBM into a `j
 {"id": "any_id1", "input_data":”input.txt contents\n\nfile1.rpgle\n i1_file1.rpgle contents”, "context”: "MYDSPF.DSPF\n\n c1_MYDSPF.DSPF contents\n\nMYTABLE.TABLE\n i3_MYTABLE.TABLE contents", ”output”: ”output.txt contents\n\nsomefile.rpgle\no1_somefile.rpgle contents”, "task":"task_name", "difficulty":0}
 ```
 
-Note that the `i<number>_` prefix is used to impose an order in which the input files show up in the question.  The `c<number>_` prefix similarly orders the files that are needed to give the context for the question. Finally the `o<number>_` prefix similarly orders the output files that are embedded in the answer.  The `output.txt` could also be `output.rpgle` if the output only contains code.  
+Note that the `i<number>_` prefix is used to impose an order in which the input files show up in the question.  The `c<number>_` prefix similarly orders the files that are needed to give the context for the question. Finally the `o<number>_` prefix similarly orders the output files that are embedded in the answer.  The `output.md` could also be `output.rpgle` if the output only contains code.
 The `metadata.txt` contains important attributes as described [here](/pages/metadata.md).
 
 ```yaml

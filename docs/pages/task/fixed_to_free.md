@@ -11,3 +11,5 @@ This is not something we expect to use the AI for as there are excellent determi
       * i1_input.rpgle - Old fixed format RPG
       * output.rpgle - New free format RPG
       * metadata.md - difficulty, language, task
+
+Full description of all the metadata variants can be found [here](/pages/metadata.md).

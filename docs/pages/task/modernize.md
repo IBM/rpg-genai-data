@@ -25,3 +25,5 @@ The `i1_rpgsource.rpgle` file should have the code we want modernized.
 Additional SQL and DDS files to provide field definitions can be suppllied as `c1_???.table` etc.
 
 Finally the `output.rpgle` can have the modernized version of the RPG.
+
+Full description of the metadata can be found [here](/pages/metadata.md).

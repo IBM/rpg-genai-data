@@ -29,7 +29,7 @@ return;
 There are three explanations in the form of `<depth>_output.md` where the `<depth>`  is one of:
 
 - sum - business summary in a couple of sentences. i.e. what is the purpose
-- api - API level summary - what are the inputs, outputs, side effect of calling this procedure or program
+- api - API level summary - what are the inputs, outputs, side effect of calling this procedure or program, this type of description is not applicable for `line` or `record` scopes (see [scope descriptions](/pages/metadata.md))
 - how - details of how the code performs this task
 
 `sum_output.md` has the content:
@@ -75,6 +75,8 @@ Where
 - `language` - the language of the snippet of code being explained in this case `rpg4ff` which is RPG IV fully free
 - `scope` - the scope of the language being explained in this case `file` i.e. the source file
 - `use` - `train` means the data is used for training the LLM
+
+Full description of all the metadata variants can be found [here](/pages/metadata.md).
 
 The main file used to do the training is `train_rpgle_to_text.jsonl` or it your example might be chosen to evaluate the model `eval_rpgle_to_text.jsonl`.  This whole directory will be summarized in single line similar to the following.
 

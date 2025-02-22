@@ -74,7 +74,7 @@ Where
 - `difficulty` - the difficulty of the explanation as rated up to 5.  Since this is trivial we rate it as 0.
 - `language` - the language of the snippet of code being explained in this case `rpg4ff` which is RPG IV fully free
 - `scope` - the scope of the language being explained in this case `file` i.e. the source file
-- `use` - `train` means the data is used for training the LLM
+- `use` - `train` means the data is used for training the LLM, the alternative would be `eval` if this was being used to evaluate an LLM
 
 Full description of all the metadata variants can be found [here](/pages/metadata.md).
 

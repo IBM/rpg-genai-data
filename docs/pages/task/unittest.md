@@ -23,13 +23,32 @@ The directory structure will be
       * i1_tested.rpgle
       * c1_data.table
       * output.rpgle
-      * metadata.txt - difficulty
+      * metadata.txt
 
-The `input.txt` will have the query to generate unit tests and for what scope and for what framework.
+The `input.txt` will have the query to generate unit tests and for what scope and for what framework. (Note that we will probably be replacing with an engineered prompt over time.)
+
 The `i1_rpgsource.rpgle` file should have the code we want unit tested.  
 
 Additional SQL and DDS files to provide field definitions can be suppllied as `c1_???.table` etc.
 
 Finally the `output.rpgle` can have the generated unit test.
 
-Full description of the metadata can be found [here](/pages/metadata.md).
+The metadata will have 
+and `metadata.txt` has
+
+```yaml
+difficulty: 3
+language: rpg4ff
+scope: proc
+use: train
+```
+
+Where
+
+* `difficulty` - the difficulty of the explanation as rated up to 5. 
+* `language` - the language of the snippet of code being explained in this case `rpg4ff` which is RPG IV fully free
+* `scope` - the scope of the language being tested in this case `proc` as we are generating a unit test for the given exported procedure.  Alternatively `file` can be used to test the entire program or module.
+* `use` - `train` means the data is used for training the LLM, the alternative would be `eval` if this was being used to evaluate an LLM
+* `framework` - which unit test framework is being targeted.  Supported frameworks are `rpgunit`, `ibmiunit` and `mdtest`
+
+A full description of the metadata can be found [here](/pages/metadata.md).

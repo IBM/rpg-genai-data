@@ -27,6 +27,10 @@ Where
   - `prtf`        - PRTF DDS
   - `pf`          - PF DDS
   - `lf`          - LF DDS
+  - `dspf38`      - System 38 DSPF DDS
+  - `prtf38`      - System 38 PRTF DDS
+  - `pf38`        - System 38 PF DDS
+  - `lf38`        - System 38 LF DDS
   - `cl`          - CL or Command Language (includes CLP and CLLE)
   - `pnlgrp`      - UIM Panel Group
   - `cmd`         - IBM i command source

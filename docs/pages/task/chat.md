@@ -11,7 +11,7 @@ To do this we will need to train with question and answer pairs about RPG and CL
     * {unique test id}
       * input_data.txt - Ask any question about RPG
       * output.txt - Provide good answer to the question
-      * metadata.md - difficulty
+      * metadata.md - 'difficulty' and 'use'
 
 The `input_data.txt` will have the question you want answered.
 The `output.txt` will have the expected answer to this question.

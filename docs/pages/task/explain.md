@@ -26,6 +26,8 @@ dsply 'hello world';
 return;
 ```
 
+If there were includes, or file definitions, these can be provided in files prefixed by `cn_` where n is an ordinal integer beginning at 1.  If a procedure or subroutine is being explained, the referenced global definitions and called procedures and subroutines should be included in another `cn_` prefixed RPG source file.
+
 There are three explanations in the form of `<depth>_output.md` where the `<depth>`  is one of:
 
 - sum - business summary in a couple of sentences. i.e. what is the purpose

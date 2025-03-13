@@ -33,21 +33,21 @@ Additional SQL and DDS files to provide field definitions can be suppllied as `c
 
 Finally the `output.rpgle` can have the generated unit test.
 
-The metadata will have 
-and `metadata.txt` has
+Themetadata will have `metadata.txt` has
 
 ```yaml
 difficulty: 3
 language: rpg4ff
 scope: proc
 use: train
+framework: rpgunit
 ```
 
 Where
 
 * `difficulty` - the difficulty of the explanation as rated up to 5. 
 * `language` - the language of the snippet of code being explained in this case `rpg4ff` which is RPG IV fully free
-* `scope` - the scope of the language being tested in this case `proc` as we are generating a unit test for the given exported procedure.  Alternatively `file` can be used to test the entire program or module.
+* `scope` - the scope of the language being tested in this case `proc` as we are generating a unit test for the given exported procedure.  Alternatively `file` can be used to test the entire program or module. i.e. every exported procedure in a module, or the entire program in the case of a program.
 * `use` - `train` means the data is used for training the LLM, the alternative would be `eval` if this was being used to evaluate an LLM
 * `framework` - which unit test framework is being targeted.  Supported frameworks are `rpgunit`, `ibmiunit` and `mdtest`
 

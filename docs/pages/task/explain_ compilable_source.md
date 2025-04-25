@@ -6,9 +6,7 @@ In this scenario the question is in format of RPG code and the output is an expl
 Since the task is to "explain" some RPG, all of the following data is found in the `data/explain` directory.
 For this example we will have a training pair submitted by IBM, so the data will be in the `data/explain/IBM` directory.
 
-The simple directory format for groud truth structure would look like 
-
-Complete compilable ILE RPG source file for programs or modules or copybooks
+The directory structure for complete compilable ILE RPG source file for programs or modules or copybooks look like:
 
 - program\
   - context
@@ -18,6 +16,7 @@ Complete compilable ILE RPG source file for programs or modules or copybooks
     - copybook.rpgleinc
     - <SQL DDL>.table
     - <SQL DDL>.view
+    - <SQL DDL>.index
   - input
     - program.pgm.rpgle
   - output
@@ -26,23 +25,13 @@ Complete compilable ILE RPG source file for programs or modules or copybooks
     - how_output.md
   - metadata.txt
 
-Stracture for Procedure or subroutine will be 
-- program\
-  - output
-    - sum_output.md
-    - api_output.md
-    - how_output.md
-  - metadata.txt
-
-Note: Input and Context folder are not required for Procedure or subroutine.
-
 ### Input
 
 The input section stores the complete RPGLE source code, including H-specs, file and variable declarations, and full program logic with subroutines and business rules. This section provides all the necessary code that the program uses to perform its operations.
 
 The `program.pgm.rpgle` contains the code to be explained.  
 
-```rpgleforILERPG
+```rpgle
   **free
   ctl-opt dftactgrp(*no) actgrp(*new);
 
@@ -78,7 +67,7 @@ The context section provides a comprehensive overview of all external files and 
 3. `Display Files (.dspf)`: Define screens for user interaction.
 4. `Printer Files (.prtf)`: Define printed report layouts.
 5. `Copybooks (.rpgleinc)`: Contain reusable code snippets.
-6. `SQL DDL Files (.table, .view)`: Define database tables and views.
+6. `SQL DDL Files (.table, .view, .idex)`: Define database tables and views.
 
 This example indicates that the `program.pgm.rpgle` relies on the `accpf.pf `file. If there were additional files like display files or copybooks, they would be included in the context section as well.
 
@@ -96,29 +85,27 @@ The Output Section is designed to provide a comprehensive explanation of the RPG
 ### api_output 
 The `api_output` part provides a high-level summary of the program's purpose and behavior, detailing the parameters passed to and from the program, expected inputs and outputs, dependencies, side effects or limitations, and optional usage examples.
 
-1. `Purpose`: Provide a short insight into the purpose of the code for the program or procedure. This should focus on the business logic or functional role of the code.
+1. `Purpose`: Provide a short insight into the purpose of the code for the program. This should focus on the business logic or functional role of the code.
 
-2. `Inputs`: Provide all input parameters or external inputs used by the program or procedure. Keep it short and make sure to list the field names, if any. This section can be divided into subsections
+2. `Inputs`: Provide all input parameters or external inputs used by the program. Keep it short and make sure to list the field names, if any. This section can be divided into subsections
   - `Entry parameters`: Entry parameters. Mention the length if it is referring to a keyword.
-  - `Input files`: List the files that are input for the program or procedure.
+  - `Input files`: List the files that are input for the program.
   - `Input procedures`: Mention any procedures that are called within the program.
 
-3. `Outputs`: Provide all the return values and output fields such as display fields, host variables, and overall outputs of the procedure execution. Make sure to list the field names, if any. This section can also be divided into subsections
-  - `Return values`: Describe the return values from the procedure, including data types and meanings.
-  - `Output fields`: List the fields that are output from the program or procedure.
-  - `Output files`: List the files that are output for the program or procedure.
+3. `Outputs`: Provide all the return values and output fields such as display fields, host variables, and overall outputs of the program execution. Make sure to list the field names, if any. This section can also be divided into subsections
+  - `Return values`: Describe the return values from the program, including data types and meanings.
+  - `Output fields`: List the fields that are output from the program. 
+  - `Output files`: List the files that are output for the program. 
 
 4. `Dependencies`: This section outlines all components that the program depends on in order to compile and run successfully. Dependencies include physical and logical files used for data access, copybooks, external procedures for business logic, and display files for user interface interactions.
 
-5. `Side Effects`: Mention any side effects of the code. 
-  - Example: This includes any global variables whose values are changed within the procedure.
-  - Example: Mention any side effects related to error handling
+5. `Side Effects`: Mention any indirect or non-obvious effects such as data area updates, logs, or changes to global state. 
+  - Example: Programs might update data areas, which can affect other programs or procedures that rely on the same data areas
 
-6. `Limitations`: Note any constraints or limitations of the code.
+6. `Limitations & Assumptions`: Mention any assumptions the code makes, or scenarios where it may fail or behave incorrectly.
   - Example: The load all subfile can load only up to 9999 records. 
-  - Example: The caller cannot update records it is only input. This means the procedure or program is designed to read data but not modify it.
       
-7. `Outcomes`: List possible major outcomes or scenarios resulting from the code execution. This section can include an optional usage example to illustrate the expected outcome.
+7. `Outcomes`: List possible major outcomes or scenarios resulting from the code execution. This section can include an optional `usage example` to illustrate the expected outcome.
 
 `api_output.md` has the content for `program.pgm.rpgle`:
 
@@ -210,7 +197,7 @@ The how_output part explains how the program works internally, covering the full
 
 9. `Error Handling`: Mention all error-handling techniques used. This includes message subfile, custom messages from MSGF, file status checks, return codes from APIs/procedures, and logging errors to a file or job log.
 
-10. `Possible Problems with this code`: Identify potential issues that could arise during the execution of the program or procedure. Mention any problems that should be noted when discussing the final statement that ends the procedure.
+10. `Possible Problems with this code`: Identify potential issues that could arise during the execution of the program. Mention any problems that should be noted when discussing the final statement that ends the program.
 
 11. `Possible improvements to this code`: Identify areas where the code could be enhanced for better performance, readability, or functionality. This may include suggestions for error handling, optimization techniques, or alternative approaches to achieve the same result.
  
@@ -306,18 +293,10 @@ The sum_output part offers a business summary in a couple of sentences, explaini
 The program is designed to retrieve the account number (`PAccNo`) associated with a given user ID (`P_UserId`) from a file (`AccPf`). It iterates through the records in the file, checking each record to find a match for the user ID. Once a match is found, the corresponding account number is returned
 ```
 
-### Notes
+### metadta.txt 
+The `metadata.txt` file describes important attributes of the training data.
 
-- Use `rpgleforILERPG` code blocks and `rpgforOPMRPG` code blocks.
-- Use `###` for first-level headings and `####` for sub-level headings.
-- Avoid using `**` for bold text use backticks ` ` to highlight keywords or important terms.
-- Use the term `fully-free` instead of `full free format`.
-- Use `ILE RPG` instead of `RPGLE`.
-- Do not expand `RPG` as `Report Program Generator`. Always refer to it as `RPG`. 
-
-### metadata.txt
-
-Complete compilable ILE RPG source file for programs or modules or copybooks
+Stracture look like:
 
 ```yaml
 difficulty: <rating>
@@ -326,37 +305,25 @@ scope: <scope>
 use: <usage>
 ```
 
-Structure for Procedure or Subroutine
-
-```yaml
-source: <source_member_name>
-start: <start_line_number>
-end: <end_line_number>
-difficulty: <rating>
-language: <language>
-scope: <scope>
-use: <usage>
-```
-- `difficulty`: The difficulty of the explanation as rated up to 5. This helps to understand the complexity of the code being documented. For example, a trivial explanation might be rated as 0.
-- `language`: The language of the snippet of code being explained. For example, `rpg4ff` indicates RPG IV fully free format. If the source file contains both fixed format and free format RPGLE, it should be marked as `rpg4fc`.
-- `scope`: The scope of the language being explained. Use more specific scopes according to how the compiler views the source:
-  - `module`: A source file with the NOMAIN keyword is a module and should only talk about the exported procedures. The top-level summary should just summarize what the procedures do in general (unless there's only one).
-  - `program-linear`: A source file with the MAIN keyword should only talk about the main procedure. For the "usage", it could talk about how to call it within RPG code (using the prototype) and also about how to call it from a CL program or from the command line if it's simple enough.
-  - `program-cycle`: A source file with only a cycle-main procedure (no MAIN or NOMAIN keyword) should assume it will be a program-entry-procedure and talk about it as though it is creating a program. For the usage, show how to call it from other RPG modules using a prototyped call and also how to call it from the command line. If there are other exported procedures, describe them as well in the api.
-  - `copybook`: Some files are only intended to be used as copy files and would need a completely different style of explanation. The file only contains prototypes and definitions or subroutines. This could be handled similar to a NOMAIN module.
-- `use`: Indicates whether the data is used for training (`train`) or evaluation (`eval`). This helps to understand the purpose of the data in the context of training or evaluating the LLM.
-
-`metadata.txt` has the content fro `program.pgm.rpgle`:
+`metadata.txt` has the content from `program.pgm.rpgle`:
 
 ```text
 difficulty: 2
 language: rpg4ff
 scope: program-cycle
 use: eval
-
 ``` 
 
 Full description of all the metadata variants can be found [here](/pages/metadata.md).
+
+### Notes
+
+- Use `rpgle` for ILE RPG code blocks and `rpg` for OPM RPG code blocks.
+- Use `###` for first-level headings and `####` for sub-level headings.
+- Avoid using `**` for bold text use backticks ` ` to highlight quotations from the RPG source, such as variables and RPG syntax.
+- Use the term `fully-free` instead of `full free format`.
+- Use `ILE RPG` instead of `RPGLE`.
+- Do not expand `RPG` as `Report Program Generator`. Always refer to it as `RPG`. 
 
 The main file used to do the training is `train_rpgle_to_text.jsonl` or it your example might be chosen to evaluate the model `eval_rpgle_to_text.jsonl`.  This whole directory will be summarized in single line similar to the following.
 

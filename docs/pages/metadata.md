@@ -1,23 +1,40 @@
 The `metadata.txt` file describes important attributes of the training data.
 
-For example:
+The directory structure would either look like:
+
+1. Complete compilable ILE RPG source file for programs or modules or copybooks
 
 ```yaml
-difficulty: 0
-language: rpg4ff
-scope: file
-use: train
+difficulty: <rating>
+language: <language>
+scope: <scope>
+use: <usage>
+```
+
+2. Structure for Procedure or Subroutine
+
+```yaml
+source: <source_member_name>
+start: <start_line_number>
+end: <end_line_number>
+difficulty: <rating>
+language: <language>
+scope: <scope>
+use: <usage>
 ```
 
 Where
 
+- `source` - This specifies the name of the main program where the procedure or subroutine is located.
+- `start` - This indicates the line number where the procedure or subroutine begins.
+- `end` - This indicates the line number where the procedure or subroutine ends.
 - `difficulty` - the difficulty of the explanation as rated from 1 to 5
 - `language` - the language of the snippet of code being explained
   - `rpg4ff`      - RPG IV fully free
   - `rpg4ff-sql`  - RPG IV fully free with embedded SQL
   - `rpg4lf`      - RPG IV column-limited free
   - `rpg4lf-sql`  - RPG IV column-limited free with embedded SQL
-  - `rpg4fc`      - RPG IV free form calcs
+  - `rpg4fc`      - RPG IV contains both fixed format and free format
   - `rpg4fc-sql`  - RPG IV free form calcs with embedded SQL
   - `rpg4fx`      - RPG IV fixed form
   - `rpg4fx-sql`  - RPG IV fixed form with embedded SQL
@@ -50,6 +67,10 @@ Where
   - `proc` - sub-procedure, no other language elements besides `**free` and comments are present
   - `file` - source file that can be compiles cleanly into an object
   - `record` - DDS record format, an entire DDS record
+  - `module`: A source file with the NOMAIN keyword is a module and should only talk about the exported procedures. The top-level summary should just summarize what the procedures do in general (unless there's only one).
+  - `program-linear`: A source file with the MAIN keyword should only talk about the main procedure. For the "usage", it could talk about how to call it within RPG code (using the prototype) and also about how to call it from a CL program or from the command line if it's simple enough.
+  - `program-cycle`: A source file with only a cycle-main procedure (no MAIN or NOMAIN keyword) should assume it will be a program-entry-procedure and talk about it as though it is creating a program. For the usage, show how to call it from other RPG modules using a prototyped call and also how to call it from the command line. If there are other exported procedures, describe them as well in the api.
+  - `copybook`: Some files are only intended to be used as copy files and would need a completely different style of explanation. The file only contains prototypes and definitions or subroutines. This could be handled similar to a NOMAIN module.
 - `use` - whether this data is being used for:
   - `train` - training the LLM (which is the default)
   - `eval` - for evaluating the quality of the LLM

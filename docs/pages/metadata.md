@@ -1,6 +1,10 @@
-The `metadata.txt` file describes important attributes of the training data.
+# metadata.txt
 
-The directory structure would either look like:
+The `metadata.txt` file describes important attributes of the training data in a yaml file
+
+## Structure
+
+Different sets of attributes will be used depending on the task or whether a complete source file, or subset is reference, d
 
 1. Complete compilable ILE RPG source file for programs or modules or copybooks
 
@@ -11,10 +15,10 @@ scope: <scope>
 use: <usage>
 ```
 
-2. Structure for Procedure or Subroutine
+2. Structure for Procedure or Subroutine or Selected Lines
 
 ```yaml
-source: <source_member_name>
+source: <directory_of_compilable_source_file>
 start: <start_line_number>
 end: <end_line_number>
 difficulty: <rating>
@@ -23,13 +27,44 @@ scope: <scope>
 use: <usage>
 ```
 
-Where
+## Attributes
 
-- `source` - This specifies the name of the main program where the procedure or subroutine is located.
-- `start` - This indicates the line number where the procedure or subroutine begins.
-- `end` - This indicates the line number where the procedure or subroutine ends.
-- `difficulty` - the difficulty of the explanation as rated from 1 to 5
-- `language` - the language of the snippet of code being explained
+### source
+
+This specifies the name of the main program where the procedure or subroutine is located.  It is described as a relative path from the parent of the current task this `metadata.txt` is describing.
+
+In the following example `programA_proc1` is referencing code on lines 10 to 15 of `programA.rpgle`
+```
+data/
+  explain/
+    IBM/
+      programA/
+        input/
+          programA.rpgle
+        metadata.txt
+      programA_proc1/
+        metadata.txt
+          source: programA
+          start: 10
+          end: 15
+```
+
+### start
+
+This indicates the line number where the referenced code begins.
+
+### end
+
+This indicates the line number where the referenced code ends.
+
+### difficulty
+
+The difficulty of the explanation as rated from 1 to 5
+
+### language
+
+The language of the input data to the LLM
+
   - `rpg4ff`      - RPG IV fully free
   - `rpg4ff-sql`  - RPG IV fully free with embedded SQL
   - `rpg4lf`      - RPG IV column-limited free
@@ -61,7 +96,10 @@ Where
   - `sqlView`     - SQL DDL for a VIEW
   - `sqlProcedure`- SQL DDL for a PROCEDURE
   - `sqlTrigger`  - SQL DDL for a TRIGGER
-- `scope` - the scope of the language being explained
+
+### scope
+
+The scope of the language of the input data to the LLM
   - `line` - selected lines, this is a selection of lines that does comprise one of the following
   - `subr` - subroutine, no other language elements besides `**free` and comments are present
   - `proc` - sub-procedure, no other language elements besides `**free` and comments are present
@@ -71,7 +109,9 @@ Where
   - `program-linear`: A source file with the MAIN keyword should only talk about the main procedure. For the "usage", it could talk about how to call it within RPG code (using the prototype) and also about how to call it from a CL program or from the command line if it's simple enough.
   - `program-cycle`: A source file with only a cycle-main procedure (no MAIN or NOMAIN keyword) should assume it will be a program-entry-procedure and talk about it as though it is creating a program. For the usage, show how to call it from other RPG modules using a prototyped call and also how to call it from the command line. If there are other exported procedures, describe them as well in the api.
   - `copybook`: Some files are only intended to be used as copy files and would need a completely different style of explanation. The file only contains prototypes and definitions or subroutines. This could be handled similar to a NOMAIN module.
-- `use` - whether this data is being used for:
+
+### use
+Whether this data is being used for:
   - `train` - training the LLM (which is the default)
   - `eval` - for evaluating the quality of the LLM
 

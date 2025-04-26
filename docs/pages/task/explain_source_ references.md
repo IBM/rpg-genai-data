@@ -1,12 +1,9 @@
-# Explain existing RPG in Natural Language
+# Explain subset of RPG source file
 
-A common problem for IBM i customers is coming across old code that is not easy to understand. The goal of this task is to train the AI to be able to produce a natural language description of some RPG.
-In this scenario the question is in format of RPG code and the output is an explanation of that code.
+To simulate selection some lines or a procedure or subroutine from a source file, the following syntax is used to avoid duplicating the entire program source and context.
+This corresponds to the metatdata.txt [`scope`](/pages/metadata.txt###scope) of `lines`, `proc` or `subr`.
 
-Since the task is to "explain" some RPG, all of the following data is found in the `data/explain` directory.
-For this example we will have a training pair submitted by IBM, so the data will be in the `data/explain/IBM` directory.
-
-The directory structure for Procedure or subroutine look like:
+The directory structure for procedure or subroutine look like:
 
 - procedure\
   - output
@@ -15,11 +12,11 @@ The directory structure for Procedure or subroutine look like:
     - how_output.md
   - metadata.txt
 
-Note: Input and Context folder are not required for Procedure or subroutine.
+Note: Input and Context folder are not required for procedure or subroutine.  This is because the `source`, `start` and `end` attributes will define exactly which source and context is referenced.
 
-The `Updatefieldsvalidation` procedure contains the code to be explained. 
+For example the `Updatefieldsvalidation` procedure contains the following code to be explained.
 
-```rpgle 
+```rpgle
             Dcl-Proc Updatefieldsvalidation;
 
                 Dcl-S Validmail Varchar(100);
@@ -95,11 +92,12 @@ The `Updatefieldsvalidation` procedure contains the code to be explained.
             End-Proc;
 ```
 
-### Output
+## Output
 
 The Output Section is designed to provide a comprehensive explanation of the RPGLE procedure oe subroutine behavior, structure, and logic. It is divided into three main parts: `api_output`, `how_output`, and `sum_output`. Each part serves a specific purpose and includes detailed information to ensure clarity and consistency.
 
-### api_output 
+### api_output
+
 The `api_output` part provides a high-level summary of the procedure or subroutine purpose and behavior, detailing the parameters passed to and from the procedure, expected inputs and outputs, dependencies, side effects or limitations, and optional usage examples.
 
 1. `Purpose`: Provide a short insight into the purpose of the code for the procedure or subroutine. This should focus on the business logic or functional role of the code.
@@ -356,19 +354,21 @@ The subprocedure performs a series of validation checks using a `Select` stateme
 - `Result1 = %Scan('0' : %Char(Uorgadhrid) : 1);`
   - The procedure sets the value of `Result1` but does not validate whether the Aadhar ID starts with zero.
   - While `Result1` stores the position of the first occurrence of '0' in the `Uorgadhrid` string, there is no check to ensure that the Aadhar ID does not start with zero.
-``` 
+```
 
 ### sum_output
+
 The sum_output part offers a business summary in a couple of sentences, explaining the overall purpose of the procedure
 
 `sum_output.md` has the content for `Updatefieldsvalidation`:
 
-```text 
+```text
 ### Summary
 The column-limited SQLRPGLE `Updatefieldsvalidation` subprocedure is designed to validate various fields related to an event organizer. It ensures that the data entered meets specific criteria before proceeding further. This subprocedure performs checks on the Aadhar ID, contact number, email address, name, gender, state, and address fields. If any field fails validation, an appropriate error message is set, and the corresponding indicator is turned on.
 ```
 
 ### metadata.txt
+
 The `metadata.txt` file describes important attributes of the training data.
 
 Structure look like:
@@ -394,15 +394,7 @@ use: eval
 scope: proc
 language: rpglf-sql
 ```
+
 Main program source [ADMDASHRPG](https://github.com/AIforIBMi/rpg-genai-data/blob/11850bbd870a220d76f13394993ca41e79b3a4ab/data/explain/Programmers.io/ADMDASHRPG/input/admdashrpg.pgm.sqlrpgle)
 
 Full description of all the metadata variants can be found [here](/pages/metadata.md).
-
-### Notes
-
-- Use `rpgle` for ILE RPG code blocks and `rpg` for OPM RPG code blocks.
-- Use `###` for first-level headings and `####` for sub-level headings.
-- Avoid using `**` for bold text use backticks ` ` to highlight quotations from the RPG source, such as variables and RPG syntax.
-- Use the term `fully-free` instead of `full free format`.
-- Use `ILE RPG` instead of `RPGLE`.
-- Do not expand `RPG` as `Report procedure Generator`. Always refer to it as `RPG`. 

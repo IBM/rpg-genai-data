@@ -1,7 +1,7 @@
 # Explanation format for an RPG program
 
 The following explanation applies to both modern linear-main programs as well as legacy cycle-main programs.
-The [`scope`](/pages/metadata.txt#scope) in `metadata.txt` will be `program-linear` or `program-cycle` in this case.
+The [`scope`](/pages/metadata#scope) in `metadata.txt` will be `program-linear` or `program-cycle` in this case.
 
 ## api_output
 

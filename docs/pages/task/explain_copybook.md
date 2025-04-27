@@ -1,7 +1,7 @@
 # Explanation format for an RPG copybook (include file)
 
 The following explanation applies to RPG source files modules that will be copied or included into other source.
-The [`scope`](/pages/metadata.txt#scope) in `metadata.txt` will be `COPYBOOK` in this case.
+The [`scope`](/pages/metadata#scope) in `metadata.txt` will be `COPYBOOK` in this case.
 
 ## sum_output
 

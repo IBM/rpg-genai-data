@@ -1,7 +1,7 @@
 # Explanation format for an RPG module
 
 The following explanation applies to RPG source files modules that will be bound into programs or service programs.
-The [`scope` in `metadata.txt` will be `module`](/pages/metadata.txt###scope) in this case.
+The [`scope`](/pages/metadata.txt#scope) in `metadata.txt` will be `module` in this case.
 
 ## sum_output
 

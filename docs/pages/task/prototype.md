@@ -14,7 +14,7 @@ All of the following data is found in the `prototyping` directory.
         - metadata.txt
 
 First we need a directory for the organization.  In this cases these are questions derived from the RPG compiler tests and contributed by Barbara Morris.  We will give it the unique id `compiler_tests` and that becomes the second level directory.
-It contains an [`attribution.txt`](attribution.md) of
+It contains an [`attribution.txt`](/pages/attribution.md) of
 
 ```yaml
 title : ILE RPG Compiler Test Cases

@@ -4,7 +4,7 @@ The `metadata.txt` file describes important attributes of the training data in a
 
 ## Structure
 
-Different sets of attributes will be used depending on the task or whether a complete source file, or subset is reference, d
+Different sets of attributes will be used depending on the task and whether a complete source file is involved or a subset of another source is being referenced.
 
 1. Complete compilable ILE RPG source file for programs or modules or copybooks
 
@@ -15,7 +15,7 @@ scope: <scope>
 use: <usage>
 ```
 
-2. Structure for Procedure or Subroutine or Selected Lines
+2. Structure for Procedure or Subroutine or Selected Lines from another source file
 
 ```yaml
 source: <directory_of_compilable_source_file>

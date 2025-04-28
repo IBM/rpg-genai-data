@@ -103,7 +103,7 @@ The scope of the language of the input data to the LLM
   - `line` - selected lines, this is a selection of lines that does comprise one of the following
   - `subr` - subroutine, no other language elements besides `**free` and comments are present
   - `proc` - sub-procedure, no other language elements besides `**free` and comments are present
-  - `file` - source file that can be compiles cleanly into an object
+  - `file` - source file that can be compiles cleanly into an object. For RPGLE use one of `module`, `program-linear`, `program-cycle` or `copybook`.  This scope will be used for other languages.
   - `record` - DDS record format, an entire DDS record
   - `module`: A source file with the NOMAIN keyword is a module and should only talk about the exported procedures. The top-level summary should just summarize what the procedures do in general (unless there's only one).
   - `program-linear`: A source file with the MAIN keyword should only talk about the main procedure. For the "usage", it could talk about how to call it within RPG code (using the prototype) and also about how to call it from a CL program or from the command line if it's simple enough.

@@ -33,7 +33,7 @@ a high-level summary of the program's purpose and behavior, detailing the parame
 
 7. `Outcomes`: List possible major outcomes or scenarios resulting from the code execution. This section can include an optional `usage example` to illustrate the expected outcome.
 
-`api_output.md` has the content for `program.pgm.rpgle`:
+`api_output.md` has the content for `getaccno.pgm.rpgle`:
 
 ```text
 ### 1. Purpose
@@ -128,7 +128,7 @@ The how_output part explains how the program works internally, covering the full
 
 11. `Possible improvements to this code`: Identify areas where the code could be enhanced for better performance, readability, or functionality. This may include suggestions for error handling, optimization techniques, or alternative approaches to achieve the same result.
  
-`how_output.md` has the content for `program.pgm.rpgle`:
+`how_output.md` has the content for `getaccno.pgm.rpgle`:
 
 ```text
 ### 1. High-Level Purpose of the Program

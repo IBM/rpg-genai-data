@@ -25,34 +25,6 @@ As a matter of fact, it is a good idea to test that the source compiles using so
 
 The input section stores the complete RPGLE source file as it appears in the final source member or stream file that gets compiled.
 
-For example the `getaccno.pgm.rpgle` contains the code to be explained.  
-
-```rpgle
-  **free
-  ctl-opt dftactgrp(*no) actgrp(*new);
-
-  dcl-f AccPf if e k disk;
-
-  dcl-s P_UserId char(10);
-  dcl-s PAccNo char(10);
-
-  dcl-pi *n;
-    P_UserId char(10) const;
-  end-pi;
-
-  setll *loval AccPf;
-  read AccPf;
-  dow not %eof(AccPf);
-    if CustId = P_UserId;
-      PAccNo = AccNo;
-      leave;
-    endif;
-    read AccPf;
-  enddo;
-
-  return PAccNo;
-```
-
 ## Context
 
 The context section provides a comprehensive overview of all external files and resources that the RPGLE program relies on. It includes various files and resources that the program interacts with, such as database files, display files, printer files, and copybooks. Additionally, if any physical file is using a field reference file for its record format, that reference file should also be mentioned in this section.  A good test to see if the context is complete is if you can compile this source file using only what is in this directory.
@@ -65,15 +37,6 @@ The context section provides a comprehensive overview of all external files and 
 4. `Printer Files (.prtf)`: Define printed report layouts.
 5. `Copybooks (.rpgleinc)`: Contain reusable code snippets.
 6. `SQL DDL Files (.table, .view, .idex)`: Define database tables and views.
-
-This example indicates that the `getaccno.pgm.rpgle` relies on the `accpf.pf` file. If there were additional files like display files or copybooks, they would be included in the context section as well.
-
-Therefore the `context` directory would look like:
-
-```text
- - context
-    - accpf.pf 
-```
 
 ## Output
 
@@ -105,20 +68,8 @@ scope: <scope>
 use: <usage>
 ```
 
-`metadata.txt` has the content from `getaccno.pgm.rpgle`:
-
-```yaml
-difficulty: 2
-language: rpg4ff
-scope: program-cycle
-use: eval
-```
-Since the example is fairly small and straightforward, the difficult is 2 out of 5
-The RPG language variant is fully free RPG IV.
-The source is for a program with no MAIN keyword so it can participate in an RPG cycle.
-This particular example is chosen for evaluating the model rather than testing it.
-
 Full description of all the metadata variants can be found [here](/pages/metadata.md).
+
 
 ## jsonl training data
 

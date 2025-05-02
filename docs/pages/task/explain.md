@@ -9,7 +9,7 @@ For this example we will have a training pair submitted by IBM, so the data will
 The expected explanations are found in the `output` subdirectory and the `metadata.txt` file describes
 the attributes of this scenario.
 
-See detailed explanations in the respective linke for explaining an [entire source file](/pages/task/explain_compilable_source.md) or a [specific subset of the source file like a procedure, subroutine or selected lines](/pages/task/explain_source_references.md).
+See detailed explanations in the respective linke for explaining an [entire source file](/pages/task/explain_compilable_source.md) or a [specific subset of the source file like a procedure, subroutine](/pages/task/explain_source_references.md) or a [selected lines](/pages/task/explain_lines.md)
 
 In either case when the data is commited to Github, an action is automatically performed that summarizes the training pairs into `jsonl` lines in a file in `data/explain/<contributor>` and then rolls that up into `data/explain` and finally for all training types in `data`.
 The pairs can either be used to train the LLM or to evaluate how well the LLM is doing at generating explanations.  The `use` attribute of the metadata.txt determines what the data will be used for.

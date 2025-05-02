@@ -32,4 +32,4 @@ use: <usage>
 
 Full description of all the metadata variants can be found [here](/pages/metadata.md).
 
-The sample explanation copybook can be found [here](/pages/sample_copybook.md).
+The sample explanation copybook can be found [here](/pages/task/sample_copybook.md).

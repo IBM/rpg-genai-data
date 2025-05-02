@@ -37,4 +37,4 @@ use: <usage>
 
 Full description of all the metadata variants can be found [here](/pages/metadata.md).
 
-The sample explanation lines can be found [here](/pages/sample_lines.md).
+The sample explanation lines can be found [here](/pages/task/sample_lines.md).

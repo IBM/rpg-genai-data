@@ -85,4 +85,4 @@ use: <usage>
 
 Full description of all the metadata variants can be found [here](/pages/metadata.md).
 
-The sample explanation source reference can be found [here](/pages/sample_source_references.md).
+The sample explanation source reference can be found [here](/pages/task/sample_source_references.md).

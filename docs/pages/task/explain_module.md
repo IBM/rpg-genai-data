@@ -114,4 +114,4 @@ use: <usage>
 
 Full description of all the metadata variants can be found [here](/pages/metadata.md).
 
-The sample explanation module can be found [here](/pages/sample_module.md).
+The sample explanation module can be found [here](/pages/task/sample_module.md).

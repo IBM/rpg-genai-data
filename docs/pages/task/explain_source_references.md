@@ -24,7 +24,9 @@ The `api_output` part provides a high-level summary of the procedure or subrouti
 
 1. `Purpose`: Provide a short insight into the purpose of the code for the procedure or subroutine. This should focus on the business logic or functional role of the code.
 
-2. `Parameters`: List all entry parameters accepted by the program, specifying whether each one is an input, output, or both.
+2. `Parameters`: List all entry parameters accepted by the code, specifying whether each one is an input.
+
+3. `Return Values` : List the return value accepted by the procedure, specifying whether it is an output
 
 4. `Dependencies`: This section outlines all components that the procedure or subroutine depends on in order to run successfully. Dependencies include physical and logical files used for data access, external procedures for business logic, and display files for user interface interactions.
 

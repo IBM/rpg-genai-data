@@ -35,7 +35,7 @@ Therefore the `context` directory would look like:
     - accpf.pf 
 ```
 
-`api_output.md` has the content for `getactinf.pgm.rpgle`:
+## api_output
 
 ### 1. Purpose
 
@@ -83,7 +83,7 @@ call GetActinf (userid : account_number);
   - If called again without reinitializing `account_number`, it returns the previously retained value (e.g., `'9876543210'`).
 
 
-`how_output.md` has the content for `getactinf.pgm.rpgle`:
+## how_output
 
 ### 1. High-Level Purpose of the Program
 - The RPGLE program is designed to retrieve the account number (`AccNo`) for a given user ID (`P_UserId`) from the `AccPf` file. It reads through the records in the `AccPf` file and searches for a match with the provided user ID. Once a match is found, it sets the corresponding account number in the output parameter `P_AccNo`.
@@ -159,13 +159,13 @@ The procedure interface in RPGLE defines the parameters that are passed to a pro
 - Use a keyed read operation instead of reading through the entire file to improve performance. This approach directly accesses the record with the matching key, reducing the time complexity from linear to constant time for the lookup.
 
 
-`sum_output.md` has the content for `program.pgm.rpgle`:
+## sum_output
 
 ### Summary 
 The program is designed to retrieve the account number (`P_AccNo`) associated with a given user ID (`P_UserId`) from a file (`AccPf`). It iterates through the records in the file, checking each record to find a match for the user ID. Once a match is found, the corresponding account number is assigned to `P_AccNo` and returned.
 
 
-`metadata.txt` has the content from `getactinf.pgm.rpgle`:
+## metadata
 
 ```yaml
 difficulty: 2

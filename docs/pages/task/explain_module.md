@@ -31,7 +31,11 @@ Each exported procedure should be documented using the following structure:
 
   -  `Parameters`
     List all parameters with their directions and brief explanations:
-    -  `<parameter_name>` (`input/output/both`) – Description
+    -  `<parameter_name>` (`input`) – Description
+
+  - `Return Value`
+    List the return value with its direction and brief explanation:
+    -  `-Return Value-` (`output`) – Description
 
   -  `Dependencies`
     Mention any external components required by this procedure to work:

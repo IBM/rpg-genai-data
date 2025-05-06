@@ -4,6 +4,8 @@
 **free
 ctl-opt nomain;
 
+/copy getactinfcpy
+
 //--------------------------------------------------------
 // File Declaration
 //--------------------------------------------------------
@@ -13,7 +15,7 @@ dcl-f AccPf usage(*input) keyed;
 // Procedure: GetAccNo
 // Purpose : Returns Account Number for given User ID
 //--------------------------------------------------------
-dcl-proc GetAccNo;
+dcl-proc GetAccNo  export;
    dcl-pi GetAccNo char(10);
      P_UserId char(10) const;
    end-pi;
@@ -37,7 +39,7 @@ end-proc;
 // Procedure: GetAccDesc
 // Purpose : Returns Account Description for given User ID
 //--------------------------------------------------------
-dcl-proc GetAccDesc;
+dcl-proc GetAccDesc  export;
    dcl-pi GetAccDesc char(50);
      P_UserId char(10) const;
    end-pi;
@@ -68,7 +70,7 @@ Therefore the `context` directory would look like:
     - accpf.pf 
 ```
 
-`api_output.md` has the content for `getactinf.rpgle`:
+## api_output
 
 ### 1. Purpose
 
@@ -88,6 +90,8 @@ The `GetActInf` module provides reusable subprocedures to retrieve account-relat
 | Parameter Name | Direction | Data Type  | Description                                     |
 | -------------- | --------- | ---------- | ----------------------------------------------- |
 | `P_UserId`     | Input     | `char(10)` | Customer ID to search in the `AccPf` file       |
+
+#### Return Value
 | -Return Value- | Output    | `char(10)` | The account number associated with the given ID |
 
 #### Dependencies
@@ -115,6 +119,8 @@ The `GetActInf` module provides reusable subprocedures to retrieve account-relat
 ```rpgle
 dcl-s userid char(10);
 dcl-s account_number char(10);
+
+/copy getactinfcpy;
 
 userid = 'TEST01';
 account_number = GetAccNo(userid);
@@ -163,6 +169,8 @@ account_number = GetAccNo(userid);
 dcl-s userid char(10);
 dcl-s account_desc char(50);
 
+/copy getactinfcpy;
+
 userid = 'TEST01';
 account_desc = GetAccDesc(userid);
 ```
@@ -173,7 +181,7 @@ account_desc = GetAccDesc(userid);
   `account_desc` will be blank. The calling logic should handle such cases to avoid misinterpretation.
 
 
-`how_output.md` has the content for `getactinf.rpgle`:
+## how_output
 
 ### Purpose
 The RPGLE program provides reusable subprocedures to retrieve account-related information from the `AccPf` physical file based on a given customer ID (`CustId`). Specifically, it allows external programs to obtain:
@@ -268,13 +276,14 @@ Purpose: This procedure returns the account description (`AccDesc`) for a given 
 - If `AccPf` is a keyed file, consider using a keyed read operation (`read(e) AccPf`) to directly access the record with the matching `CustId`, improving the performance by reducing search time.
 - If no matching `CustId` is found, return a meaningful result or error message instead of just an empty string. This would help clarify that the user ID was not found in the records, providing more informative feedback.
 
+## sum_output
 
 ### Summary
 
 The `GetAccDesc` procedure is designed to retrieve the account description (`P_AccDesc`) associated with a given user ID (`P_UserId`) from a file (`AccPf`). It iterates through the records in the file, checking each record to see if the `CustId` matches the provided `P_UserId`. If a match is found, the corresponding account description (`AccDesc`) is assigned to `P_AccDesc` and returned. If no match is found, an empty string is returned.
 
 
-`metadata.txt` has the content from `getactinf.rpgle`:
+## metadata
 
 ```yaml
 difficulty: 2

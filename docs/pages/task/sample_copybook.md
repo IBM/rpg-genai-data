@@ -13,7 +13,7 @@ end-pr;
 ```
 
 
-### how_output
+## how_output
 The copybook `getactinfcpy` contains the following declarations:
 
 1. Procedure Declaration for `GetAccNo`:
@@ -32,11 +32,13 @@ The copybook `getactinfcpy` contains the following declarations:
     - `end-pr;`
         - Marks the end of the `GetAccDesc` procedure declaration.
 
-### sum_output
+## sum_output
+
+### Summary
 The `getactinfcpy`serves as a reusable piece of code that contains procedure declarations for two key functions, `GetAccNo` and `GetAccDesc`. It allows these procedure definitions to be used across different RPGLE programs without having to redefine them each time, making the code more modular, efficient, and maintainable. The procedures are designed to handle account retrieval based on user IDs and account numbers, respectively.
 
 
-`metadata.txt` has the content from `getactinfcpy.rpgleinc`:
+## metadata
 
 ```yaml
 difficulty: 2

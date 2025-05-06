@@ -1,6 +1,6 @@
 For example the `getactinf.pgm.rpgle` contains the code. 
 ```rpgle
- free
+**free
 ctl-opt dftactgrp(-no) actgrp(-new);
 
 dcl-f AccPf if e k disk;
@@ -65,7 +65,7 @@ end-proc;
 
 Input and Context folder are not required for procedure or subroutine.  This is because the `source`, `start` and `end` attributes will define exactly which source and context is referenced.
 
-`api_output.md` has the content for `GetAccNo`:
+## api_output
 
 ### 1. Purpose
 
@@ -100,7 +100,7 @@ The subprocedure `GetAccNo` is responsible for retrieving the account number (`A
 - No Matching Record (Blank Return)
   If no record is found where `CustId` matches the `P_UserId`, the `FoundAccNo` local variable will remain blank and be returned as the result of the subprocedure.
 
-#### Usage Example
+#### 6.1 Usage Example
 
 ```rpgle
 dcl-s userid char(10);
@@ -118,7 +118,7 @@ account_number = GetAccno(userid);
   - If called again without reinitializing `account_number`, it will still return a blank value unless the record is found.
 
 
-`how_output.md` has the content for `GetAccNo`:
+## how_output
 
 ### 1. High-Level Purpose of the Program
 The subprocedure `GetAccNo` is responsible for retrieving the account number (`AccNo`) associated with a given user ID (`P_UserId`) from the `AccPf` physical file. It scans through the file records and returns the `AccNo` of the first record where the `CustId` matches the input `P_UserId`. If no matching record is found, it returns a blank value.
@@ -129,7 +129,6 @@ The subprocedure `GetAccNo` is responsible for retrieving the account number (`A
 The procedure interface defines the input parameters for a procedure. It allows data to be passed into the procedure when it is called, and specifies how the parameters are declared and used within the procedure.
 
 - `dcl-pi GetAccNo char(10)`
-
   - `GetAccNo`: The name of the procedure being defined.
   - Attributes:
     - `dcl-pi`: Declares the procedure interface.
@@ -175,13 +174,13 @@ Local variables are used to hold intermediate values or results that are needed 
 - Replace the sequential read loop with a more efficient keyed read operation, assuming the `AccPf` file is keyed by `CustId`. By using `setll` and `read (keyed)` operations, the program can directly access the record with the matching `CustId`, reducing the time complexity from O(n) (linear search) to O(1) (constant time) for lookups. This improves performance, particularly for larger files.
 
 
-`sum_output.md` has the content for `GetAccNo`:
+## sum_output
 
 ### Summary
 The program is designed to retrieve the account number (`FoundAccNo`) associated with a given user ID (`P_UserId`) from the file (`AccPf`). It sequentially reads through the records in the file, checking each record to see if the `CustId` matches the provided `P_UserId`. Once a match is found, the corresponding account number (`AccNo`) is assigned to `FoundAccNo` and returned.
 
 
-`metadata.txt` has the content from  `GetAccNo`:
+## metadata
 
 ```text
 source : getaccno

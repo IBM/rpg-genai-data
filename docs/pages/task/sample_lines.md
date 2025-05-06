@@ -40,7 +40,7 @@ For example below following `lines` to be explained.
     enddo;
 ``` 
 
-`how_output.md` has the content for above lines : 
+## how_output
 
 ### 1. Purpose
 
@@ -74,13 +74,13 @@ Apologies for the confusion. Let me explain the code without referring to it as 
 - After the loop, check if `P_AccNo` was updated. If it wasn’t (i.e., no matching `CustId` was found), set `P_AccNo` to a default value or return a specific error code indicating that the account was not found.
 -  If `AccPf` is keyed on `CustId`, use `read(e)` instead of `read`. This would allow the program to directly find the record for the given `CustId`, rather than reading all records sequentially, improving performance.
 
+## sum_output
 
 ### Summary
 
 This logic performs a sequential search in the `AccPf` file to find a customer record where the `CustId` matches the input parameter `P_UserId`. Once a match is found, the corresponding account number (`AccNo`) is assigned to the output parameter `P_AccNo`, and the search is terminated. This allows the program to retrieve a specific user's account number based on their customer ID.
 
-
-`metadata.txt` has the content of line:
+## metadata
 
 ```text
 source : getaccno

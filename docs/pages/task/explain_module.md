@@ -69,7 +69,7 @@ Repeat the above `procedure section` for `each additional exported procedure` in
 
 The how_output part explains how the module works internally, covering the full execution flow and logic used at each step. It includes details on control specifications, file declarations, global variables, constants, indicators, field mapping, subroutines, error handling, and the logic of each procedure.
 
-`Important`: If a module contains `multiple procedures`, each procedure must be documented `separately` using the standard format below. Any reusable components or variables should be mentioned within the context of each procedure.
+`Important`: Each procedure must be documented separately.
 
 1. `Control Specifications`: Any key compiler options and runtime control settings included in the module. Examples include `DftActGrp`, `ActGrp`, `BNDDIR`, and other relevant control specifications. Explain these settings and any keywords used.
 
@@ -92,14 +92,16 @@ The Global Variables section includes all variables, prototypes for external pro
 
 4. `Procedures`
 
-Describe high-level module logic for each proceduglre in ordered steps. This includes:
+  Provide a step-by-step description of the logic for each procedure.
 
-- `Initialization`: Describe the initial setup required for the procedure, including variable initialization and any setup logic. Include all local variables and parameters.
-- `Main Logic`: Explain the core logic of the procedure, detailing the steps taken to achieve the procedure's purpose. This should cover all aspects such as validation, file operations, user interaction, etc.
-- `Possible Problems with this code`: Identify potential issues that could arise during the execution of the procedure.
-- `Possible improvements to this code`: Identify areas where the code could be enhanced for better performance, readability, or functionality. This may include suggestions for error handling, optimization techniques, or alternative approaches to achieve the same result.
+  - `Initialization`: Describe the initial setup required for the procedure. Include all local variables and parameters.
+  - `Main Logic`: Explain the core logic of the procedure, detailing the steps taken to achieve the procedure's purpose.
+  - `Possible Problems with this code`: Identify potential issues that could arise during the execution of the procedure.
+  - `Possible improvements to this code`: Identify areas where the code could be enhanced for better performance, readability, or functionality. This may include suggestions for error handling, optimization techniques, or alternative approaches to achieve the same result.
 
-Repeat the above `procedure section` for `each additional procedure` in the module, ensuring that any reusable components or variables are mentioned within the context of each procedure.
+  `Important`
+    - A module has multiple procedures with extensive lines of code, a brief outline of each procedure would be sufficient without any code snippets. However, if a module has only one or two procedures, it would be beneficial to provide a detailed explanation of each line.
+    - Repeat the above `procedure section` for `each additional procedure` in the module, ensuring that any reusable components or variables are mentioned within the context of each procedure.
 
 ## sum_output
 

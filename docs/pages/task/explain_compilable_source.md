@@ -36,7 +36,7 @@ The context section provides a comprehensive overview of all external files and 
 3. `Display Files (.dspf)`: Define screens for user interaction.
 4. `Printer Files (.prtf)`: Define printed report layouts.
 5. `Copybooks (.rpgleinc)`: Contain reusable code snippets.
-6. `SQL DDL Files (.table, .view, .idex)`: Define database tables and views.
+6. `SQL DDL Files (.table, .view, .index)`: Define database tables, views and indices.
 
 ## Output
 

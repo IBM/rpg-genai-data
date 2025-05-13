@@ -24,7 +24,7 @@ Additional metadata that document the difficulty of this question and relevant a
 
 These JSONL files will be found in the [AIforIBMi repo](https://github.com/AIforIBMi/rpg-genai-data) under
 ```/data/<task_name>/<your_directory>```.
-Please add to this directory a file [`attribution.txt`](attribution.md) with content of the form:
+Please add to this directory a file [`attribution.txt`](/pages/attribution.md) with content of the form:
 
 ```yaml
 title : ILE RPG Compiler Test Cases

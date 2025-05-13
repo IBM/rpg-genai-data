@@ -1,4 +1,6 @@
- For example the `getactinf.rpgle` contains the code to be explained. 
+# Sample Module and Explanations
+
+For example the `getactinf.rpgle` contains the code to be explained. 
 
 ```rpgle
 **free

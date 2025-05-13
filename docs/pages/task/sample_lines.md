@@ -1,3 +1,5 @@
+# Sample Select Lines Explanations
+
 For example the `getactinf.pgm.rpgle` contains the code:   
 
 ```rpgle
@@ -40,7 +42,7 @@ For example below following `lines` to be explained.
     enddo;
 ``` 
 
-## how_output
+## how_output.md
 
 ### 1. Purpose
 
@@ -60,11 +62,9 @@ This logic performs a sequential search in the `AccPf` file to find a customer r
   - If no match is found, the next record is read using `READ AccPf`, and the loop continues.
 - The loop ends when a match is found and the loop exits, or the end of file is reached without finding a match.
 
-Apologies for the confusion. Let me explain the code without referring to it as a procedure, focusing on the specific lines in your RPGLE code.
-
 ### 3. Possible Problems:
 
-- `The `P_AccNo` variable should be properly initialized before the loop starts. If it’s not initialized, it might carry over an old value from previous iterations, causing incorrect results when searching for a new account number.
+- The `P_AccNo` variable should be properly initialized before the loop starts. If it’s not initialized, it might carry over an old value from previous iterations, causing incorrect results when searching for a new account number.
 - The code doesn't check if `P_UserId` is valid or non-blank before attempting to find a match in the file. If `P_UserId` is empty or incorrect, the program will still try to read records from `AccPf`, which could result in unnecessary operations or incorrect results.
 - If there is no matching `CustId` in the file, the loop will finish, and `P_AccNo` will remain unchanged. There is no way for the calling program to know that no match was found. It would be better to provide some form of indication (e.g., setting `P_AccNo` to a default value or returning a specific error code).
 
@@ -74,13 +74,13 @@ Apologies for the confusion. Let me explain the code without referring to it as 
 - After the loop, check if `P_AccNo` was updated. If it wasn’t (i.e., no matching `CustId` was found), set `P_AccNo` to a default value or return a specific error code indicating that the account was not found.
 -  If `AccPf` is keyed on `CustId`, use `read(e)` instead of `read`. This would allow the program to directly find the record for the given `CustId`, rather than reading all records sequentially, improving performance.
 
-## sum_output
+## sum_output.md
 
 ### Summary
 
 This logic performs a sequential search in the `AccPf` file to find a customer record where the `CustId` matches the input parameter `P_UserId`. Once a match is found, the corresponding account number (`AccNo`) is assigned to the output parameter `P_AccNo`, and the search is terminated. This allows the program to retrieve a specific user's account number based on their customer ID.
 
-## metadata
+## metadata.txt
 
 ```text
 source : getaccno

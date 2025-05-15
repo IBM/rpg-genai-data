@@ -37,7 +37,8 @@ Each exported procedure should be documented using the following structure:
     List the return value with its direction and brief explanation:
     -  `-Return Value-` (`output`) – Description
 
-  - `Inputs/Outputs` : This section describes how the program reads from and writes to both data and device files. It also explains how the program interacts with display files for user input and output, and outlines the function keys and indicators used to manage screen behavior and control program flow.
+  - `Inputs/Outputs` 
+    This section describes how the program reads from and writes to both data and device files. It also explains how the program interacts with display files for user input and output, and outlines the function keys and indicators used to manage screen behavior and control program flow.
 
   -  `Side Effects`
     Describe any indirect or hidden impacts the procedure has on:

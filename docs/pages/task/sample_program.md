@@ -41,7 +41,7 @@ Therefore the `context` directory would look like:
 
 The RPGLE program is designed to retrieve the account number (`AccNo`) for a given user ID (`P_UserId`) from the `AccPf` file. It reads through the records in the `AccPf` file and searches for a match with the provided user ID. Once a match is found, it sets the corresponding account number in the output parameter `P_AccNo`.
 
-### Parameters
+### 2. Parameters
 
 |  `Parameter Name`  |   `Type` |  `Length`  |  `Direction`  |  `Description`  |
 |--------------------|----------|------------|---------------|-----------------|

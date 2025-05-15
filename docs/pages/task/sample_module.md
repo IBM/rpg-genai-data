@@ -131,6 +131,7 @@ account_number = GetAccNo(userid);
 | -Return Value- | Output    | `char(50)` | The account description associated with the input `CustId` |
 
 #### Inputs/Outputs
+
 - Inputs : `AccPf` – A physical file used to read account records. 
 - Outputs: No data is written to any file. 
 

@@ -12,7 +12,7 @@ a high-level summary of the program's purpose and behavior, detailing the parame
 
 2. `Parameters`: List all entry parameters accepted by the program, specifying whether each one is an input, output, or both.
 
-3. `Inputs/Outputs` : This section describes how the program reads from and writes to both data and device files. It also explains how the program interacts with display files for user input and output, and outlines the function keys and indicators used to manage screen behavior and control program flow.
+3. `Inputs/Outputs` : This section describes how the program reads from and writes to both data and device files. It also explains how the program interacts with display files for user input and output, and outlines the function keys and indicators used to manage screen behavior and control program flow
 
 4. `Side Effects`: Mention any indirect or non-obvious effects such as data area updates, logs, or changes to global state. 
   - Example: Programs might update data areas, which can affect other programs or procedures that rely on the same data areas

@@ -84,6 +84,7 @@ The subprocedure `GetAccNo` is responsible for retrieving the account number (`A
 | `GetAccNo`  | `char` | 10     | Output    | Returns the account number (`AccNo`) from `AccPf` if a matching `CustId` is found. otherwise, returns blank. |
 
 ### 4. Inputs/Outputs
+
   - Inputs : `AccPf` – A physical file used to read account records.
   - Outputs: No data is written to any file.
 

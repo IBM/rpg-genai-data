@@ -28,7 +28,7 @@ The `api_output` part provides a high-level summary of the procedure or subrouti
 
 3. `Return Values` : List the return value accepted by the procedure, specifying whether it is an output
 
-4. `Inputs/Outputs` : This section describes how the program reads from and writes to both data and device files. It also explains how the program interacts with display files for user input and output, and outlines the function keys and indicators used to manage screen behavior and control program flow.
+4. `Inputs/Outputs` : This section describes how the program reads from and writes to both data and device files. It also explains how the program interacts with display files for user input and output, and outlines the function keys and indicators used to manage screen behavior and control program flow
 
 5. `Side Effects`: Mention any indirect or non-obvious effects such as data area updates, logs, or changes to global state. 
   - Example: This includes any global variables whose values are changed within the procedure.

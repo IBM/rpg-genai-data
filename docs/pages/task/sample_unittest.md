@@ -73,7 +73,6 @@ This RPGLE code creates a test procedure named `test_getaccno` that validates th
 
 The `assertEqual` function is used to compare the expected and actual results of the `GetAccNo` procedure calls. If any of these assertions fail, it indicates that the procedure does not behave as expected under those conditions.
 
-
 ## test/
 
 File: `getaccno_unittest.rpgle`

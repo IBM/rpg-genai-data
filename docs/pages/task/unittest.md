@@ -15,25 +15,25 @@ Initially we need to focus on unit tests for a given subprocedure or program
 These should be stored under the task type directory `unittest`.
 The directory structure will be
 
-* unittest
-  * {contributor_id}
-    * attribution.txt - describe contributor
-    * {unique_test_id}
-      * input.txt
-      * i1_tested.rpgle
-      * c1_data.table
-      * output.rpgle
-      * metadata.txt
+```
+{unique_test_id}
+  ├── input/    # Canonical solution or problem statement
+  ├── output/   # Generated code or solution
+  └── test/     # Unit tests used to evaluate the generated code
+```
 
-The `input.txt` will have the query to generate unit tests and for what scope and for what framework. (Note that we will probably be replacing with an engineered prompt over time.)
+## input.txt  
+  This is the reference input used to generate the solution.
 
-The `i1_rpgsource.rpgle` file should have the code we want unit tested.  
+## output 
+  Contains the `generated code` or `solution`.  
+  This is the model's output based on the input.
 
-Additional SQL and DDS files to provide field definitions can be suppllied as `c1_???.table` etc.
+## test 
+  Contains the `unit tests` used to evaluate the generated code.  
+  These tests are the `primary method of evaluation`.
 
-Finally the `output.rpgle` can have the generated unit test.
-
-Themetadata will have `metadata.txt` has
+The metadata will have `metadata.txt` has
 
 ```yaml
 difficulty: 3
@@ -52,3 +52,5 @@ Where
 * `framework` - which unit test framework is being targeted.  Supported frameworks are `rpgunit`, `ibmiunit` and `mdtest`
 
 A full description of the metadata can be found [here](/pages/metadata.md).
+
+The sample explanation unit test can be found [here](/pages/task/sample_unittest.md).

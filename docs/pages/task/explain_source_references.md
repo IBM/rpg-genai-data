@@ -28,7 +28,7 @@ The `api_output` part provides a high-level summary of the procedure or subrouti
 
 3. `Return Values` : List the return value accepted by the procedure, specifying whether it is an output
 
-4. `Dependencies`: This section outlines all components that the procedure or subroutine depends on in order to run successfully. Dependencies include physical and logical files used for data access, external procedures for business logic, and display files for user interface interactions.
+4. `Inputs/Outputs` : This section describes how the program reads from and writes to both data and device files. It also explains how the program interacts with display files for user input and output, and outlines the function keys and indicators used to manage screen behavior and control program flow.
 
 5. `Side Effects`: Mention any indirect or non-obvious effects such as data area updates, logs, or changes to global state. 
   - Example: This includes any global variables whose values are changed within the procedure.
@@ -36,24 +36,13 @@ The `api_output` part provides a high-level summary of the procedure or subrouti
 6. `Limitations & Assumptions`: Mention any assumptions the code makes, or scenarios where it may fail or behave incorrectly.
   - Example: The caller cannot update records it is only input. This means the procedure or subroutine is designed to read data but not modify it.
       
-7. `Outcomes`: List possible major outcomes or scenarios resulting from the code execution. This section can include an optional usage example to illustrate the expected outcome.
+7. `Usage Example`: List possible major outcomes or scenarios resulting from the code execution. This section can include an optional usage example to illustrate the expected outcome.
 
 ## how_output
 The `how_output` section explains how the specific procedure or subroutine works internally, covering the full execution flow and logic used at each step. It includes details on variables, constants, indicators, field mappings, subroutine calls, and error handling related to that unit.
 
-1. `Global Components`: The Global Variables section includes all variables, prototypes for external program calls, data structures, arrays, constants, and keywords used in the module. Detailed explanations will be provided later in the logic sections
-  - `Prototype & Interface Definition`: Describe internal procedure prototypes and their usage. This includes procedure names, input/output parameters, data types, and return types.
-  - `Prototype for External Program Call`: Mention prototypes for external RPG/CL/API calls. This includes program name, parameter interface, data types, and expected results.
-  - `Data Structures and Arrays` – Describe all declared data structures and arrays used in the program, including their purpose and how they are utilized.
-    - `File Information Data Structure (INFDS)` – Mention any INFDS declared in the program and what file-level metadata they capture (e.g., file status, error codes, record numbers).
-    - `Indicator Data Structure (INDDS)` – Explain the usage of indicator-based data structures, if any, especially those mapped to display files or used for control logic.
-    - `Arrays` – Describe any arrays used, whether single or multi-dimensional, compile-time or run-time, and their role.
-    - `General Data Structures` – Include details of data structures. Mention key attributes or keywords applied (e.g., `inz`, `overlay`, `dim`, `based`, etc.).
-  - `Variables`: Explain the variables used in the program. This includes
-    - `Global Variables`: List all global variables used in the program and explain their purpose.
-    - `Constants`: List constants declared using `DCL-C`, including status flags, limits, messages, and system values.
-    - `Keywords`: Explain any keywords used in variable declarations, such as `LIKE`, `INZ`, `N` data type, etc
-
+1. `Global Components`: The Global Variables section includes all variables, prototypes for external program calls, data structures, arrays, constants, and keywords used in the variable declarations (example`LIKE`, `INZ`, `N` data type)
+  
 2. `Field Mapping`: If the procedure or subroutine relates to any display file or printer file, create a clear table or list to show how physical/logical file fields are mapped to display fields or printer file. This includes field names and display fields.
 
 3. `Indicators`: If the procedure or subroutine uses indicators, explain their purpose and how they are set or cleared during execution in table format.

@@ -94,26 +94,15 @@ The `GetActInf` module provides reusable subprocedures to retrieve account-relat
 #### Return Value
 | -Return Value- | Output    | `char(10)` | The account number associated with the given ID |
 
-#### Dependencies
-  - File: `AccPf`
-    This is a physical file that must contain at least the following fields:
-    - `CustId`: Customer ID (`char(10)`)
-    - `AccNo`: Account Number (`char(10)`)
+#### Inputs/Outputs
+- Inputs : `AccPf` – A physical file used to read account records.
+- Outputs: No data is written to any file.
 
 #### Limitations & Assumptions
   - The procedure assumes that `CustId` values are unique. only the first match will be returned.
   - If the input `P_UserId` is blank or not found in the file, the returned account number will be blank.
   - No validations are performed on input or output values.
   - It assumes `AccPf` is not being exclusively locked or blocked by another job at the time of read.
-
-#### Outcomes
-- `Successful Retrieval`:
-  If a record exists in `AccPf` where `CustId` matches `P_UserId`, the procedure returns the corresponding `AccNo`.
-
-- `Blank or Invalid User`:
-  If `P_UserId` is blank or no matching record exists:
-  - The return value will be blank.
-  - If not properly handled, this could result in unintended usage of stale or empty values in the calling program.
 
 #### Usage Example
 ```rpgle
@@ -141,27 +130,15 @@ account_number = GetAccNo(userid);
 | `P_UserId`     | Input     | `char(10)` | Customer ID to search for in the `AccPf` file              |
 | -Return Value- | Output    | `char(50)` | The account description associated with the input `CustId` |
 
-#### Dependencies
-   File: `AccPf`
-    This file must be defined in the main program or in an included copybook. It should contain at least:
-    - `CustId`: Customer ID (`char(10)`)
-    - `AccDesc`: Account Description (`char(50)`)
+#### Inputs/Outputs
+- Inputs : `AccPf` – A physical file used to read account records. 
+- Outputs: No data is written to any file. 
 
 #### Limitations & Assumptions
   - Only the first matching `CustId` will be considered.
   - If the input `P_UserId` is not found or is blank, the return value will be blank.
   - No trimming or validation of returned description text is performed.
   - The procedure assumes `AccPf` is unlocked and available for read access during execution.
-
-#### Outcomes
-
-- `Successful Retrieval`:
-  When a record with `CustId` matching `P_UserId` exists in `AccPf`, the procedure returns the corresponding `AccDesc`.
-
-- `Blank or Invalid User`:
-  - If `P_UserId` is blank or unmatched:
-    - The returned value will be blank.
-    - Calling code must ensure the returned value is not reused inappropriately in future calls.
 
 #### Usage Example
 
@@ -174,12 +151,10 @@ dcl-s account_desc char(50);
 userid = 'TEST01';
 account_desc = GetAccDesc(userid);
 ```
-
 - If a match is found:
   `account_desc` will contain something like `'Premium Savings Account - Tier 1'`.
 - If no match is found:
   `account_desc` will be blank. The calling logic should handle such cases to avoid misinterpretation.
-
 
 ## how_output
 
@@ -208,13 +183,9 @@ Control specifications in RPGLE are used to define the overall behavior and envi
 
 Purpose: This procedure returns the account number (`AccNo`) for a given user ID (`P_UserId`).
 
-#### 1. Initialization
-
-#### Input Parameter:
-- `P_UserId` (Type: `char(10)`, Constant): This is the user ID passed as an input parameter to the procedure. It is used to search for the corresponding account number in the `AccPf` file.
-
-#### Variable
-Local Variable: `FoundAccNo` (Type: `char(10)`): This variable holds the account number of the user once it is found. It is initialized to an empty string (`inz('')`).
+#### 1. Definitions
+  - Input Parameter: `P_UserId` (Type: `char(10)`, Constant): This is the user ID passed as an input parameter to the procedure. It is used to search for the corresponding account number in the `AccPf` file.
+  - Local Variable: `FoundAccNo` (Type: `char(10)`): This variable holds the account number of the user once it is found. It is initialized to an empty string (`inz('')`).
 
 #### 2. Main Logic
 - The procedure begins by positioning the file pointer to the first record in the `AccPf` file using `setll -loval AccPf`, ensuring that the search starts from the beginning of the file.
@@ -227,15 +198,12 @@ Local Variable: `FoundAccNo` (Type: `char(10)`): This variable holds the account
     - If the `CustId` does not match, the next record is read from the file with `read AccPf`, and the loop continues to the next record.
 - The loop continues processing records until either a match is found or the end of the file (`%eof(AccPf)`) is reached.
 
-#### 3. Return Value
-  - The procedure returns the value of `FoundAccNo`, which will either contain the account number of the user corresponding to `P_UserId` or remain empty (`''`) if no match was found.
-
-### 4. Possible Problems with this Code
+### 3. Possible Problems with this Code
 - If the procedure is called multiple times without reinitializing the `FoundAccNo` variable, it may retain the previous value, leading to incorrect results in subsequent calls.
 - The program does not validate whether the `P_UserId` parameter is blank or invalid before attempting to search the file. An empty or invalid user ID could cause the procedure to search unnecessarily or return incorrect data.
 - The loop exits as soon as a match is found, but there is no handling for scenarios where `CustId` is not found in the file. The procedure will return an empty string (`FoundAccNo`) without any indication that no match was found, which may be misleading.
 
-### 5. Possible Improvements to this Code
+### 4. Possible Improvements to this Code
 - Add validation to check if the `P_UserId` parameter is blank or invalid before performing the file search. If `P_UserId` is invalid, return an appropriate error or indication.
 - Consider optimizing the search by using a keyed read operation (`read(e) AccPf`) if `AccPf` is a keyed file and the `CustId` is a key field. This would significantly reduce search time compared to sequentially reading all records.
 - If no matching `CustId` is found, return a meaningful result or error message instead of an empty string. This would provide clarity that the user ID was not found in the records.
@@ -244,13 +212,9 @@ Local Variable: `FoundAccNo` (Type: `char(10)`): This variable holds the account
 ### Procedure: GetAccDesc
 Purpose: This procedure returns the account description (`AccDesc`) for a given user ID (`P_UserId`).
 
-#### 1. Initialization
-
-#### Input Parameter:
-- `P_UserId` (Type: `char(10)`, Constant): This is the user ID passed as an input parameter to the procedure. It is used to search for the corresponding account description in the `AccPf` file.
-
-#### Variable:
--  Local Variable: `FoundAccDesc` (Type: `char(50)`): This variable holds the account description of the user once it is found. It is initialized to an empty string (`inz('')`).
+#### 1. Definitions
+  - Input Parameter: `P_UserId` (Type: `char(10)`, Constant): This is the user ID passed as an input parameter to the procedure. It is used to search for the corresponding account description in the `AccPf` file.
+  -  Local Variable: `FoundAccDesc` (Type: `char(50)`): This variable holds the account description of the user once it is found. It is initialized to an empty string (`inz('')`).
 
 #### 2. Main Logic
 - The procedure begins by positioning the file pointer to the first record in the `AccPf` file using `setll -loval AccPf`, ensuring that the search starts from the beginning of the file.
@@ -263,15 +227,12 @@ Purpose: This procedure returns the account description (`AccDesc`) for a given 
   - If the `CustId` does not match, the next record is read from the file with `read AccPf`, and the loop continues to the next record.
 - The loop continues processing records until either a match is found or the end of the file (`%eof(AccPf)`) is reached.
 
-#### 3. Return Value
-- The procedure returns the value of `FoundAccDesc`, which will either contain the account description of the user corresponding to `P_UserId` or remain empty (`''`) if no match was found.
-
-### 4. Possible Problems with this Code
+### 3. Possible Problems with this Code
 - If the procedure is called multiple times without reinitializing the `FoundAccDesc` variable, it may retain the previous value, leading to incorrect results in subsequent calls.
 - The program does not validate whether the `P_UserId` parameter is blank or invalid before attempting to search the file. An empty or invalid user ID could cause the procedure to search unnecessarily or return incorrect data.
 - The procedure will return an empty string (`FoundAccDesc`) if no match is found, but there is no indication that no match was found. This might be misleading, as users would not know whether the user ID was not found or if there was an error.
 
-### 5. Possible Improvements to this Code
+### 4. Possible Improvements to this Code
 - Implement a check to verify if `P_UserId` is blank or invalid before performing the file search. If `P_UserId` is invalid, return an appropriate error or indication.
 - If `AccPf` is a keyed file, consider using a keyed read operation (`read(e) AccPf`) to directly access the record with the matching `CustId`, improving the performance by reducing search time.
 - If no matching `CustId` is found, return a meaningful result or error message instead of just an empty string. This would help clarify that the user ID was not found in the records, providing more informative feedback.

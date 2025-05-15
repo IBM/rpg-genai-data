@@ -12,7 +12,7 @@ a high-level summary of the program's purpose and behavior, detailing the parame
 
 2. `Parameters`: List all entry parameters accepted by the program, specifying whether each one is an input, output, or both.
 
-3. `Dependencies`: This section outlines all components that the program depends on in order to compile and run successfully. Dependencies include physical and logical files used for data access, copybooks, external procedures for business logic, and display files for user interface interactions.
+3. `Inputs/Outputs` : This section describes how the program reads from and writes to both data and device files. It also explains how the program interacts with display files for user input and output, and outlines the function keys and indicators used to manage screen behavior and control program flow.
 
 4. `Side Effects`: Mention any indirect or non-obvious effects such as data area updates, logs, or changes to global state. 
   - Example: Programs might update data areas, which can affect other programs or procedures that rely on the same data areas
@@ -20,7 +20,7 @@ a high-level summary of the program's purpose and behavior, detailing the parame
 5. `Limitations & Assumptions`: Mention any assumptions the code makes, or scenarios where it may fail or behave incorrectly.
   - Example: The load all subfile can load only up to 9999 records.
 
-6. `Outcomes`: List possible major outcomes or scenarios resulting from the code execution. This section can include an optional `usage example` to illustrate the expected outcome.
+6. `Usage Example`: Define the expected outcomes of the program execution.
 
 ### how_output
 
@@ -30,18 +30,7 @@ The how_output part explains how the program works internally, covering the full
 
 2. `File Declarations`: List all global files from the F-specs with relevant keywords. This includes display files, physical,logical files, printer files, and special files. Explain how each file is declared and any keywords used.
 
-3. `Global Components`: The Global Variables section includes all variables, prototypes for external program calls, data structures, arrays, constants, and keywords used in the program. Detailed explanations will be provided later in the logic sections
-  - `Prototype & Interface Definition`: Describe internal procedure prototypes and their usage. This includes procedure names, input/output parameters, data types, and return types.
-  - `Prototype for External Program Call`: Mention prototypes for external RPG/CL/API calls. This includes program name, parameter interface, data types, and expected results.
-  - `Data Structures and Arrays` – Describe all declared data structures and arrays used in the program, including their purpose and how they are utilized.
-    - `File Information Data Structure (INFDS)` – Mention any INFDS declared in the program and what file-level metadata they capture (e.g., file status, error codes, record numbers).
-    - `Indicator Data Structure (INDDS)` – Explain the usage of indicator-based data structures, if any, especially those mapped to display files or used for control logic.
-    - `Arrays` – Describe any arrays used, whether single or multi-dimensional, compile-time or run-time, and their role.
-    - `General Data Structures` – Include details of data structures. Mention key attributes or keywords applied (e.g., `inz`, `overlay`, `dim`, `based`, etc.).
-  - `Variables`: Explain the variables used in the program. This includes
-    - `Global Variables`: List all global variables used in the program and explain their purpose.
-    - `Constants`: List constants declared using `DCL-C`, including status flags, limits, messages, and system values.
-    - `Keywords`: Explain any keywords used in variable declarations, such as `LIKE`, `INZ`, `N` data type, etc.
+3. `Global Components`: The Global Variables section includes all variables, data structures, arrays, constants, and keywords used in the variable declaration (example`LIKE`, `INZ`, `N` data type).
 
 4. `Field Mapping`: Database to Display File or Printer file: Create a clear table or list to show how physical/logical file fields are mapped to display fields or Printer file fields. This includes field names and display fields.
 

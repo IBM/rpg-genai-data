@@ -76,31 +76,27 @@ The subprocedure `GetAccNo` is responsible for retrieving the account number (`A
 | Parameter Name              | Type   | Length | Direction | Description                                                                                                                                                                                                                                                    |
 | --------------------------- | ------ | ------ | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `P_UserId`                  | `char` | 10     | Input     | The user ID passed to the subprocedure. It is compared with the `CustId` field in the `AccPf` file to find a matching record.                                                                                                                                  |
-| -Return Value- (`GetAccNo`) | `char` | 10     | Output    | The return value of the subprocedure. It is assigned from the local variable `FoundAccNo`, which stores the `AccNo` value from the matching record in the `AccPf` file. If no match is found, `FoundAccNo` remains blank and that blank value is returned. |
 
-### 3. Dependencies
+### 3. Return Value
 
-- Physical File – `AccPf`
-  The subprocedure `GetAccNo` depends on the physical file `AccPf`, which is defined in the main program's file declaration. It is used in input mode with keyed access.
+| Return Name | Type   | Length | Direction | Description                                                                                                  |
+|-------------|--------|--------|-----------|--------------------------------------------------------------------------------------------------------------|
+| `GetAccNo`  | `char` | 10     | Output    | Returns the account number (`AccNo`) from `AccPf` if a matching `CustId` is found. otherwise, returns blank. |
 
-### 4. Side Effects
+### 4. Inputs/Outputs
+  - Inputs : `AccPf` – A physical file used to read account records.
+  - Outputs: No data is written to any file.
+
+### 5. Side Effects
 - NA
 
-### 5. Limitations
+### 6. Limitations
 
 - The procedure performs a linear read and stops at the first match only.
 - It does not handle duplicate `CustId` entries (returns the first match only).
 - If the required fields are missing in the `AccPf` file or improperly mapped, the procedure may return incorrect data or fail.
 
-### 6. Outcomes
-
-- Successful Retrieval (Matching Record Found)
-  If a record exists in the `AccPf` file where `CustId` matches the input `P_UserId`, the subprocedure sets the `FoundAccNo` local variable to the corresponding `AccNo`. This value is then returned as the output of the `GetAccNo` subprocedure.
-
-- No Matching Record (Blank Return)
-  If no record is found where `CustId` matches the `P_UserId`, the `FoundAccNo` local variable will remain blank and be returned as the result of the subprocedure.
-
-#### 6.1 Usage Example
+#### 7.Usage Example
 
 ```rpgle
 dcl-s userid char(10);

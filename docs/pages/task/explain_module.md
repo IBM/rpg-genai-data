@@ -37,20 +37,14 @@ Each exported procedure should be documented using the following structure:
     List the return value with its direction and brief explanation:
     -  `-Return Value-` (`output`) – Description
 
-  -  `Dependencies`
-    Mention any external components required by this procedure to work:
-
-    -  Physical or logical files
-    -  Copybooks
-    -  Data areas
-    -  External APIs or modules
+  - `Inputs/Outputs` : This section describes how the program reads from and writes to both data and device files. It also explains how the program interacts with display files for user input and output, and outlines the function keys and indicators used to manage screen behavior and control program flow.
 
   -  `Side Effects`
     Describe any indirect or hidden impacts the procedure has on:
 
     -  Global variables
     -  Shared resources
-    -  Logs or external states
+    -  Dataaera updates 
 
   -  `Limitations & Assumptions`
     List any known assumptions or restrictions:
@@ -59,9 +53,8 @@ Each exported procedure should be documented using the following structure:
     -  Required preconditions
     -  Unsupported input types
 
-  -  `Outcomes`
+  -  `Usage Example`
     Define the expected outcomes of the procedure’s execution.
-    Optionally, include a short description of a typical usage scenario.
 
 Repeat the above `procedure section` for `each additional exported procedure` in the module.
 
@@ -75,26 +68,11 @@ The how_output part explains how the module works internally, covering the full 
 
 2. `File Declarations`: List all declared files from the F-specs with relevant keywords. This includes display files, physical,logical files, printer files, and special files. Explain how each file is declared and any keywords used.
 
-3. `Global Components`
-The Global Variables section includes all variables, prototypes for external program calls, data structures, arrays, constants, and keywords used in the module. Detailed explanations will be provided later in the logic sections.
+3. `Global Components`: The Global Variables section includes all variables, prototypes for external program calls, data structures, arrays, constants, and keywords used in the variable declarations (example`LIKE`, `INZ`, `N` data type)
 
-  - `Prototype & Interface Definition`: Describe internal procedure prototypes and their usage. This includes procedure names, input/output parameters, data types, and return types.
-  - `Prototype for External Program Call`: Mention prototypes for external RPG/CL/API calls. This includes program name, parameter interface, data types, and expected results.
-  - `Data Structures and Arrays`: Describe all declared data structures and arrays used in the module, including their purpose and how they are utilized.
-    - `File Information Data Structure (INFDS)`: Mention any INFDS declared in the program and what file-level metadata they capture (e.g., file status, error codes, record numbers).
-    - `Indicator Data Structure (INDDS)`: Explain the usage of indicator-based data structures, if any, especially those mapped to display files or used for control logic.
-    - `Arrays`: Describe any arrays used, whether single or multi-dimensional, compile-time or run-time, and their role.
-    - `General Data Structures`: Include details of data structures. Mention key attributes or keywords applied (e.g., `inz`, `overlay`, `dim`, `based`, etc.).
-  - `Variables`: Explain the variables used in the module. This includes:
-    - `Global Variables`: List all global variables used in the module and explain their purpose.
-    - `Constants`: List constants declared using `DCL-C`, including status flags, limits, messages, and system values.
-    - `Keywords`: Explain any keywords used in variable declarations, such as `LIKE`, `INZ`, `N` data type, etc.
+4. `Procedures` : Provide a step-by-step description of the logic for each procedure.
 
-4. `Procedures`
-
-  Provide a step-by-step description of the logic for each procedure.
-
-  - `Initialization`: Describe the initial setup required for the procedure. Include all local variables and parameters.
+  - `Definitions`: This section covers all declarations and setup required before the main logic of the procedure begins. It includes the definition of local variables, data structures, and any constants or initial values needed to support the procedure’s execution
   - `Main Logic`: Explain the core logic of the procedure, detailing the steps taken to achieve the procedure's purpose.
   - `Possible Problems with this code`: Identify potential issues that could arise during the execution of the procedure.
   - `Possible improvements to this code`: Identify areas where the code could be enhanced for better performance, readability, or functionality. This may include suggestions for error handling, optimization techniques, or alternative approaches to achieve the same result.

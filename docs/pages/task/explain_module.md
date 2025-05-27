@@ -75,10 +75,10 @@ Each exported procedure should be documented using the following structure:
   | `ORDER_API`      | API      | Provides access to order management functions |
 
   ##### Limitations & Assumptions
-    List any known assumptions or restrictions:
-    -  Maximum limits
-    -  Required preconditions
-    -  Unsupported input types
+  List any known assumptions or restrictions:
+  -  Maximum limits
+  -  Required preconditions
+  -  Unsupported input types
 
   ##### Usage Example:
   Provide a code snippet that demonstrates how to call the procedure or program, including parameter setup and the call itself. This should be a complete and realistic example that users can follow as a reference.

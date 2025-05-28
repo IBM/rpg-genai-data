@@ -34,12 +34,12 @@ List all input and output variables used by the code, specifying whether each on
   | `pStatus`      | Output     | Character, length 10 | The status code indicating success or failure of the procedure          |
 
 3. #### File Inputs/Outputs 
-Describe how the program reads from and writes to:
+Describe how the subroutine reads from and writes to:
   - Data files (e.g., physical/logical files)
   - Device files (e.g., printers, displays)
   - Display files (for user interaction)
 
-  Provide in table format with columns for file name, type (data/device/display), and description of how the program interacts with each file.
+  Provide in table format with columns for file name, type (data/device/display), and description of how the subroutine interacts with each file.
   Example:
   | File Name       | Type          | Usage         | Description                                  |
   |-----------------|---------------|---------------|----------------------------------------------|
@@ -51,7 +51,7 @@ Describe how the program reads from and writes to:
 4. #### Dependencies 
 
 ##### Programs and Services
-These are external programs or API that the module calls or interacts with to perform specific tasks.
+These are external programs or API that the subrouite calls or interacts with to perform specific tasks.
 Example:
 | Component Name        | Type              | Description                                                                 |
 |-----------------------|-------------------|-----------------------------------------------------------------------------|
@@ -59,7 +59,7 @@ Example:
 | `LIB1/VALIDATION_PGM` | Called Program    | Validates input fields such as customer ID, order quantity, and product codes before processing. |
 
 ##### Data and Messaging Components
-These include data areas, data queues, and other that store or transmit data used by the program.
+These include data areas, data queues, and other that store or transmit data used by the subroutine.
 Example:
 | Component Name        | Type       | Description                                                                 |
 |-----------------------|------------|-----------------------------------------------------------------------------|
@@ -89,7 +89,7 @@ The `how_output` section explains how the specific subroutine works internally, 
 Provide a short insight into the purpose of the code for the subroutine. This should focus on the business logic or functional role of the code.
 
 2. #### Global Components 
-This section lists the global elements used by the subroutine, such as indicators.
+This section lists the global elements used by the subroutine, such as variables and files. 
 
   ##### Indicators
   This section documents all indicators used for display/printer control, based on system conventions.
@@ -100,13 +100,21 @@ This section lists the global elements used by the subroutine, such as indicator
   -  Indicators in Externally Described DS (without `INDARA`): Subfields like `IN01`, `IN02` representing indicators tied to display/printer files.
 
   `Exclude:`
-  -  Indicators defined as normal variables (e.g., `DCL-S flag IND`) used within program logic but not tied to display/printer files.
+  -  Indicators defined as normal variables (e.g., `DCL-S flag IND`) used within subroutine logic but not tied to display/printer files.
 
   Example: Indicators
   | Indicator Name | Description         | Purpose                                                                 |
   |----------------|---------------------|-------------------------------------------------------------------------|
   | `*IN03`        | Display file input  | Indicates if the user has pressed the Enter key on the display file     |
   | `*IN04`        | Function key F4     | Indicates if the user has pressed the F4 key on the display file        |
+
+  Example: Indicator Data Structure `myIndds` for Display File `MYDSPF`
+
+  | Subfield Name | Indicator Number | Description                        |
+  | ------------- | ---------------- | ---------------------------------- |
+  | `exit`        | 03               | Indicates that the user pressed F3 |
+  | `sfl_clear`   | 55               | Used to clear the subfile          |
+  | `error`       | 99               | Used to show error messages        |
 
 3. #### Main Execution Flow
 Describe the subroutine logic in ordered steps. This includes a detailed explanation of each line, describing what it does and how it works.

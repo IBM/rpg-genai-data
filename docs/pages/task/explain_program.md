@@ -38,7 +38,7 @@ Describe how the program reads from and writes to:
 4. #### Dependencies 
 
 ##### Programs and Services
-These are external programs or API that the module calls or interacts with to perform specific tasks.
+These are external programs or API that the program calls or interacts with to perform specific tasks.
 Example:
 | Component Name        | Type              | Description                                                                 |
 |-----------------------|-------------------|-----------------------------------------------------------------------------|
@@ -67,14 +67,17 @@ Provide a code snippet that demonstrates how to call the program.
     - Define and initialize all input/output parameters required for the call.
     - Include any relevant data structures, constants, or variables.
 
-  2. The Program Call
-    - Use `CALL` to invoke a program object.
-    - Ensure proper handling of parameters (if applicable) according to how the target program expects them.
-
-  Example:
-```clle
-       CALL       AGR02001
-```
+  2. The program call.
+    - If there is an RPG prototype for the program, use an rpgle snippet with the /COPY for the prototype, and any definitions needed for parameters. Do not use the CALL or CALLP opcode.
+    ```rpgle
+           /copy qrpglesrc,prototype
+              
+          mypgm (parameters);
+    ```
+     - Otherwise, use a clle snippet to represent a call from the command line.
+    ```clle 
+           call mypgm parm(parameters)
+    ```
 
 ### how_output
 
@@ -160,6 +163,13 @@ This section includes all global elements used in the program, such as variables
   |-------------------|-------------|--------------------------------------|
   | `F3`              | Exit        | Exits the program                    |
   | `F4`              | Add         | Opens the add record screen          |
+
+  Example: Indicator Data Structure `myIndds` for Display File `MYDSPF`
+  | Subfield Name | Indicator Number | Description                        |
+  | ------------- | ---------------- | ---------------------------------- |
+  | `exit`        | 03               | Indicates that the user pressed F3 |
+  | `sfl_clear`   | 55               | Used to clear the subfile          |
+  | `error`       | 99               | Used to show error messages        |
 
   ##### Constants
   This section documents all constants used in the program, including their values and purposes.

@@ -9,9 +9,7 @@ The sum_output part offers a business summary in a couple of sentences, explaini
 
 ### api_output
 
-The `api_output` part provides information to the caller about how to call the exported procedures in this module
-and what the effects of calling it would be.
-It includes a high-level summary of the module's purpose and then for each exported procedure, an api-level description of it.  Note that for modules the caller will not care about any side effects within the module, but only on the external objects such as databases.
+The `api_output` part provides information to the caller about how to call the exported procedures in this module and what the effects of calling it would be. It includes a high-level summary of the module's purpose and then for each exported procedure, an api-level description of it.  Note that for modules the caller will not care about any side effects within the module, but only on the external objects such as databases.
 
 `Important`: If a module exports `multiple procedures`, each procedure must be documented `separately` using the standard format below.
 
@@ -53,7 +51,7 @@ Each exported procedure should be documented using the following structure:
 
   #### Inputs/Outputs 
   
-  1. ##### Variable
+  ##### Variable
   Describe varables used in the procedure, including their types and purposes. This includes any global variables whose values are modified by the procedure.
   Example: 
   | Variable Name | Type                          | Description                                              |
@@ -61,13 +59,13 @@ Each exported procedure should be documented using the following structure:
   | `CustomerID`   | Character, length 10           | Unique identifier for the customer                       |
   | `OrderCount`   | Numeric, length 5, with 0 decimals | Total number of orders processed (no decimals)           |
 
-  2. ##### Files
-  Describe how the program reads from and writes to:
+  ##### Files
+  Describe how the module reads from and writes to:
   - Data files (e.g., physical/logical files)
   - Device files (e.g., printers, displays)
   - Display files (for user interaction)
 
-  Provide in table format with columns for file name, type (data/device/display), and description of how the program interacts with each file.
+  Provide in table format with columns for file name, type (data/device/display), and description of how the module  interacts with each file.
    Example:
   | File Name       | Type     | Used          | Description                                      |
   |-----------------|----------|---------------|--------------------------------------------------|
@@ -87,7 +85,7 @@ Each exported procedure should be documented using the following structure:
   | `LIB1/VALIDATION_PGM` | Called Program    | Validates input fields such as customer ID, order quantity, and product codes before processing. |
 
   ##### Data and Messaging Components
-  These include data areas, data queues, and other that store or transmit data used by the program.
+  These include data areas, data queues, and other that store or transmit data used by the module.
   Example:
   | Component Name        | Type       | Description                                                                 |
   |-----------------------|------------|-----------------------------------------------------------------------------|
@@ -103,7 +101,7 @@ Each exported procedure should be documented using the following structure:
   -  Unsupported input types
 
   5. ##### Usage Example:
-  Provide a code snippet that demonstrates how to call the procedure or program, including parameter setup and the call itself. This should be a complete and realistic example that users can follow as a reference.
+  Provide a code snippet that demonstrates how to call the procedure, including parameter setup and the call itself. This should be a complete and realistic example that users can follow as a reference.
 
   This section should illustrate all relevant aspects of calling the procedure, including:
 
@@ -149,7 +147,7 @@ Any key compiler options and runtime control settings included in the module. Ex
 3. #### File Declarations
 List all declared files from the F-specs with relevant keywords. This includes display files, physical,logical files, printer files, and special files. Explain how each file is declared and any keywords used.
 
-  Provide in table format with columns for file name, type (data/device/display), and description of how the program interacts with each file.
+  Provide in table format with columns for file name, type (data/device/display), and description of how the module interacts with each file.
   Example:
   | File Name       | Type     | Used         | Description                                      |
   |-----------------|----------|--------------|--------------------------------------------------|
@@ -158,10 +156,10 @@ List all declared files from the F-specs with relevant keywords. This includes d
   | `PRINTER_FILE`  | Printer  | Output       | Sends formatted reports to the printer           |
 
 3. #### Global Components
-This section includes all global elements used in the program, such as variables, data structures, arrays, constants, and special keywords (e.g., LIKE, LIKEDS, CONST, etc.) used in declarations. It should be organized into the following subsections for clarity
+This section includes all global elements used in the module, such as variables, data structures, arrays, constants, and special keywords (e.g., LIKE, LIKEDS, CONST, etc.) used in declarations. It should be organized into the following subsections for clarity
 
   ##### Variables 
-  This section documents all variables used in the program, including their types and purposes.
+  This section documents all variables used in the module, including their types and purposes.
 
   Example: Variables
   | Variable Name | Type                          | Description                                              |
@@ -173,7 +171,7 @@ This section includes all global elements used in the program, such as variables
 
   ##### Data Structures
 
-  This section documents all data structures used in the program, including their subfields, purposes, and any notable characteristics such as whether the structure is `qualified`, an `array`, or has other special attributes.
+  This section documents all data structures used in the module, including their subfields, purposes, and any notable characteristics such as whether the structure is `qualified`, an `array`, or has other special attributes.
 
   Each data structure is presented with a table of its subfields, including:
 
@@ -188,7 +186,7 @@ This section includes all global elements used in the program, such as variables
   - At end of this you can explain any specific keywords used in the data structure declarations, such as `LIKEDS`, `QUALIFIED`, or `INZ`.
 
   ##### Arrays 
-  This section documents all arrays used in the program, including their dimensions and purposes.
+  This section documents all arrays used in the module, including their dimensions and purposes.
   | Array Name     | Data Type           | Dimensions & Description                          |
   |----------------|---------------------|---------------------------------------------------|
   | `MeetingDates` | Date, *ISO format   | Array with 10 elements; stores available meeting dates |
@@ -204,7 +202,7 @@ This section includes all global elements used in the program, such as variables
   -  Indicators in Externally Described DS (without `INDARA`): Subfields like `IN01`, `IN02` representing indicators tied to display/printer files.
 
   `Exclude:`
-  -  Indicators defined as normal variables (e.g., `DCL-S flag IND`) used within program logic but not tied to display/printer files.
+  -  Indicators defined as normal variables (e.g., `DCL-S flag IND`) used within module logic but not tied to display/printer files.
 
   Example: Indicators
   | Indicator Name | Description         | Purpose                                                                 |
@@ -212,8 +210,15 @@ This section includes all global elements used in the program, such as variables
   | `*IN03`        | Display file input  | Indicates if the user has pressed the Enter key on the display file     |
   | `*IN04`        | Function key F4     | Indicates if the user has pressed the F4 key on the display file        |
 
+  Example: Indicator Data Structure `myIndds` for Display File `MYDSPF`
+  | Subfield Name | Indicator Number | Description                        |
+  | ------------- | ---------------- | ---------------------------------- |
+  | `exit`        | 03               | Indicates that the user pressed F3 |
+  | `sfl_clear`   | 55               | Used to clear the subfile          |
+  | `error`       | 99               | Used to show error messages        |
+
   ##### Function Keys 
-  This section documents all function keys used in the program
+  This section documents all function keys used in the module
 
   Example: Function Keys
   | Function Key Name | Description | Purpose                              |
@@ -222,7 +227,7 @@ This section includes all global elements used in the program, such as variables
   | `F4`              | Add         | Opens the add record screen          |
 
   ##### Constants
-  This section documents all constants used in the program, including their values and purposes.
+  This section documents all constants used in the module, including their values and purposes.
   Example: Constants
   | Constant Name       | Value | Description                              |
   |---------------------|-------|------------------------------------------|

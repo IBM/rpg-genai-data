@@ -50,12 +50,12 @@ Example:
 | `OrderCount`   | Numeric, length 5, with 0 decimals | Total number of orders processed (no decimals)           |
 
 ##### Files
-Describe how the program reads from and writes to:
+Describe how the procedure reads from and writes to:
 - Data files (e.g., physical/logical files)
 - Device files (e.g., printers, displays)
 - Display files (for user interaction)
 
-Provide in table format with columns for file name, type (data/device/display), and description of how the program interacts with each file.
+Provide in table format with columns for file name, type (data/device/display), and description of how the procedure interacts with each file.
   Example:
 | File Name       | Type     | Used          | Description                                      |
 |-----------------|----------|---------------|--------------------------------------------------|
@@ -67,7 +67,7 @@ Provide in table format with columns for file name, type (data/device/display), 
 5. #### Dependencies 
  
 ##### Programs and Services
-These are external programs or API that the module calls or interacts with to perform specific tasks.
+These are external programs or API that the procedure calls or interacts with to perform specific tasks.
 Example:
 | Component Name        | Type              | Description                                                                 |
 |-----------------------|-------------------|-----------------------------------------------------------------------------|
@@ -75,7 +75,7 @@ Example:
 | `LIB1/VALIDATION_PGM` | Called Program    | Validates input fields such as customer ID, order quantity, and product codes before processing. |
 
 ##### Data and Messaging Components
-These include data areas, data queues, and other that store or transmit data used by the program.
+These include data areas, data queues, and other that store or transmit data used by the procedure.
 Example:
 | Component Name        | Type       | Description                                                                 |
 |-----------------------|------------|-----------------------------------------------------------------------------|
@@ -98,25 +98,20 @@ Mention any assumptions the code makes, or scenarios where it may fail or behave
 8. #### Usage Example 
 This should show how to call the procedure, including any necessary setup for parameters, along with an example or description of how the caller would handle the return value or any output parameters.
 
- 1. The `/COPY` Statement
-   - Show how the caller includes the prototype using a `/COPY` directive. 
-   - This is always applicable for RPGLE examples with `scope=module`, as the caller is expected to reside in a different module.
-
-  2. Parameter Setup
+  1. Parameter Setup
     - Define and initialize all input, output parameters and any return values required for the call.
     - Include declarations for any necessary constants, variables, or data structures.
 
-  3. The Procedure Call
+  2. The Procedure Call
     - If the procedure returns a value, show how the caller captures and uses that return value.
     - If parameters are modified, show how the caller accesses the updated values.
 
-  4. When No Follow-Up Coding is Required
+  3. When No Follow-Up Coding is Required
     - If the procedure performs an action with side effects (e.g., writing to a file, logging), and there is no need for the caller to process return values or modified parameters, the example may omit further usage.
     - In such cases, document only the call and any required setup.
     
 ```rpgle
-       /COPY QRPGLESRC,MYPROTOTYPE
-
+      
        DCL-S inputValue   PACKED(5:0) INZ(10);
        DCL-S resultValue  PACKED(7:2);
 
@@ -133,10 +128,10 @@ The `how_output` section explains how the specific procedure  works internally, 
 Provide a short insight into the purpose of the code for the procedure. 
 
 3. #### Global Components
-This section includes all global elements used in the program, such as variables, data structures, arrays, constants, and special keywords (e.g., LIKE, LIKEDS, CONST, etc.) used in declarations. It should be organized into the following subsections for clarity
+This section includes all global elements used in the procedure, such as variables, data structures, arrays, constants, and special keywords (e.g., LIKE, LIKEDS, CONST, etc.) used in declarations. It should be organized into the following subsections for clarity
 
   ##### Variables 
-  This section documents all variables used in the program, including their types and purposes.
+  This section documents all variables used in the procedure, including their types and purposes.
 
   Example: Variables
   | Variable Name | Type                          | Description                                              |
@@ -148,7 +143,7 @@ This section includes all global elements used in the program, such as variables
 
   ##### Data Structures
 
-  This section documents all data structures used in the program, including their subfields, purposes, and any notable characteristics such as whether the structure is `qualified`, an `array`, or has other special attributes.
+  This section documents all data structures used in the procedure, including their subfields, purposes, and any notable characteristics such as whether the structure is `qualified`, an `array`, or has other special attributes.
 
   Each data structure is presented with a table of its subfields, including:
 
@@ -163,7 +158,7 @@ This section includes all global elements used in the program, such as variables
   - At end of this you can explain any specific keywords used in the data structure declarations, such as `LIKEDS`, `QUALIFIED`, or `INZ`.
 
   ##### Arrays 
-  This section documents all arrays used in the program, including their dimensions and purposes.
+  This section documents all arrays used in the procedure, including their dimensions and purposes.
   | Array Name     | Data Type           | Dimensions & Description                          |
   |----------------|---------------------|---------------------------------------------------|
   | `MeetingDates` | Date, *ISO format   | Array with 10 elements; stores available meeting dates |
@@ -179,7 +174,7 @@ This section includes all global elements used in the program, such as variables
   -  Indicators in Externally Described DS (without `INDARA`): Subfields like `IN01`, `IN02` representing indicators tied to display/printer files.
 
   `Exclude:`
-  -  Indicators defined as normal variables (e.g., `DCL-S flag IND`) used within program logic but not tied to display/printer files.
+  -  Indicators defined as normal variables (e.g., `DCL-S flag IND`) used within procedure logic but not tied to display/printer files.
 
   Example: Indicators
   | Indicator Name | Description         | Purpose                                                                 |
@@ -187,8 +182,15 @@ This section includes all global elements used in the program, such as variables
   | `*IN03`        | Display file input  | Indicates if the user has pressed the Enter key on the display file     |
   | `*IN04`        | Function key F4     | Indicates if the user has pressed the F4 key on the display file        |
 
+  Example: Indicator Data Structure `myIndds` for Display File `MYDSPF`
+  | Subfield Name | Indicator Number | Description                        |
+  | ------------- | ---------------- | ---------------------------------- |
+  | `exit`        | 03               | Indicates that the user pressed F3 |
+  | `sfl_clear`   | 55               | Used to clear the subfile          |
+  | `error`       | 99               | Used to show error messages        |
+  
   ##### Function Keys 
-  This section documents all function keys used in the program
+  This section documents all function keys used in the procedure
 
   Example: Function Keys
   | Function Key Name | Description | Purpose                              |
@@ -197,7 +199,7 @@ This section includes all global elements used in the program, such as variables
   | `F4`              | Add         | Opens the add record screen          |
 
   ##### Constants
-  This section documents all constants used in the program, including their values and purposes.
+  This section documents all constants used in the procedure, including their values and purposes.
   Example: Constants
   | Constant Name       | Value | Description                              |
   |---------------------|-------|------------------------------------------|

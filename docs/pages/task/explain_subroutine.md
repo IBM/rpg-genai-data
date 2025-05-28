@@ -27,11 +27,11 @@ Provide a short insight into the purpose of the code for the subroutine. This sh
 
 2. #### Variable Input/Output 
 List all input and output variables used by the code, specifying whether each one is an input, output, or both.
-    Example:
-    | Parameter Name | Direction | Type  | Description |
-    |----------------|-----------|-------|-------------|
-    | `pOrderId`     | Input     | `char(10)` | The unique identifier for the order being processed |
-    | `pStatus`      | Output    | `char(10)` | The status code indicating success or failure of the procedure |
+  Example:
+  | Parameter Name | Usage      | Type                | Description                                                             |
+  |----------------|------------|---------------------|-------------------------------------------------------------------------|
+  | `pOrderId`     | Input      | Character, length 10 | The unique identifier for the order being processed                     |
+  | `pStatus`      | Output     | Character, length 10 | The status code indicating success or failure of the procedure          |
 
 3. #### File Inputs/Outputs 
 Describe how the program reads from and writes to:
@@ -41,28 +41,32 @@ Describe how the program reads from and writes to:
 
   Provide in table format with columns for file name, type (data/device/display), and description of how the program interacts with each file.
   Example:
-  | File Name       | Type     | Used | Description |
-  |-----------------|----------|------|-------------|
-  | `CUSTOMER`      | Data     | Input  | Reads customer records for processing |
-  | `ORDER_DISPLAY` | Display  | Input/Output | Displays order details to the user |
-  | `PRINTER_FILE`  | Printer  | Output | Sends reports to the printer |
+  | File Name       | Type          | Usage         | Description                                  |
+  |-----------------|---------------|---------------|----------------------------------------------|
+  | `CUSTOMER`      | Data file     | Input         | Reads customer records for processing        |
+  | `ORDER_DISPLAY` | Display file  | Input/Output  | Displays order details to the user           |
+  | `PRINTER_FILE`  | Printer file  | Output        | Sends reports to the printer                 |
+  | `ORDERS`        | Data file     | Input/Update  | Reads and updates order information          |
 
 4. #### Dependencies 
-List all external components the program relies on to function correctly. This includes:
-  - Called programs
-  - Service programs (SRVPGMs)
-  - APIs or external libraries
-  - Data areas
-  - Data queues
-  - Any other external modules or systems
-   
-  Provide in table format with columns for component name, type (program/service/API/data area), and description of its role.
-  Example:
-  | Component Name  | Type     | Description |
-  |-----------------|----------|-------------|
-  | `CALC_SERVICE`   | Service  | Performs complex calculations for order processing |
-  | `DATA_AREA_1`    | Data Area| Stores configuration settings for the program |
-  | `ORDER_API`      | API      | Provides access to order management functions |
+
+##### Programs and Services
+These are external programs or API that the module calls or interacts with to perform specific tasks.
+Example:
+| Component Name        | Type              | Description                                                                 |
+|-----------------------|-------------------|-----------------------------------------------------------------------------|
+| `LIB1/ORDER_API`      | API               | Offers a standardized interface to access and manage order-related data.    |
+| `LIB1/VALIDATION_PGM` | Called Program    | Validates input fields such as customer ID, order quantity, and product codes before processing. |
+
+##### Data and Messaging Components
+These include data areas, data queues, and other that store or transmit data used by the program.
+Example:
+| Component Name        | Type       | Description                                                                 |
+|-----------------------|------------|-----------------------------------------------------------------------------|
+| `LIB1/DATA_AREA_1`    | Data Area  | Stores runtime configuration values such as environment flags or thresholds. |
+| `LIB1/MSG_QUEUE_1`    | Data Queue | Used to send and receive asynchronous messages between batch and interactive jobs. |
+| `LIB1/CONFIG_SYS`     | Data Area  | Holds system-wide settings like default language, currency, or region.      |
+| `*LIBL/SALESERRS`     | Message file  | Used to retrieve error and validation messages. Assigned to `@MSGFILE`.     |
 
 5. #### Limitations & Assumptions
 Mention any assumptions the code makes, or scenarios where it may fail or behave incorrectly.
@@ -70,15 +74,13 @@ Mention any assumptions the code makes, or scenarios where it may fail or behave
       
 6. #### Usage Example
 Provide a code snippet showing how the subroutine is called within the program. 
+Example:
 ```rpgle
-     D InputVar        S             10A   INZ('Test')
-     D Indicator       S              N     INZ(*OFF)
+     D InputVar        S             10A   INZ('Test')  
+     D Indicator       S              N    INZ(*OFF)    
 
-     // Call the subroutine
-     C                   EXSR      MySubroutine
-
-     // After call, Indicator or InputVar might be updated
-```
+     C                   EXSR      MySubroutine         
+``` 
 
 ## how_output
 The `how_output` section explains how the specific subroutine works internally, covering the full execution flow and logic used at each step. It includes details on variables, constants, indicators, field mappings, subroutine calls, and error handling related to that unit.
@@ -101,13 +103,14 @@ This section lists the global elements used by the subroutine, such as indicator
   -  Indicators defined as normal variables (e.g., `DCL-S flag IND`) used within program logic but not tied to display/printer files.
 
   Example: Indicators
-  | Indicator Name | Description | Purpose |
-  |----------------|-------------|---------|
-  | `*IN03`        | Display file input | Indicates if the user has pressed the Enter key on the display file |
-  | `*IN04`        | Function key F4 | Indicates if the user has pressed the F4 key on the display file |
+  | Indicator Name | Description         | Purpose                                                                 |
+  |----------------|---------------------|-------------------------------------------------------------------------|
+  | `*IN03`        | Display file input  | Indicates if the user has pressed the Enter key on the display file     |
+  | `*IN04`        | Function key F4     | Indicates if the user has pressed the F4 key on the display file        |
 
 3. #### Main Execution Flow
-Describe the subroutine logic in ordered steps. This includes a detailed explanation of each line, describing what it does and how it works
+Describe the subroutine logic in ordered steps. This includes a detailed explanation of each line, describing what it does and how it works.
+It should also include a list of any subroutines called within the subroutine, along with their purpose.
 
 4. #### Possible Problems with this Code
 Identify potential issues that could arise during the execution of the subroutine. Mention any problems that should be noted when discussing the final statement that ends the subroutine.

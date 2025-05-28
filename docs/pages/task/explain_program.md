@@ -15,10 +15,10 @@ Provide a short insight into the purpose of the code for the program. This shoul
 List all entry parameters accepted by the program, specifying whether each one is an input, output, or both. Provide in table format with columns for parameter name, direction (input/output), and description. 
 
   Example:
-  | Parameter Name | Direction | Type  | Description |
-  |----------------|-----------|-------|------|
-  | `CustomerID`   | Input     | 10 Length Character | Unique identifier for the customer |
-  | `OrderCount`   | Output    | 5 numeric no decimals  | Total number of orders processed |
+  | Parameter Name | Usage      | Type                          | Description                              |
+  |----------------|------------|-------------------------------|------------------------------------------|
+  | `CustomerID`   | Input      | Character, length 10           | Unique identifier for the customer       |
+  | `OrderCount`   | Output     | Numeric, length 5, with 0 decimals | Total number of orders processed         |
 
 3. #### Inputs/Outputs 
 Describe how the program reads from and writes to:
@@ -28,32 +28,37 @@ Describe how the program reads from and writes to:
 
   Provide in table format with columns for file name, type (data/device/display), and description of how the program interacts with each file.
   Example:
-  | File Name       | Type     | Used | Description |
-  |-----------------|----------|------|-------------|
-  | `CUSTOMER`      | Data     | Input  | Reads customer records for processing |
-  | `ORDER_DISPLAY` | Display  | Input/Output | Displays order details to the user |
-  | `PRINTER_FILE`  | Printer  | Output | Sends reports to the printer |
+  | File Name       | Type          | Usage         | Description                                  |
+  |-----------------|---------------|---------------|----------------------------------------------|
+  | `CUSTOMER`      | Data file     | Input         | Reads customer records for processing        |
+  | `ORDER_DISPLAY` | Display file  | Input/Output  | Displays order details to the user           |
+  | `PRINTER_FILE`  | Printer file  | Output        | Sends reports to the printer                 |
+  | `ORDERS`        | Data file     | Input/Update  | Reads and updates order information          |
 
 4. #### Dependencies 
-List all external components the program relies on to function correctly. This includes:
-  - Called programs
-  - Service programs (SRVPGMs)
-  - APIs or external libraries
-  - Data areas
-  - Data queues
-  - Any other external modules or systems
-   
-  Provide in table format with columns for component name, type (program/service/API/data area), and description of its role.
-  Example:
-  | Component Name  | Type     | Description |
-  |-----------------|----------|-------------|
-  | `CALC_SERVICE`   | Service  | Performs complex calculations for order processing |
-  | `DATA_AREA_1`    | Data Area| Stores configuration settings for the program |
-  | `ORDER_API`      | API      | Provides access to order management functions |
+
+##### Programs and Services
+These are external programs or API that the module calls or interacts with to perform specific tasks.
+Example:
+| Component Name        | Type              | Description                                                                 |
+|-----------------------|-------------------|-----------------------------------------------------------------------------|
+| `LIB1/ORDER_API`      | API               | Offers a standardized interface to access and manage order-related data.    |
+| `LIB1/VALIDATION_PGM` | Called Program    | Validates input fields such as customer ID, order quantity, and product codes before processing. |
+
+##### Data and Messaging Components
+These include data areas, data queues, and other that store or transmit data used by the program.
+Example:
+| Component Name        | Type       | Description                                                                 |
+|-----------------------|------------|-----------------------------------------------------------------------------|
+| `LIB1/DATA_AREA_1`    | Data Area  | Stores runtime configuration values such as environment flags or thresholds. |
+| `LIB1/MSG_QUEUE_1`    | Data Queue | Used to send and receive asynchronous messages between batch and interactive jobs. |
+| `LIB1/CONFIG_SYS`     | Data Area  | Holds system-wide settings like default language, currency, or region.      |
+| `*LIBL/SALESERRS`     | Message file  | Used to retrieve error and validation messages. Assigned to `@MSGFILE`.     |
 
 5. #### Limitations & Assumptions 
 Mention any assumptions the code makes, or scenarios where it may fail or behave incorrectly.
   - Example: The load all subfile can load only up to 9999 records.
+  - Example: The caller cannot update records it is only input. This means the program is designed to read data but not modify it.
 
 6. #### Usage Example: 
 Provide a code snippet that demonstrates how to call the program. 
@@ -65,10 +70,11 @@ Provide a code snippet that demonstrates how to call the program.
   2. The Program Call
     - Use `CALL` to invoke a program object.
     - Ensure proper handling of parameters (if applicable) according to how the target program expects them.
+
   Example:
-  ```clle
-    CALL  AGR02001
-  ```
+```clle
+       CALL       AGR02001
+```
 
 ### how_output
 
@@ -98,32 +104,34 @@ This section includes all global elements used in the program, such as variables
   This section documents all variables used in the program, including their types and purposes.
 
   Example: Variables
-  | Variable Name | Type    | Description |
-  |----------------|--------|-------------|
-  | `CustomerID`   | 10 Length Character   | Unique identifier for the customer |
-  | `OrderCount`   | 5 numeric no decimals | Total number of orders processed |
+  | Variable Name | Type                          | Description                                              |
+  |----------------|-------------------------------|----------------------------------------------------------|
+  | `CustomerID`   | Character, length 10           | Unique identifier for the customer                       |
+  | `OrderCount`   | Numeric, length 5, with 0 decimals | Total number of orders processed (no decimals)           |
 
   - At end of this you can explain any specific keywords used in the variable declarations, such as `LIKE`, `INZ`, or `N` data type.
 
   ##### Data Structures
-  This section documents all data structures used in the program, including their subfields and purposes.
 
-  Provide the subfields in a table format with columns for subfield name, type, and description.
-  Example: Data Structures
-  Subfield Name | Type    | Description |
-  |----------------|--------|-------------|
-  | `OrderDetail`   | 10 Length Character   | Details of the order |
-  | `OrderAmount`   | 7 numeric 2 decimals | Amount of the order |
+  This section documents all data structures used in the program, including their subfields, purposes, and any notable characteristics such as whether the structure is `qualified`, an `array`, or has other special attributes.
 
-  - At end of this you can explain any specific keywords used in the variable declarations, such as `LIKE`, `INZ`, or `N` data type.
+  Each data structure is presented with a table of its subfields, including:
+
+  Example: `OrderHeader` 
+  | Subfield Name | Type                                 | Description                                                  |
+  |----------------|--------------------------------------|--------------------------------------------------------------|
+  | `OrderID`      | Character, length 10                 | Unique identifier for the order                              |
+  | `OrderDate`    | Date, *ISO format                    | Date when the order was placed                               |
+  | `TotalAmount`  | Packed numeric, length 9, 2 decimals | Total amount for the order                                   |
+  | `Quantities`   | Numeric array, length 5, dimension 50| Quantity of each item in the order                           |
+
+  - At end of this you can explain any specific keywords used in the data structure declarations, such as `LIKEDS`, `QUALIFIED`, or `INZ`.
 
   ##### Arrays 
   This section documents all arrays used in the program, including their dimensions and purposes.
-
-  Example: Arrays
-  | Array Name | Dimensions | Description |
-  |-------------|------------|-------------|
-  | `OrderArray` | 1000 elements | Array to hold order details |
+  | Array Name     | Data Type           | Dimensions & Description                          |
+  |----------------|---------------------|---------------------------------------------------|
+  | `MeetingDates` | Date, *ISO format   | Array with 10 elements; stores available meeting dates |
 
   - At end of this you can explain any specific keywords used in the array declarations, such as `DIM`, `LIKE`, or `INZ`.
 
@@ -139,33 +147,33 @@ This section includes all global elements used in the program, such as variables
   -  Indicators defined as normal variables (e.g., `DCL-S flag IND`) used within program logic but not tied to display/printer files.
 
   Example: Indicators
-  | Indicator Name | Description | Purpose |
-  |----------------|-------------|---------|
-  | `*IN03`        | Display file input | Indicates if the user has pressed the Enter key on the display file |
-  | `*IN04`        | Function key F4 | Indicates if the user has pressed the F4 key on the display file |
+  | Indicator Name | Description         | Purpose                                                                 |
+  |----------------|---------------------|-------------------------------------------------------------------------|
+  | `*IN03`        | Display file input  | Indicates if the user has pressed the Enter key on the display file     |
+  | `*IN04`        | Function key F4     | Indicates if the user has pressed the F4 key on the display file        |
 
   ##### Function Keys 
   This section documents all function keys used in the program
 
   Example: Function Keys
-  | Function Key Name | Description | Purpose |
-  |-------------------|-------------|---------|
-  | `F3`              | Exit        | Exits the program  |
-  | `F4`              | Add         | Opens the add record screen |
+  | Function Key Name | Description | Purpose                              |
+  |-------------------|-------------|--------------------------------------|
+  | `F3`              | Exit        | Exits the program                    |
+  | `F4`              | Add         | Opens the add record screen          |
 
   ##### Constants
   This section documents all constants used in the program, including their values and purposes.
   Example: Constants
-  | Constant Name | Value | Description |
-  |----------------|-------|-------------|
-  | `MAX_ORDERS`   | 9999  | Maximum number of orders allowed |
-  | `DEFAULT_CURRENCY` | 'USD' | Default currency for orders |
+  | Constant Name       | Value | Description                              |
+  |---------------------|-------|------------------------------------------|
+  | `MAX_ORDERS`        | 9999  | Maximum number of orders allowed         |
+  | `DEFAULT_CURRENCY`  | 'USD' | Default currency for orders              |
 
 5. #### Main Execution Flow 
 Describe program logic in ordered steps. This includes initialization, opening files, loading initial data, displaying subfile, handling user actions (Add/Edit/Delete/Search), validating and updating database, printing report (if required), and exiting the program. Provide code snippets for better readability.
 
   ##### Subroutines 
-  If the program contains subroutines, list and explain each subroutine in detail.
+  If the program contains subroutines or sub procedures, list and explain each subroutine and sub procedures in detail.
 
 6. #### Possible Problems with this code
 Identify potential issues that could arise during the execution of the program. Mention any problems that should be noted when discussing the final statement that ends the program.

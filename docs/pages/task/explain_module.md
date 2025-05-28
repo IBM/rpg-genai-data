@@ -28,22 +28,40 @@ Each exported procedure should be documented using the following structure:
   A clear and concise explanation of what the procedure does.
 
   ##### Parameters
-  List all parameters with their directions and brief explanations:
+  List all parameters with their types, usage and brief explanations:
 
   Example:
-  | Parameter Name | Data Type | Description |
-  |----------------|------|--------|
-  | `pOrderId`     | `char(10)` | The unique identifier for the order being processed |
+  | Name           | Type                                 | Usage        | Description                                                  |
+  |----------------|--------------------------------------|--------------|--------------------------------------------------------------|
+  | `customerId`   | Character, length 10                 | Input/Output | The unique identifier for the customer                       |
+  | `orderTotal`   | Packed numeric, length 9, with 2 decimals | Input/Output | The total amount of the order calculated                     |
+  | `currencyCode` | Character, length 3 (`CONST`)        | Input only   | The currency in which the order is placed                    |
+  | `taxRate`      | Packed numeric, length 5, with 2 decimals (`VALUE`) | Input only   | The applicable tax rate for the order                        |
+  | `orderDate`    | Date, *ISO format                    | Input/Output | The date the order was placed                                |
+
+  `Notes:`
+  - If `CONST` or `VALUE` is specified, the parameter is input-only.
+  - If neither `CONST` nor `VALUE` is specified, the parameter is input/output.
 
   ##### Return Value
   List the return value with its direction and brief explanation:
 
   Example:
-  Data Type | Description |
-  |------------|-------------|
-  | `char(10)`      | The status code indicating success or failure of the procedure |
+  | Type                  | Description                                                                 |
+  |-----------------------|-----------------------------------------------------------------------------|
+  | Character, length 10  | Represents the status code indicating success or failure of the procedure   |
 
   #### Inputs/Outputs 
+  
+  1. ##### Variable
+  Describe varables used in the procedure, including their types and purposes. This includes any global variables whose values are modified by the procedure.
+  Example: 
+  | Variable Name | Type                          | Description                                              |
+  |----------------|-------------------------------|----------------------------------------------------------|
+  | `CustomerID`   | Character, length 10           | Unique identifier for the customer                       |
+  | `OrderCount`   | Numeric, length 5, with 0 decimals | Total number of orders processed (no decimals)           |
+
+  2. ##### Files
   Describe how the program reads from and writes to:
   - Data files (e.g., physical/logical files)
   - Device files (e.g., printers, displays)
@@ -51,68 +69,67 @@ Each exported procedure should be documented using the following structure:
 
   Provide in table format with columns for file name, type (data/device/display), and description of how the program interacts with each file.
    Example:
-   | File Name       | Type     | Used | Description |
-   |-----------------|----------|------|-------------|
-   | `CUSTOMER`      | Data     | Input  | Reads customer records for processing |
-   | `ORDER_DISPLAY` | Display  | Input/Output | Displays order details to the user |
-   | `PRINTER_FILE`  | Printer  | Output | Sends reports to the printer |
+  | File Name       | Type     | Used          | Description                                      |
+  |-----------------|----------|---------------|--------------------------------------------------|
+  | `CUSTOMER`      | Data     | Input         | Reads customer records for processing            |
+  | `ORDER_DISPLAY` | Display  | Input/Output  | Displays order details to the user               |
+  | `PRINTER_FILE`  | Printer  | Output        | Sends reports to the printer                     |
+  | `ORDERS`        | Data     | Input/Update  | Reads and updates order information              |
 
-  #### Dependencies 
-  List all external components the program relies on to function correctly. This includes:
-  - Called programs
-  - Service programs (SRVPGMs)
-  - APIs or external libraries
-  - Data areas
-  - Data queues
-  - Any other external modules or systems
-   
-  Provide in table format with columns for component name, type (program/service/API/data area), and description of its role.
+  3. #### Dependencies 
+ 
+  ##### Programs and Services
+  These are external programs or API that the module calls or interacts with to perform specific tasks.
   Example:
-  | Component Name  | Type     | Description |
-  |-----------------|----------|-------------|
-  | `CALC_SERVICE`   | Service  | Performs complex calculations for order processing |
-  | `DATA_AREA_1`    | Data Area| Stores configuration settings for the program |
-  | `ORDER_API`      | API      | Provides access to order management functions |
+  | Component Name        | Type              | Description                                                                 |
+  |-----------------------|-------------------|-----------------------------------------------------------------------------|
+  | `LIB1/ORDER_API`      | API               | Offers a standardized interface to access and manage order-related data.    |
+  | `LIB1/VALIDATION_PGM` | Called Program    | Validates input fields such as customer ID, order quantity, and product codes before processing. |
 
-  ##### Limitations & Assumptions
+  ##### Data and Messaging Components
+  These include data areas, data queues, and other that store or transmit data used by the program.
+  Example:
+  | Component Name        | Type       | Description                                                                 |
+  |-----------------------|------------|-----------------------------------------------------------------------------|
+  | `LIB1/DATA_AREA_1`    | Data Area  | Stores runtime configuration values such as environment flags or thresholds. |
+  | `LIB1/MSG_QUEUE_1`    | Data Queue | Used to send and receive asynchronous messages between batch and interactive jobs. |
+  | `LIB1/CONFIG_SYS`     | Data Area  | Holds system-wide settings like default language, currency, or region.      |
+  | `*LIBL/SALESERRS`     | Message file  | Used to retrieve error and validation messages. Assigned to `@MSGFILE`.     |
+
+  4. ##### Limitations & Assumptions
   List any known assumptions or restrictions:
   -  Maximum limits
   -  Required preconditions
   -  Unsupported input types
 
-  ##### Usage Example:
+  5. ##### Usage Example:
   Provide a code snippet that demonstrates how to call the procedure or program, including parameter setup and the call itself. This should be a complete and realistic example that users can follow as a reference.
 
   This section should illustrate all relevant aspects of calling the procedure, including:
 
-  1. The `/COPY` Statement
-      - Show how the caller includes the prototype using a `/COPY` directive (if applicable).
+ 1. The `/COPY` Statement
+   - Show how the caller includes the prototype using a `/COPY` directive. 
+   - This is always applicable for RPGLE examples with `scope=module`, as the caller is expected to reside in a different module.
 
   2. Parameter Setup
-    - Define and initialize all input and output parameters required for the call.
+    - Define and initialize all input, output parameters and any return values required for the call.
     - Include declarations for any necessary constants, variables, or data structures.
 
   3. The Procedure Call
-    - Demonstrate the call using:
-      - `CALLP` if using a procedure with a prototype.
     - If the procedure returns a value, show how the caller captures and uses that return value.
     - If parameters are modified, show how the caller accesses the updated values.
 
-  4. When No Follow-Up Coding is Required
-    - If the procedure performs an action with side effects (e.g., writing to a file, logging), and there is no need for the caller to process return values or modified parameters, the example may omit further usage.
-    - In such cases, document only the call and any required setup.
-
   example:
   ```rpgle
-      /COPY QRPGLESRC,MYPROTOTYPE
+       /COPY QRPGLESRC,MYPROTOTYPE
 
-      DCL-S customerId   CHAR(10)   INZ('CUST001');
-      DCL-S orderTotal   PACKED(9:2);
-      DCL-S statusCode   CHAR(2);
+       DCL-S customerId   CHAR(10)   INZ('CUST001');
+       DCL-S orderTotal   PACKED(9:2);
+       DCL-S statusCode   CHAR(2);
 
-      CALLP CalculateOrderTotal(customerId : orderTotal : statusCode);
+       CalculateOrderTotal(customerId : orderTotal : statusCode);
 
-      // After call, orderTotal and statusCode will have updated values
+       // After call, orderTotal and statusCode will have updated values
   ```
 
 Repeat the above `procedure section` for `each additional exported procedure` in the module.
@@ -122,6 +139,7 @@ Repeat the above `procedure section` for `each additional exported procedure` in
 The how_output part explains how the module works internally, covering the full execution flow and logic used at each step. It includes details on control specifications, file declarations, global variables, constants, indicators, field mapping, subroutines, error handling, and the logic of each procedure.
 
 `Important`: Each procedure must be documented separately.
+
 1. #### Purpose
 Provide a short, high-level summary describing the overall purpose of the `module`.
 
@@ -133,11 +151,11 @@ List all declared files from the F-specs with relevant keywords. This includes d
 
   Provide in table format with columns for file name, type (data/device/display), and description of how the program interacts with each file.
   Example:
-  | File Name       | Type     | Used | Description |
-  |-----------------|----------|------|-------------|
-  | `CUSTOMER`      | Data     | Input  | Reads customer records for processing |
-  | `ORDER_DISPLAY` | Display  | Input/Output | Displays order details to the user |
-  | `PRINTER_FILE`  | Printer  | Output | Sends reports to the printer |
+  | File Name       | Type     | Used         | Description                                      |
+  |-----------------|----------|--------------|--------------------------------------------------|
+  | `CUSTOMER`      | Data     | Input        | Reads customer records for processing            |
+  | `ORDER_DISPLAY` | Display  | Input/Output | Displays order details to the user               |
+  | `PRINTER_FILE`  | Printer  | Output       | Sends formatted reports to the printer           |
 
 3. #### Global Components
 This section includes all global elements used in the program, such as variables, data structures, arrays, constants, and special keywords (e.g., LIKE, LIKEDS, CONST, etc.) used in declarations. It should be organized into the following subsections for clarity
@@ -146,32 +164,34 @@ This section includes all global elements used in the program, such as variables
   This section documents all variables used in the program, including their types and purposes.
 
   Example: Variables
-  | Variable Name | Type    | Description |
-  |----------------|--------|-------------|
-  | `CustomerID`   | 10 Length Character   | Unique identifier for the customer |
-  | `OrderCount`   | 5 numeric no decimals | Total number of orders processed |
+  | Variable Name | Type                          | Description                                              |
+  |----------------|-------------------------------|----------------------------------------------------------|
+  | `CustomerID`   | Character, length 10           | Unique identifier for the customer                       |
+  | `OrderCount`   | Numeric, length 5, with 0 decimals | Total number of orders processed (no decimals)           |
 
   - At end of this you can explain any specific keywords used in the variable declarations, such as `LIKE`, `INZ`, or `N` data type.
 
   ##### Data Structures
-  This section documents all data structures used in the program, including their subfields and purposes.
 
-  Provide the subfields in a table format with columns for subfield name, type, and description.
-  Example: Data Structures
-  Subfield Name | Type    | Description |
-  |----------------|--------|-------------|
-  | `OrderDetail`   | 10 Length Character   | Details of the order |
-  | `OrderAmount`   | 7 numeric 2 decimals | Amount of the order |
+  This section documents all data structures used in the program, including their subfields, purposes, and any notable characteristics such as whether the structure is `qualified`, an `array`, or has other special attributes.
 
-  - At end of this you can explain any specific keywords used in the variable declarations, such as `LIKE`, `INZ`, or `N` data type.
+  Each data structure is presented with a table of its subfields, including:
+
+  Example: `OrderHeader` 
+  | Subfield Name | Type                                 | Description                                                  |
+  |----------------|--------------------------------------|--------------------------------------------------------------|
+  | `OrderID`      | Character, length 10                 | Unique identifier for the order                              |
+  | `OrderDate`    | Date, *ISO format                    | Date when the order was placed                               |
+  | `TotalAmount`  | Packed numeric, length 9, 2 decimals | Total amount for the order                                   |
+  | `Quantities`   | Numeric array, length 5, dimension 50| Quantity of each item in the order                           |
+
+  - At end of this you can explain any specific keywords used in the data structure declarations, such as `LIKEDS`, `QUALIFIED`, or `INZ`.
 
   ##### Arrays 
   This section documents all arrays used in the program, including their dimensions and purposes.
-
-  Example: Arrays
-  | Array Name | Dimensions | Description |
-  |-------------|------------|-------------|
-  | `OrderArray` | 1000 elements | Array to hold order details |
+  | Array Name     | Data Type           | Dimensions & Description                          |
+  |----------------|---------------------|---------------------------------------------------|
+  | `MeetingDates` | Date, *ISO format   | Array with 10 elements; stores available meeting dates |
 
   - At end of this you can explain any specific keywords used in the array declarations, such as `DIM`, `LIKE`, or `INZ`.
 
@@ -187,35 +207,42 @@ This section includes all global elements used in the program, such as variables
   -  Indicators defined as normal variables (e.g., `DCL-S flag IND`) used within program logic but not tied to display/printer files.
 
   Example: Indicators
-  | Indicator Name | Description | Purpose |
-  |----------------|-------------|---------|
-  | `*IN03`        | Display file input | Indicates if the user has pressed the Enter key on the display file |
-  | `*IN04`        | Function key F4 | Indicates if the user has pressed the F4 key on the display file |
+  | Indicator Name | Description         | Purpose                                                                 |
+  |----------------|---------------------|-------------------------------------------------------------------------|
+  | `*IN03`        | Display file input  | Indicates if the user has pressed the Enter key on the display file     |
+  | `*IN04`        | Function key F4     | Indicates if the user has pressed the F4 key on the display file        |
 
   ##### Function Keys 
   This section documents all function keys used in the program
 
   Example: Function Keys
-  | Function Key Name | Description | Purpose |
-  |-------------------|-------------|---------|
-  | `F3`              | Exit        | Exits the program  |
-  | `F4`              | Add         | Opens the add record screen |
+  | Function Key Name | Description | Purpose                              |
+  |-------------------|-------------|--------------------------------------|
+  | `F3`              | Exit        | Exits the program                    |
+  | `F4`              | Add         | Opens the add record screen          |
 
   ##### Constants
   This section documents all constants used in the program, including their values and purposes.
   Example: Constants
-  | Constant Name | Value | Description |
-  |----------------|-------|-------------|
-  | `MAX_ORDERS`   | 9999  | Maximum number of orders allowed |
-  | `DEFAULT_CURRENCY` | 'USD' | Default currency for orders |
+  | Constant Name       | Value | Description                              |
+  |---------------------|-------|------------------------------------------|
+  | `MAX_ORDERS`        | 9999  | Maximum number of orders allowed         |
+  | `DEFAULT_CURRENCY`  | 'USD' | Default currency for orders              |
 
 5. #### Procedures 
 Provide a step-by-step description of the logic for each procedure.
 
-  - `Definitions`: This section covers all declarations and setup required before the main logic of the procedure begins. It includes the definition of local variables, data structures, and any constants or initial values needed to support the procedure’s execution
-  - `Main Logic`: Explain the core logic of the procedure, detailing the steps taken to achieve the procedure's purpose.
-  - `Possible Problems with this code`: Identify potential issues that could arise during the execution of the procedure.
-  - `Possible improvements to this code`: Identify areas where the code could be enhanced for better performance, readability, or functionality. This may include suggestions for error handling, optimization techniques, or alternative approaches to achieve the same result.
+  ##### Definitions
+  This section covers all declarations and setup required before the main logic of the procedure begins. It includes the definition of local variables, data structures, and any constants or initial values needed to support the procedure’s execution
+
+  ##### Main Logic
+  This section explains the core logic of the procedure, outlining the key steps taken to fulfill its purpose. It should also include a list of any subroutines or internal procedures used, along with a brief description of each subroutine. 
+
+  ##### Possible Problems with this code 
+  Identify potential issues that could arise during the execution of the procedure.
+
+  ##### Possible improvements to this code
+  Identify areas where the code could be enhanced for better performance, readability, or functionality. This may include suggestions for error handling, optimization techniques, or alternative approaches to achieve the same result.
 
   `Important`
     - A module has multiple procedures with extensive lines of code, a brief outline of each procedure would be sufficient without any code snippets. However, if a module has only one or two procedures, it would be beneficial to provide a detailed explanation of each line.

@@ -90,6 +90,15 @@ Provide a short insight into the purpose of the code for the subroutine. This sh
 
 2. #### Global Components 
 This section lists the global elements used by the subroutine, such as variables and files. 
+  
+  ##### Variables 
+  This section documents all variables used in the subroutine, including their types and purposes.
+
+  Example: Variables
+  | Variable Name | Type                          | Description                                              |
+  |----------------|-------------------------------|----------------------------------------------------------|
+  | `CustomerID`   | Character, length 10           | Unique identifier for the customer                       |
+  | `OrderCount`   | Numeric, length 5, with 0 decimals | Total number of orders processed (no decimals)           |
 
   ##### Indicators
   This section documents all indicators used for display/printer control, based on system conventions.

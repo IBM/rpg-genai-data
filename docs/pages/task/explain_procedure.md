@@ -3,6 +3,12 @@
 To simulate selection procedure from a source file, the following syntax is used to avoid duplicating the entire procedure source and context.
 This corresponds to the metatdata.txt [`scope`](/pages/metadata.txt###scope) of  `proc`.
 
+# Imporant:
+
+- All the free-form snippets must be indented by at least 7 spaces before the code.
+- All fixed-form snippets must have exactly 5 spaces before the specification type.
+- If the rpgle to start the snippet is indented, the 5 or 7 spaces must start at the same indentation as the rpgle line.
+
 The directory structure for procedure look like:
 
 - procedure\
@@ -20,70 +26,71 @@ The Output Section is designed to provide a comprehensive explanation of the RPG
 
 ## api_output
 
-The `api_output` part provides a high-level summary of the procedure  purpose and behavior, detailing the parameters passed to and from the procedure, expected inputs and outputs, dependencies, side effects or limitations, and optional usage examples.
+The `api_output` part provides a high-level summary of the procedure  purpose and behavior, detailing the parameters passed to and from the procedure, expected inputs and outputs, dependencies, limitations, and optional usage examples.
 
 1. #### Purpose
 Provide a short insight into the purpose of the code for the procedure. 
 
 2. #### Parameters
 List all entry parameters accepted by the code, specifying whether each one is an input.
-  Example:
-  | Parameter Name | Data Type           |Usage      | Description                                                  |
-  |----------------|---------------------|------------|--------------------------------------------------------------|
-  | `pOrderId`     | Character, length 10 | Input only | The unique identifier for the order being processed          |
+Example:
+|   | Name          | Usage        | Type           | Description                                         | Attributes                |
+|---|---------------|--------------|----------------|-----------------------------------------------------|---------------------------|
+| 1 | `CustomerID`  | Input        | char(10)       | Unique identifier for the customer                  | *NOPASS                   |
+| 2 | `OrderCount`  | Output       | int(5)         | Total number of orders processed                    | INZ(0) *OMIT              |
+| 3 | `info`        | Input        | Data structure | Data structure containing order details             | DIM(10) CONST             |
+|   | `info.number` |              | int(10)        | Number of orders processed in the current session   |                           |
+|   | `info.name`   |              | char(20)       | Name of the customer associated with the order      | VARYING                   |
 
 3. #### Return Values
-List the return value accepted by the procedure, specifying whether it is an output
-  Example:
-  | Data Type           | Description                                                             |
-  |---------------------|-------------------------------------------------------------------------|
-  | Character, length 10 | The status code indicating success or failure of the procedure          |
+List the return value accepted by the procedure
+Example:
+| Data Type   | Description                                                             |
+|-------------|-------------------------------------------------------------------------|
+| `char(10)`    | The status code indicating success or failure of the procedure          |
 
 4. #### Inputs/Outputs 
   
-##### Variable
+##### Variable I/O
 Describe varables used in the procedure, including their types and purposes. This includes any global variables are using `EXPORT` or `IMPORT` keywords.
-Example: 
-| Variable Name | Type                          | Description                                              |
-|----------------|-------------------------------|----------------------------------------------------------|
-| `CustomerID`   | Character, length 10           | Unique identifier for the customer                       |
-| `OrderCount`   | Numeric, length 5, with 0 decimals | Total number of orders processed (no decimals)           |
+Example:  
+| Name           | Data Type            | Usage        | Description                                 | Attributes |
+|----------------|--------------------- |-------------|---------------------------------------------|------------|
+| `customerId`   | char(10)             | Input       | The unique identifier for the customer      |            |
+| `orderTotal`   | packed(9:2), 5 bytes | Output      | The total amount of the order calculated    | INZ(0)     |
+| `currencyCode` | char(3)              | Input       | The currency in which the order is placed   | CONST      |
 
-##### Files
+##### Files I/O
 Describe how the procedure reads from and writes to:
 - Data files (e.g., physical/logical files)
 - Device files (e.g., printers, displays)
 - Display files (for user interaction)
+- IFS files
 
 Provide in table format with columns for file name, type (data/device/display), and description of how the procedure interacts with each file.
-  Example:
+Example:
 | File Name       | Type     | Used          | Description                                      |
 |-----------------|----------|---------------|--------------------------------------------------|
 | `CUSTOMER`      | Data     | Input         | Reads customer records for processing            |
 | `ORDER_DISPLAY` | Display  | Input/Output  | Displays order details to the user               |
 | `PRINTER_FILE`  | Printer  | Output        | Sends reports to the printer                     |
 | `ORDERS`        | Data     | Input/Update  | Reads and updates order information              |
+| `LOG_FILE`      | IFS      | Output        | Logs program execution details to the IFS        |
 
 5. #### Dependencies 
- 
-##### Programs and Services
-These are external programs or API that the procedure calls or interacts with to perform specific tasks.
-Example:
-| Component Name        | Type              | Description                                                                 |
+This section lists all external dependencies required by the program 
+- Include: Only programs, service programs, data areas, data queues, and message files that the program calls or interacts with directly.
+- Exclude: System APIs and any files already described in the File I/O section.
+
+Example: 
+| Object Name           | Object Type        | Description                                                                 |
 |-----------------------|-------------------|-----------------------------------------------------------------------------|
-| `LIB1/ORDER_API`      | API               | Offers a standardized interface to access and manage order-related data.    |
 | `LIB1/VALIDATION_PGM` | Called Program    | Validates input fields such as customer ID, order quantity, and product codes before processing. |
-
-##### Data and Messaging Components
-These include data areas, data queues, and other that store or transmit data used by the procedure.
-Example:
-| Component Name        | Type       | Description                                                                 |
-|-----------------------|------------|-----------------------------------------------------------------------------|
-| `LIB1/DATA_AREA_1`    | Data Area  | Stores runtime configuration values such as environment flags or thresholds. |
-| `LIB1/MSG_QUEUE_1`    | Data Queue | Used to send and receive asynchronous messages between batch and interactive jobs. |
-| `LIB1/CONFIG_SYS`     | Data Area  | Holds system-wide settings like default language, currency, or region.      |
-| `*LIBL/SALESERRS`     | Message file  | Used to retrieve error and validation messages. Assigned to `@MSGFILE`.     |
-
+| `LIB2/ORDER_SRVPGM`   | Service Program   | Provides business logic for order calculations and status updates.           |
+| `LIB1/DATA_AREA_1`    | Data Area         | Stores runtime configuration values such as environment flags or thresholds. |
+| `LIB1/MSG_QUEUE_1`    | Data Queue        | Used to send and receive asynchronous messages between batch and interactive jobs. |
+| `SALESERRS`           | Message File      | Used to retrieve error and validation messages. Assigned to `@MSGFILE`.     |
+ 
 6. #### Side Effects 
 Mention side effects which are not covered by the inputs and outputs, such as:
   - Data area updates
@@ -127,92 +134,17 @@ The `how_output` section explains how the specific procedure  works internally, 
 1. #### Purpose
 Provide a short insight into the purpose of the code for the procedure. 
 
-3. #### Global Components
-This section includes all global elements used in the procedure, such as variables, data structures, arrays, constants, and special keywords (e.g., LIKE, LIKEDS, CONST, etc.) used in declarations. It should be organized into the following subsections for clarity
+2. #### Global Components
 
-  ##### Variables 
-  This section documents all variables used in the procedure, including their types and purposes.
+The explanation of global definitions can be found [here](/pages/task/explain_global_definitions.md).
 
-  Example: Variables
-  | Variable Name | Type                          | Description                                              |
-  |----------------|-------------------------------|----------------------------------------------------------|
-  | `CustomerID`   | Character, length 10           | Unique identifier for the customer                       |
-  | `OrderCount`   | Numeric, length 5, with 0 decimals | Total number of orders processed (no decimals)           |
-
-  - At end of this you can explain any specific keywords used in the variable declarations, such as `LIKE`, `INZ`, or `N` data type.
-
-  ##### Data Structures
-
-  This section documents all data structures used in the procedure, including their subfields, purposes, and any notable characteristics such as whether the structure is `qualified`, an `array`, or has other special attributes.
-
-  Each data structure is presented with a table of its subfields, including:
-
-  Example: `OrderHeader` 
-  | Subfield Name | Type                                 | Description                                                  |
-  |----------------|--------------------------------------|--------------------------------------------------------------|
-  | `OrderID`      | Character, length 10                 | Unique identifier for the order                              |
-  | `OrderDate`    | Date, *ISO format                    | Date when the order was placed                               |
-  | `TotalAmount`  | Packed numeric, length 9, 2 decimals | Total amount for the order                                   |
-  | `Quantities`   | Numeric array, length 5, dimension 50| Quantity of each item in the order                           |
-
-  - At end of this you can explain any specific keywords used in the data structure declarations, such as `LIKEDS`, `QUALIFIED`, or `INZ`.
-
-  ##### Arrays 
-  This section documents all arrays used in the procedure, including their dimensions and purposes.
-  | Array Name     | Data Type           | Dimensions & Description                          |
-  |----------------|---------------------|---------------------------------------------------|
-  | `MeetingDates` | Date, *ISO format   | Array with 10 elements; stores available meeting dates |
-
-  - At end of this you can explain any specific keywords used in the array declarations, such as `DIM`, `LIKE`, or `INZ`.
-
-  ##### Indicators
-  This section documents all indicators used for display/printer control, based on system conventions.
-
-  `Include:`
-  -  `*INxx` Indicators: Standard RPG indicators (e.g., `*IN03`) or fixed-format numeric indicators controlling logic or UI.
-  -  Indicators in `INDDS` Structures: Subfields defined inside indicator data structures linked to files using `INDARA`. These control function keys, display flags, etc.
-  -  Indicators in Externally Described DS (without `INDARA`): Subfields like `IN01`, `IN02` representing indicators tied to display/printer files.
-
-  `Exclude:`
-  -  Indicators defined as normal variables (e.g., `DCL-S flag IND`) used within procedure logic but not tied to display/printer files.
-
-  Example: Indicators
-  | Indicator Name | Description         | Purpose                                                                 |
-  |----------------|---------------------|-------------------------------------------------------------------------|
-  | `*IN03`        | Display file input  | Indicates if the user has pressed the Enter key on the display file     |
-  | `*IN04`        | Function key F4     | Indicates if the user has pressed the F4 key on the display file        |
-
-  Example: Indicator Data Structure `myIndds` for Display File `MYDSPF`
-  | Subfield Name | Indicator Number | Description                        |
-  | ------------- | ---------------- | ---------------------------------- |
-  | `exit`        | 03               | Indicates that the user pressed F3 |
-  | `sfl_clear`   | 55               | Used to clear the subfile          |
-  | `error`       | 99               | Used to show error messages        |
-  
-  ##### Function Keys 
-  This section documents all function keys used in the procedure
-
-  Example: Function Keys
-  | Function Key Name | Description | Purpose                              |
-  |-------------------|-------------|--------------------------------------|
-  | `F3`              | Exit        | Exits the program                    |
-  | `F4`              | Add         | Opens the add record screen          |
-
-  ##### Constants
-  This section documents all constants used in the procedure, including their values and purposes.
-  Example: Constants
-  | Constant Name       | Value | Description                              |
-  |---------------------|-------|------------------------------------------|
-  | `MAX_ORDERS`        | 9999  | Maximum number of orders allowed         |
-  | `DEFAULT_CURRENCY`  | 'USD' | Default currency for orders              |
-
-3. #### Main Execution Flow 
+4. #### Main Execution Flow 
 This section explains the core logic of the procedure, outlining the key steps taken to fulfill its purpose. It should also include a list of any subroutines or internal procedures used, along with a brief description of each subroutine.
 
-4. #### Possible Problems with this Code
+5. #### Possible Problems with this Code
 Identify potential issues that could arise during the execution of the procedure. Mention any problems that should be noted when discussing the final statement that ends the procedure .
 
-5. #### Possible Improvements to this Code
+6. #### Possible Improvements to this Code
 Identify areas where the code could be enhanced for better performance, readability, or functionality. This may include suggestions for error handling, optimization techniques, or alternative approaches to achieve the same result.
 
 ## sum_output

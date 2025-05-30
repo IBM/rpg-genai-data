@@ -3,6 +3,12 @@
 To simulate selection subroutine from a source file, the following syntax is used to avoid duplicating the entire program source and context.
 This corresponds to the metatdata.txt [`scope`](/pages/metadata.txt###scope) of  `subr`.
 
+# Imporant:
+
+- All the free-form snippets must be indented by at least 7 spaces before the code.
+- All fixed-form snippets must have exactly 5 spaces before the specification type.
+- If the rpgle to start the snippet is indented, the 5 or 7 spaces must start at the same indentation as the rpgle line.
+
 The directory structure for subroutine look like:
 
 - procedure\
@@ -20,20 +26,21 @@ The Output Section is designed to provide a comprehensive explanation of the RPG
 
 ## api_output
 
-The `api_output` part provides a high-level summary of the subroutine purpose and behavior, detailing the parameters passed to and from the procedure, expected inputs and outputs, dependencies, side effects or limitations, and optional usage examples.
+The `api_output` part provides a high-level summary of the subroutine purpose and behavior, detailing the parameters passed to and from the procedure, expected inputs and outputs, dependencies, limitations, and optional usage examples.
 
 1. #### Purpose
 Provide a short insight into the purpose of the code for the subroutine. This should focus on the business logic or functional role of the code.
 
-2. #### Variable Input/Output 
+2. #### Variable I/O
 List all input and output variables used by the code, specifying whether each one is an input, output, or both.
-  Example:
-  | Parameter Name | Usage      | Type                | Description                                                             |
-  |----------------|------------|---------------------|-------------------------------------------------------------------------|
-  | `pOrderId`     | Input      | Character, length 10 | The unique identifier for the order being processed                     |
-  | `pStatus`      | Output     | Character, length 10 | The status code indicating success or failure of the procedure          |
+Example:  
+| Name           | Data Type            | Usage        | Description                                 | Attributes |
+|----------------|--------------------- |-------------|---------------------------------------------|------------|
+| `customerId`   | char(10)             | Input       | The unique identifier for the customer      |            |
+| `orderTotal`   | packed(9:2), 5 bytes | Output      | The total amount of the order calculated    | INZ(0)     |
+| `currencyCode` | char(3)              | Input       | The currency in which the order is placed   | CONST      |
 
-3. #### File Inputs/Outputs 
+3. #### File I/O 
 Describe how the subroutine reads from and writes to:
   - Data files (e.g., physical/logical files)
   - Device files (e.g., printers, displays)
@@ -49,37 +56,26 @@ Describe how the subroutine reads from and writes to:
   | `ORDERS`        | Data file     | Input/Update  | Reads and updates order information          |
 
 4. #### Dependencies 
+This section lists all external dependencies required by the program 
+- Include: Only programs, service programs, data areas, data queues, and message files that the program calls or interacts with directly.
+- Exclude: System APIs and any files already described in the File I/O section.
 
-##### Programs and Services
-These are external programs or API that the subrouite calls or interacts with to perform specific tasks.
-Example:
-| Component Name        | Type              | Description                                                                 |
+Example: 
+| Object Name           | Object Type        | Description                                                                 |
 |-----------------------|-------------------|-----------------------------------------------------------------------------|
-| `LIB1/ORDER_API`      | API               | Offers a standardized interface to access and manage order-related data.    |
 | `LIB1/VALIDATION_PGM` | Called Program    | Validates input fields such as customer ID, order quantity, and product codes before processing. |
+| `LIB2/ORDER_SRVPGM`   | Service Program   | Provides business logic for order calculations and status updates.           |
+| `LIB1/DATA_AREA_1`    | Data Area         | Stores runtime configuration values such as environment flags or thresholds. |
+| `LIB1/MSG_QUEUE_1`    | Data Queue        | Used to send and receive asynchronous messages between batch and interactive jobs. |
+| `SALESERRS`           | Message File      | Used to retrieve error and validation messages. Assigned to `@MSGFILE`.     |
 
-##### Data and Messaging Components
-These include data areas, data queues, and other that store or transmit data used by the subroutine.
-Example:
-| Component Name        | Type       | Description                                                                 |
-|-----------------------|------------|-----------------------------------------------------------------------------|
-| `LIB1/DATA_AREA_1`    | Data Area  | Stores runtime configuration values such as environment flags or thresholds. |
-| `LIB1/MSG_QUEUE_1`    | Data Queue | Used to send and receive asynchronous messages between batch and interactive jobs. |
-| `LIB1/CONFIG_SYS`     | Data Area  | Holds system-wide settings like default language, currency, or region.      |
-| `*LIBL/SALESERRS`     | Message file  | Used to retrieve error and validation messages. Assigned to `@MSGFILE`.     |
-
-5. #### Limitations & Assumptions
-Mention any assumptions the code makes, or scenarios where it may fail or behave incorrectly.
-  - Example: The caller cannot update records it is only input. This means the subroutine is designed to read data but not modify it.
-      
 6. #### Usage Example
 Provide a code snippet showing how the subroutine is called within the program. 
 Example:
 ```rpgle
-     D InputVar        S             10A   INZ('Test')  
-     D Indicator       S              N    INZ(*OFF)    
-
-     C                   EXSR      MySubroutine         
+       InputVar = 'abc';
+       EXSR MySubroutine;       
+       If OutputVar > 5;      
 ``` 
 
 ## how_output
@@ -88,42 +84,9 @@ The `how_output` section explains how the specific subroutine works internally, 
 1. #### Purpose
 Provide a short insight into the purpose of the code for the subroutine. This should focus on the business logic or functional role of the code.
 
-2. #### Global Components 
-This section lists the global elements used by the subroutine, such as variables and files. 
-  
-  ##### Variables 
-  This section documents all variables used in the subroutine, including their types and purposes.
+2. #### Global Definitions 
 
-  Example: Variables
-  | Variable Name | Type                          | Description                                              |
-  |----------------|-------------------------------|----------------------------------------------------------|
-  | `CustomerID`   | Character, length 10           | Unique identifier for the customer                       |
-  | `OrderCount`   | Numeric, length 5, with 0 decimals | Total number of orders processed (no decimals)           |
-
-  ##### Indicators
-  This section documents all indicators used for display/printer control, based on system conventions.
-
-  `Include:`
-  -  `*INxx` Indicators: Standard RPG indicators (e.g., `*IN03`) or fixed-format numeric indicators controlling logic or UI.
-  -  Indicators in `INDDS` Structures: Subfields defined inside indicator data structures linked to files using `INDARA`. These control function keys, display flags, etc.
-  -  Indicators in Externally Described DS (without `INDARA`): Subfields like `IN01`, `IN02` representing indicators tied to display/printer files.
-
-  `Exclude:`
-  -  Indicators defined as normal variables (e.g., `DCL-S flag IND`) used within subroutine logic but not tied to display/printer files.
-
-  Example: Indicators
-  | Indicator Name | Description         | Purpose                                                                 |
-  |----------------|---------------------|-------------------------------------------------------------------------|
-  | `*IN03`        | Display file input  | Indicates if the user has pressed the Enter key on the display file     |
-  | `*IN04`        | Function key F4     | Indicates if the user has pressed the F4 key on the display file        |
-
-  Example: Indicator Data Structure `myIndds` for Display File `MYDSPF`
-
-  | Subfield Name | Indicator Number | Description                        |
-  | ------------- | ---------------- | ---------------------------------- |
-  | `exit`        | 03               | Indicates that the user pressed F3 |
-  | `sfl_clear`   | 55               | Used to clear the subfile          |
-  | `error`       | 99               | Used to show error messages        |
+The explanation of global definitions can be found [here](/pages/task/explain_global_definitions.md).
 
 3. #### Main Execution Flow
 Describe the subroutine logic in ordered steps. This includes a detailed explanation of each line, describing what it does and how it works.

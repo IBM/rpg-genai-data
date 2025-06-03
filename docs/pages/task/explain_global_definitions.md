@@ -1,4 +1,4 @@
-#### Golbal Definitions
+#### Global Definitions
 This section includes all global elements used in the module, such as variables, data structures, constants. It should be organized into the following subsections for clarity
 
 ##### Variables 
@@ -23,7 +23,7 @@ Example: Variables
 
 This section documents all data structures used in the module, program or procedure, including their subfields, purposes, and any notable characteristics such as whether the structure is `Program Status`, or `Qualified Data Structures`. Each data structure should be described in a table format with columns for Subfield Name, Type, and Description.
 
-##### Genral Data Structures
+##### General Data Structures
 
 Its general data structures that are used in the module, program or procedure.  Each data structure should be described with its subfields and their types.
 

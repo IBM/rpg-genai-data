@@ -19,7 +19,7 @@ Example:
 |   | Name          | Usage        | Data Type      | Description                                         | Attributes                |
 |---|---------------|--------------|----------------|-----------------------------------------------------|---------------------------|
 | 1 | `CustomerID`  | Input        | char(10)       | Unique identifier for the customer                  | *OMIT                     |
-| 2 | `info`        | Input        | Data structure | Data structure array containing order details       | DIM(10) CONST             |
+| 2 | `info`        | Input        | Data structure, LIKEDS(info_t) | Data structure array containing order details       | DIM(10) CONST             |
 |   | `info.number` |              | int(10)        | Number of orders processed in the current session   |                           |
 |   | `info.name`   |              | varchar(20)       | Name of the customer associated with the order   |                           |
 | 3 | `OrderCount`  | Output       | int(5)         | Total number of orders processed                    | *NOPASS                   |

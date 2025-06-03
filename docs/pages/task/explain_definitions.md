@@ -37,6 +37,8 @@ For example
 
 ##### Fixed-form keywords that affect the data type
 
+**Note** : These fixed-form-only keywords **do not** go into the `Attributes` column.
+
 | Fixed-form type | Keyword | Free-form type |
 |------|-------|------|
 | 10A | VARYING | varchar(10) |

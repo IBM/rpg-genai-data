@@ -1,44 +1,36 @@
 #### Global Definitions
 This section includes all global elements used in the module, such as variables, data structures, constants. It should be organized into the following subsections for clarity
 
+See [How to explain data types](/pages/explain_definitions.md) for detailed instructions for the Type and possible Attributes columns for variable, subfields, and parameters.
+
 ##### Variables 
 This section documents all variables used in the program, module, or procedure. It should be described in tabular format with columns for Name, Data Type, Description, and Attributes.
+Only include the Attributes column if necessary.
 
 Example: Variables
 | Name           | Data Type               | Description                                 | Attributes         |
 |----------------|------------------------ |---------------------------------------------|--------------------|
 | `customerId`   | char(10)                | The unique identifier for the customer      |                    |
-| `orderTotal`   | packed(9:2), 5 bytes    | The total amount of the order calculated    | INZ(0)             |
-| `currencyCode` | char(3)                 | The currency in which the order is placed   | CONST              |
-| `taxRate`      | zoned(5:2), 5 bytes     | The applicable tax rate for the order       | INZ(5.00)          |
-| `orderDate`    | date(*ISO)              | The date the order was placed               |                    |
-| `status`       | char(1)                 | Status of the order                         | INZ('A')           |
-| `totals`       | packed(7:2)             | Array of totals                             | DIM(12)            |
-| `config`       | char(20)                | Configuration value                         |                    |
-| `notes`        | varchar(100)            | Optional notes                              | VARYING            |
-| `discount`     | packed(5:2)             | Discount applied to the order               | INZ(0)             |
-| `customerId`   | bindec(4:2), 2 bytes    | The unique identifier for the customer      |                    |
 
 ##### Data Structures
 
-This section documents all data structures used in the module, program or procedure, including their subfields, purposes, and any notable characteristics such as whether the structure is `Program Status`, or `Qualified Data Structures`. Each data structure should be described in a table format with columns for Subfield Name, Type, and Description.
+This section documents all data structures used in the module, program or procedure, including their purposes, and any notable characteristics such as whether the structure is a `Program Status Data Structure`, or a `qualified data structure. The subfields of each data structure should be described in a table format with columns for `Subfield Name`, `Type`, `Description`, and possibly `Attributes`. 
 
-##### General Data Structures
+Qualified data structures should have the subfields listed in the fully-qualified form. For example, if qualified data structure `DS` has a subfield `SUBF1`, then the subfield should be listed as `ds.subf1`.
 
-Its general data structures that are used in the module, program or procedure.  Each data structure should be described with its subfields and their types.
+Here are some examples of data structures
 
-Example: `OrderHeader`  
-| Name           | Data Type               | Description                                  | Attributes |
+##### Data structure `OrderHeader`  
+
+| Subfield mame           | Data Type               | Description                                  | Attributes |
 |----------------|------------------------ |----------------------------------------------|------------|
 | `OrderID`      | char(10)                | Unique identifier for the order              |            |
 | `OrderDate`    | date(*ISO)              | Date when the order was placed               |            |
 | `TotalAmount`  | packed(9:2), 5 bytes    | Total amount for the order                   |            |
 | `Quantities`   | int(5), 4 bytes         | Quantity of each item in the order           | DIM(50)    |
 
-##### Program Status Data Structure
+##### Program Status Data Structure `myPsds`
 The Program Status Data Structure (PSDS) is a special data structure in RPG that provides information about the program's execution status, such as the program name, user profile, job information, error messages, and other runtime details. It is automatically updated by the system and can be used for error handling, auditing, and diagnostics.
-
-Example: 
 
 | Name            | Data Type     | Description                                         |
 |-----------------|--------------|-----------------------------------------------------|
@@ -55,21 +47,19 @@ Example:
 | `ExceptionId`   | char(4)      | Exception/error code                                |
 
 
-##### Qualified Data Structures
-
-This section documents all qualified data structures used in the module, program, or procedure.
+##### Qualified data structure `myQualifiedDs`
 
 The following qualified data structure is an array with 10 elements, used to store order header information. Each element contains details about an order, including items, requirements, and address information.
 
 ```rpgle
-dcl-ds order qualified;
+dcl-ds order qualified dim(10);
    num_items int(10);
    dcl-ds items dim(100);
       id char(10);
       price packed(7 : 2);
       quantity int(10);
       num_requirements int(10);
-      dcl-ds requirements dim(10);
+      dcl-ds requirements dim(3);
          type char(10);
          detail varchar(100);
       end-ds;
@@ -80,34 +70,22 @@ dcl-ds order qualified;
    end-ds;
 end-ds;
 ```
-- Data structure `order`
+###### Subfields
 
-| Name         | Data Type            | Description                                   |
-|--------------|----------------------|-----------------------------------------------|
-| `num_items`  | int(10), 4 bytes     | The number of elements in the `items` array   |
-| `items`      | Data structure       | Array of items, see below                     |
-| `address`    | Data structure       | The address for the order, see below          |
-
-- Sub data structure `items`
-  | Name               | Data Type             | Description                                         |
-  |--------------------|---------------------- |-----------------------------------------------------|
-  | `id`               | char(10)              | The identifier                                      |
-  | `price`            | packed(7:2)           | The price                                           |
-  | `quantity`         | int(10), 4 bytes      | The number of items                                 |
-  | `num_requirements` | int(10), 4 bytes      | The number of requirements for this item            |
-  | `requirements`     | Data structure        | Array of requirements, see below                    |
-
-  - Sub data structure `requirements`
-  | Name       | Data Type      | Description                                   |
-  |------------|---------------|-----------------------------------------------|
-  | `type`     | char(10)      | The requirement type                          |
-  | `detail`   | varchar(100)  | Detailed information about the requirement     |
-
-- Sub data structure `address` 
-  | Name      | Data Type     | Description                                 |
-  |-----------|--------------|---------------------------------------------|
-  | `street`  | varchar(30)  | The street, presumably including the number |
-  | `city`    | varchar(30)  | The city                                   |
+| Subfield Name         | Data Type            | Description                          | Attributes        |
+|--------------|----------------------|-----------------------------------------------|--------------|
+| `num_items`  | int(10), 4 bytes     | The number of elements in the `items` array   | |
+| `items`      | Data structure       | Array of items                     | DIM(10) |
+| `items.id`               | char(10)              | The identifier                                   |   |
+| `items.price`            | packed(7:2)           | The price                                        |   |
+| `items.quantity`         | int(10), 4 bytes      | The number of items                              |   |
+| `items.num_requirements` | int(10), 4 bytes      | The number of requirements for this item         |   |
+| `items.requirements`     | Data structure        | Array of requirements                   | DIM(3) |
+| `items.requirements.type`     | char(10)      | The requirement type                          | |
+| `items.requirements.detail`   | varchar(100)  | Detailed information about the requirement     | |
+| `address`    | Data structure       | The address for the order, see below          | |
+| `items.address.street`  | varchar(30)  | The street, presumably including the number | |
+| `items.address.city`    | varchar(30)  | The city                                   | |
 
 ##### Constants
 This section documents all constants used in the module, including their values and purposes.

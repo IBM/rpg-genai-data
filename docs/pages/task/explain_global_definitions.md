@@ -19,7 +19,7 @@ This section documents all data structures used in the module, program or proced
 
 Qualified data structures should have the subfields listed in the fully-qualified form. For example, if qualified data structure `DS` has a subfield `SUBF1`, then the subfield should be listed as `ds.subf1`.
 
-See [How to explain data structures](/pages/explain_definitions.md) for examples of data structure explanations.
+See [How to explain data structures](/pages/explain_data_structure.md) for examples of data structure explanations.
 
 ##### Constants
 This section documents all constants used in the module, including their values and purposes.

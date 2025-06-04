@@ -38,5 +38,6 @@ In either case the JSONL will contain data, where each line is of the format:
 - Data types should follow the format:  
   - `Character, length 10`  
   - `Packed numeric, length 7, with 2 decimals`
-- All `free-for` code snippets must be indented by `at least 7 space`.
-- All `fixed-for` code snippets must be indented by `at least 5 space`.
+- All `free-for` code snippets must be indented by `at least 7 spaces`. 
+- All `fixed-for` code snippets must be indented by `at least 5 spaces`.
+- If the \`\`\`rpgle to start the snippet is indented, the 5 or 7 spaces must start at the same indentation as the \`\`\`rpgle line.

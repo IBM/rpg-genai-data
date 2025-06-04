@@ -1,7 +1,7 @@
 For example the `getactinf.pgm.rpgle` contains the code:   
 
 ```rpgle
-    **free
+**free
     ctl-opt dftactgrp(*no) actgrp(*new);
 
     dcl-f AccPf if e k disk;
@@ -29,15 +29,15 @@ For example the `getactinf.pgm.rpgle` contains the code:
 For example below following `lines` to be explained.
 
 ```rpgle
-   setll -loval AccPf;
-    read AccPf;
-    dow not %eof(AccPf);
-    if CustId = P_UserId;
-        P_AccNo = AccNo;
-        leave;
-    endif;
-    read AccPf;
-    enddo;
+       setll *loval AccPf;
+       read AccPf;
+       dow not %eof(AccPf);
+       if CustId = P_UserId;
+           P_AccNo = AccNo;
+           leave;
+       endif;
+       read AccPf;
+       enddo;
 ``` 
 
 ## how_output
@@ -47,20 +47,16 @@ For example below following `lines` to be explained.
 This logic performs a sequential search in the `AccPf` file to find a customer record where the `CustId` matches the input parameter `P_UserId`. Once a match is found, the corresponding account number (`AccNo`) is assigned to the output parameter `P_AccNo`, and the search is terminated. This allows the program to retrieve a specific user's account number based on their customer ID.
 
 ### 2. Main Logic
-- The file pointer is positioned to the start of the `AccPf` file using `SETLL -LOVAL AccPf`, ensuring the file is read from the lowest key onward.
+- The file pointer is positioned to the start of the `AccPf` file using `SETLL *LOVAL AccPf`, ensuring the file is read from the lowest key onward.
 - The first record is read from the file with `READ AccPf`.
 - A loop is started using `DOW NOT %EOF(AccPf)`, which continues until all records are processed.
 - Inside the loop:
-
   - It checks if the `CustId` in the current record matches the input parameter `P_UserId`.
   - If a match is found:
-
     - The `AccNo` from the current record is assigned to the output parameter `P_AccNo`.
     - The loop is exited immediately using `LEAVE`, since the target record has been found.
   - If no match is found, the next record is read using `READ AccPf`, and the loop continues.
 - The loop ends when a match is found and the loop exits, or the end of file is reached without finding a match.
-
-Apologies for the confusion. Let me explain the code without referring to it as a procedure, focusing on the specific lines in your RPGLE code.
 
 ### 3. Possible Problems:
 

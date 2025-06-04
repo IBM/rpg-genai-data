@@ -3,7 +3,7 @@
 The following explanation applies to RPG source files modules that will be copied or included into other source.
 The [`scope`](/pages/metadata#scope) in `metadata.txt` will be `COPYBOOK` in this case.
 
-# Imporant:
+# Important:
 
 - All the free-form snippets must be indented by at least 7 spaces before the code.
 - All fixed-form snippets must have exactly 5 spaces before the specification type.

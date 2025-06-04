@@ -41,15 +41,16 @@ Therefore the `context` directory would look like:
 
 The RPGLE program is designed to retrieve the account number (`AccNo`) for a given user ID (`P_UserId`) from the `AccPf` file. It reads through the records in the `AccPf` file and searches for a match with the provided user ID. Once a match is found, it sets the corresponding account number in the output parameter `P_AccNo`.
 
-### Parameters
+### 2. Parameters
 
 |  `Parameter Name`  |   `Type` |  `Length`  |  `Direction`  |  `Description`  |
 |--------------------|----------|------------|---------------|-----------------|
 | `P_UserId`         | `char`   | 10         | Input         | Represents the user ID provided as input to the program. Used to search for the corresponding account number in the `AccPf` file. |
 | `P_AccNo`          | `char`   | 10         | Output        | Represents the account number retrieved from the `AccPf` file. Set by the program as the output. |
 
-### 3. Dependencies
-- `Physical Files` – `AccPf` is a physical file accessed in input mode with keyed access to retrieve account details based on `CustId`.
+### 3. Inputs/Outputs
+- Inputs : `Physical Files` – `AccPf` is a physical file accessed in input mode with keyed access to retrieve account details based on `CustId`.
+- Outputs: No data is written to any file. 
 
 ### 4. Side Effects
 - NA
@@ -57,17 +58,7 @@ The RPGLE program is designed to retrieve the account number (`AccNo`) for a giv
 ### 5. Limitations
 - The program is designed to read data and return the account number but does not provide functionality to update records in the `AccPf` file.
 
-### 6. Outcomes
-
-- Successful Retrieval: 
-  If a record exists in the `AccPf` file where `CustId` matches the input `P_UserId`, the program successfully sets the corresponding `AccNo` in `P_AccNo`.
-
-- Blank or Invalid User : 
-  If `P_UserId` is blank or does not match any `CustId` in the file:
-  - On the first run, `P_AccNo` remains unchanged and will be blank.
-  - If the same program runs again without resetting `P_AccNo`, it retains the previous value, leading to incorrect or unintended output.
-
-#### Usage Example
+### 6. Usage Example
 
 ```rpgle
 dcl-s userid char(10);

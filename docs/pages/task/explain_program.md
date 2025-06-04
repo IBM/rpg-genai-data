@@ -3,55 +3,115 @@
 The following explanation applies to both modern linear-main programs as well as legacy cycle-main programs.
 The [`scope`](/pages/metadata#scope) in `metadata.txt` will be `program-linear` or `program-cycle` in this case.
 
-## api_output
+# Important:
 
-The `api_output` part provides information to the caller of a program about how to call the program and what the effects of calling it would be. It includes
-a high-level summary of the program's purpose and behavior, detailing the parameters passed to and from the program, dependencies, side effects or limitations, and optional usage examples.
+- All the free-form snippets must be indented by at least 7 spaces before the code.
+- All fixed-form snippets must have exactly 5 spaces before the specification type.
+- If the rpgle to start the snippet is indented, the 5 or 7 spaces must start at the same indentation as the rpgle line.
 
-1. `Purpose`: Provide a short insight into the purpose of the code for the program. This should focus on the business logic or functional role of the code.
+### api_output
 
-2. `Parameters`: List all entry parameters accepted by the program, specifying whether each one is an input, output, or both.
+The `api_output` part provides information to the caller of a program about how to call the program and what the effects of calling it would be. It includes a high-level summary of the program's purpose and behavior, detailing the parameters passed to and from the program, dependencies,limitations, and optional usage examples.
 
-3. `Dependencies`: This section outlines all components that the program depends on in order to compile and run successfully. Dependencies include physical and logical files used for data access, copybooks, external procedures for business logic, and display files for user interface interactions.
+1. #### Purpose 
+Provide a short insight into the purpose of the code for the program. This should focus on the business logic or functional role of the code.
 
-4. `Side Effects`: Mention any indirect or non-obvious effects such as data area updates, logs, or changes to global state. 
-  - Example: Programs might update data areas, which can affect other programs or procedures that rely on the same data areas
+2. #### Parameters
+List all entry parameters accepted by the program, specifying whether each one is an input, output, or both. Provide in table format with columns for Name, Usage, Type, Description and attributes. 
 
-5. `Limitations & Assumptions`: Mention any assumptions the code makes, or scenarios where it may fail or behave incorrectly.
+See [`How to explain parameters and return value`]((/pages/explain_parameters.md))
+
+3. #### File I/O 
+Describe how the program reads from and writes to:
+- Data files (e.g., physical/logical files)
+- Device files (e.g., printers, displays)
+- Display files (for user interaction)
+- IFS files 
+
+Provide in table format with columns for file name, type (data/device/display), and description of how the program interacts with each file.
+Example:
+| File Name       | Type          | Usage         | Description                                  |
+|-----------------|---------------|---------------|----------------------------------------------|
+| `CUSTOMER`      | Data file     | Input         | Reads customer records for processing        |
+| `ORDER_DISPLAY` | Display file  | Input/Output  | Displays order details to the user           |
+| `PRINTER_FILE`  | Printer file  | Output        | Sends reports to the printer                 |
+| `ORDERS`        | Data file     | Input/Update  | Reads and updates order information          |
+| `LOG_FILE`      | IFS file      | Output        | Logs program execution details to the IFS    |
+
+4. #### Dependencies 
+This section lists all external dependencies required by the program 
+- Include: Only programs, service programs, data areas, data queues, and message files that the program calls or interacts with directly.
+- Exclude: System APIs and any files already described in the File I/O section.
+
+Example: 
+| Object Name           | Object Type        | Description                                                                 |
+|-----------------------|-------------------|-----------------------------------------------------------------------------|
+| `LIB1/VALIDATION_PGM` | Called Program    | Validates input fields such as customer ID, order quantity, and product codes before processing. |
+| `LIB2/ORDER_SRVPGM`   | Service Program   | Provides business logic for order calculations and status updates.           |
+| `LIB1/DATA_AREA_1`    | Data Area         | Stores runtime configuration values such as environment flags or thresholds. |
+| `LIB1/MSG_QUEUE_1`    | Data Queue        | Used to send and receive asynchronous messages between batch and interactive jobs. |
+| `SALESERRS`           | Message File      | Used to retrieve error and validation messages. Assigned to `@MSGFILE`.     |
+
+5. #### Limitations & Assumptions 
+Mention any assumptions the code makes, or scenarios where it may fail or behave incorrectly.
   - Example: The load all subfile can load only up to 9999 records.
+  - Example: The caller cannot update records it is only input. This means the program is designed to read data but not modify it.
 
-6. `Outcomes`: List possible major outcomes or scenarios resulting from the code execution. This section can include an optional `usage example` to illustrate the expected outcome.
+6. #### Usage Example: 
+Provide a code snippet that demonstrates how to call the program. 
+
+1. Parameter Setup
+  - Define and initialize all input/output parameters required for the call.
+  - Include any relevant data structures, constants, or variables.
+
+2. The program call.
+- If there is an RPG prototype for the program, use an rpgle snippet with the /COPY for the prototype, and any definitions needed for parameters. Do not use the CALL or CALLP opcode.
+```rpgle
+        /copy qrpglesrc,prototype
+          
+      mypgm (parameters);
+```
+  - Otherwise, use a clle snippet to represent a call from the command line.
+```clle 
+        call mypgm parm(parameters)
+```
 
 ### how_output
 
 The how_output part explains how the program works internally, covering the full execution flow and logic used at each step. It includes details on control specifications, file declarations, global variables, constants, indicators, field mapping, subroutines, error handling, and the main program logic.
 
-1. `Control Specifications`: Any key compiler options and runtime control settings included in the program. Examples include `DftActGrp`, `ActGrp`, `BNDDIR`, and other relevant control specifications. Explain these settings and any keywords used.
+1. #### Purpose
+Provide a short insight into the purpose of the code for the program. This should focus on the business logic or functional role of the code.
 
-2. `File Declarations`: List all global files from the F-specs with relevant keywords. This includes display files, physical,logical files, printer files, and special files. Explain how each file is declared and any keywords used.
+2. #### Control Specifications 
+Any key compiler options and runtime control settings included in the program. Examples include `DftActGrp`, `ActGrp`, `BNDDIR`, and other relevant control specifications. Explain these settings and any keywords used.
 
-3. `Global Components`: The Global Variables section includes all variables, prototypes for external program calls, data structures, arrays, constants, and keywords used in the program. Detailed explanations will be provided later in the logic sections
-  - `Prototype & Interface Definition`: Describe internal procedure prototypes and their usage. This includes procedure names, input/output parameters, data types, and return types.
-  - `Prototype for External Program Call`: Mention prototypes for external RPG/CL/API calls. This includes program name, parameter interface, data types, and expected results.
-  - `Data Structures and Arrays` – Describe all declared data structures and arrays used in the program, including their purpose and how they are utilized.
-    - `File Information Data Structure (INFDS)` – Mention any INFDS declared in the program and what file-level metadata they capture (e.g., file status, error codes, record numbers).
-    - `Indicator Data Structure (INDDS)` – Explain the usage of indicator-based data structures, if any, especially those mapped to display files or used for control logic.
-    - `Arrays` – Describe any arrays used, whether single or multi-dimensional, compile-time or run-time, and their role.
-    - `General Data Structures` – Include details of data structures. Mention key attributes or keywords applied (e.g., `inz`, `overlay`, `dim`, `based`, etc.).
-  - `Variables`: Explain the variables used in the program. This includes
-    - `Global Variables`: List all global variables used in the program and explain their purpose.
-    - `Constants`: List constants declared using `DCL-C`, including status flags, limits, messages, and system values.
-    - `Keywords`: Explain any keywords used in variable declarations, such as `LIKE`, `INZ`, `N` data type, etc.
+3. #### File Declarations 
+List all global files from the F-specs with relevant keywords. This includes display files, physical,logical files, printer files, and special files. Explain how each file is declared and any keywords used.
 
-4. `Field Mapping`: Database to Display File or Printer file: Create a clear table or list to show how physical/logical file fields are mapped to display fields or Printer file fields. This includes field names and display fields.
+Provide in table format with columns for file name, type (data/display/printer), and description of how the program interacts with each file.
+Example:
+| File Name       | Type     | Used | Description |
+|-----------------|----------|------|-------------|
+| `CUSTOMER`      | Data     | Input  | Reads customer records for processing |
+| `ORDER_DISPLAY` | Display  | Input/Output | Displays order details to the user |
+| `PRINTER_FILE`  | Printer  | Output | Sends reports to the printer |
 
-5. `Indicators` : Create a clear table or list to show how error indicators are mapped. This includes indicator names, descriptions and Purpose.
+4. #### Global Definitions
 
-6. `Main Execution Flow`: Describe high-level program logic in ordered steps. This includes initialization, opening files, loading initial data, displaying subfile, handling user actions (Add/Edit/Delete/Search), validating and updating database, printing report (if required), and exiting the program.
+The explanation of global definitions can be found [here](/pages/task/explain_global_definitions.md).
 
-7. `Possible Problems with this code`: Identify potential issues that could arise during the execution of the program. Mention any problems that should be noted when discussing the final statement that ends the program.
+5. #### Main Execution Flow 
+This section describes the main execution flow of the program in detail, explaining the logic line by line.
 
-8. `Possible improvements to this code`: Identify areas where the code could be enhanced for better performance, readability, or functionality. This may include suggestions for error handling, optimization techniques, or alternative approaches to achieve the same result.
+  ##### Subroutines 
+  If the program contains subroutines or sub procedures, list and explain each subroutine and sub procedures in detail.
+
+6. #### Possible Problems with this code
+Identify potential issues that could arise during the execution of the program. Mention any problems that should be noted when discussing the final statement that ends the program.
+
+7. #### Possible improvements to this code 
+Identify areas where the code could be enhanced for better performance, readability, or functionality. This may include suggestions for error handling, optimization techniques, or alternative approaches to achieve the same result.
 
 ### sum_output
 

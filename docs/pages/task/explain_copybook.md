@@ -3,6 +3,12 @@
 The following explanation applies to RPG source files modules that will be copied or included into other source.
 The [`scope`](/pages/metadata#scope) in `metadata.txt` will be `COPYBOOK` in this case.
 
+# Important:
+
+- All the free-form snippets must be indented by at least 7 spaces before the code.
+- All fixed-form snippets must have exactly 5 spaces before the specification type.
+- If the rpgle to start the snippet is indented, the 5 or 7 spaces must start at the same indentation as the rpgle line.
+
 ## context
 The `Context` section is not required for the copybook because copybooks in RPGLE generally consist of reusable code snippets, such as procedure declarations (dcl-pr), variable definitions, constants, and data structure declarations, which are included in the main program or subroutines. These code snippets themselves do not depend on external files or resources, but instead serve as building blocks to be referenced and used by other RPGLE programs or modules
 

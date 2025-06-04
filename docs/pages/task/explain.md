@@ -35,3 +35,9 @@ In either case the JSONL will contain data, where each line is of the format:
 - Use the term `fully-free` instead of `full free format`.
 - Use `ILE RPG` instead of `RPGLE`.
 - Do not expand `RPG` as `Report Program Generator`. Always refer to it as `RPG`.
+- Data types should follow the format:  
+  - `Character, length 10`  
+  - `Packed numeric, length 7, with 2 decimals`
+- All `free-for` code snippets must be indented by `at least 7 spaces`. 
+- All `fixed-for` code snippets must be indented by `at least 5 spaces`.
+- If the \`\`\`rpgle to start the snippet is indented, the 5 or 7 spaces must start at the same indentation as the \`\`\`rpgle line.

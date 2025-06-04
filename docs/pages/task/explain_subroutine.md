@@ -3,7 +3,7 @@
 To simulate selection subroutine from a source file, the following syntax is used to avoid duplicating the entire program source and context.
 This corresponds to the metatdata.txt [`scope`](/pages/metadata.txt###scope) of  `subr`.
 
-# Imporant:
+# Important:
 
 - All the free-form snippets must be indented by at least 7 spaces before the code.
 - All fixed-form snippets must have exactly 5 spaces before the specification type.
@@ -31,13 +31,13 @@ The `api_output` part provides a high-level summary of the subroutine purpose an
 1. #### Purpose
 Provide a short insight into the purpose of the code for the subroutine. This should focus on the business logic or functional role of the code.
 
-2. #### Variable I/O
-List all input and output variables used by the code, specifying whether each one is an input, output, or both.
+2. #### Global variables used
+List all global variables used by the code, specifying whether each one is an input, output, or both.
 Example:  
 | Name           | Data Type            | Usage        | Description                                 | Attributes |
 |----------------|--------------------- |-------------|---------------------------------------------|------------|
 | `customerId`   | char(10)             | Input       | The unique identifier for the customer      |            |
-| `orderTotal`   | packed(9:2), 5 bytes | Output      | The total amount of the order calculated    | INZ(0)     |
+| `orderTotal`   | packed(9:2), 5 bytes | Input, Output      | The total amount of the order calculated    | INZ(0)     |
 | `currencyCode` | char(3)              | Input       | The currency in which the order is placed   | CONST      |
 
 3. #### File I/O 
@@ -56,8 +56,8 @@ Describe how the subroutine reads from and writes to:
   | `ORDERS`        | Data file     | Input/Update  | Reads and updates order information          |
 
 4. #### Dependencies 
-This section lists all external dependencies required by the program 
-- Include: Only programs, service programs, data areas, data queues, and message files that the program calls or interacts with directly.
+This section lists all external dependencies required by the subroutine
+- Include: Only programs, service programs, data areas, data queues, and message files that the subroutine calls or interacts with directly.
 - Exclude: System APIs and any files already described in the File I/O section.
 
 Example: 

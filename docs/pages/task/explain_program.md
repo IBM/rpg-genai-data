@@ -3,7 +3,7 @@
 The following explanation applies to both modern linear-main programs as well as legacy cycle-main programs.
 The [`scope`](/pages/metadata#scope) in `metadata.txt` will be `program-linear` or `program-cycle` in this case.
 
-# Imporant:
+# Important:
 
 - All the free-form snippets must be indented by at least 7 spaces before the code.
 - All fixed-form snippets must have exactly 5 spaces before the specification type.
@@ -19,14 +19,7 @@ Provide a short insight into the purpose of the code for the program. This shoul
 2. #### Parameters
 List all entry parameters accepted by the program, specifying whether each one is an input, output, or both. Provide in table format with columns for Name, Usage, Type, Description and attributes. 
 
-Example:
-|   | Name          | Usage        | Type           | Description                                         | Attributes          |
-|---|---------------|--------------|----------------|-----------------------------------------------------|----------------------|
-| 1 | `CustomerID`  | Input        | char(10)       | Unique identifier for the customer                  |                      |
-| 2 | `OrderCount`  | Output       | int(5)         | Total number of orders processed                    | INZ(0)               |
-| 3 | `info`        | Input        | Data structure | Data structure containing order details             | DIM(10)              |
-|   | `info.number` |              | int(10)        | Number of orders processed in the current session   |                      |
-|   | `info.name`   |              | char(20)       | Name of the customer associated with the order      | VARYING              |
+See [`How to explain parameters and return value`]((/pages/explain_parameters.md))
 
 3. #### File I/O 
 Describe how the program reads from and writes to:

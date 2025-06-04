@@ -92,11 +92,16 @@ The `GetActInf` module provides reusable subprocedures to retrieve account-relat
 | `P_UserId`     | Input     | `char(10)` | Customer ID to search in the `AccPf` file       |
 
 #### Return Value
-| -Return Value- | Output    | `char(10)` | The account number associated with the given ID |
+| Data Type  | Description                                     |
+| ---------- | ----------------------------------------------- |
+|  `char(10)` | The account number associated with the given ID |
 
-#### Inputs/Outputs
-- Inputs : `AccPf` – A physical file used to read account records.
-- Outputs: No data is written to any file.
+#### Inputs and Outputs
+
+  ##### File I/O
+  | File Name       | Type     | Used         | Description                                      |
+  |-----------------|----------|--------------|--------------------------------------------------|
+  | `ACCPF`      | Data     | Input        | Reads account records            |
 
 #### Limitations & Assumptions
   - The procedure assumes that `CustId` values are unique. only the first match will be returned.
@@ -106,13 +111,13 @@ The `GetActInf` module provides reusable subprocedures to retrieve account-relat
 
 #### Usage Example
 ```rpgle
-dcl-s userid char(10);
-dcl-s account_number char(10);
+       dcl-s userid char(10);
+       dcl-s account_number char(10);
 
-/copy getactinfcpy;
+       /copy getactinfcpy;
 
-userid = 'TEST01';
-account_number = GetAccNo(userid);
+       userid = 'TEST01';
+       account_number = GetAccNo(userid);
 ```
 - If a matching record is found:
   `account_number` will contain the correct account number, such as `'9876543210'`.
@@ -130,10 +135,11 @@ account_number = GetAccNo(userid);
 | `P_UserId`     | Input     | `char(10)` | Customer ID to search for in the `AccPf` file              |
 | -Return Value- | Output    | `char(50)` | The account description associated with the input `CustId` |
 
-#### Inputs/Outputs
-
-- Inputs : `AccPf` – A physical file used to read account records. 
-- Outputs: No data is written to any file. 
+#### Inputs and Outputs
+  ##### File I/O
+  | File Name       | Type     | Used         | Description                                      |
+  |-----------------|----------|--------------|--------------------------------------------------|
+  | `ACCPF`      | Data     | Input        | Reads account records            |
 
 #### Limitations & Assumptions
   - Only the first matching `CustId` will be considered.
@@ -144,13 +150,13 @@ account_number = GetAccNo(userid);
 #### Usage Example
 
 ```rpgle
-dcl-s userid char(10);
-dcl-s account_desc char(50);
+       dcl-s userid char(10);
+       dcl-s account_desc char(50);
 
-/copy getactinfcpy;
+       /copy getactinfcpy;
 
-userid = 'TEST01';
-account_desc = GetAccDesc(userid);
+       userid = 'TEST01';
+       account_desc = GetAccDesc(userid);
 ```
 - If a match is found:
   `account_desc` will contain something like `'Premium Savings Account - Tier 1'`.
@@ -171,14 +177,16 @@ Control specifications in RPGLE are used to define the overall behavior and envi
 
 ### 3. File Specifications
 
-`dcl-f AccPf usage(-input) keyed;`
-- `AccPf`: The name of the physical file.
+```rpgle
+       dcl-f AccPf usage(*input) keyed;
+```
+  - `AccPf`: The name of the physical file.
   - Attributes:
-    - `I`: Input file, meaning the file can be read.
-    - `F`: Fully procedural file, meaning all I/O operations are manually controlled in the program.
-    - `E`: Externally described file, meaning the file's structure is defined outside the program.
-    - `K`: Keyed access, meaning the file is accessed using a key field.
-    - `Disk`: Indicates that this is a disk file used for storing data on disk.
+    - `usage(*input)`: Input file, meaning the file can be read.
+    - `keyed`: Keyed access, meaning the file is accessed using a key field
+    - Thee keywords are assumed by default:
+      - `DISK`: A database file
+      - `EXT`: Externally-described
 
 ### Procedure: GetAccNo
 

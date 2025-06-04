@@ -3,7 +3,7 @@
 The following explanation applies to RPG source files modules that will be bound into programs or service programs.
 The [`scope`](/pages/metadata#scope) in `metadata.txt` will be `module` in this case.
 
-# Imporant:
+# Important:
 
 - All the free-form snippets must be indented by at least 7 spaces before the code.
 - All fixed-form snippets must have exactly 5 spaces before the specification type.
@@ -17,7 +17,7 @@ The sum_output part offers a business summary in a couple of sentences, explaini
 
 The `api_output` part provides information to the caller about how to call the exported procedures in this module and what the effects of calling it would be. It includes a high-level summary of the module's purpose and then for each exported procedure, an api-level description of it.  
 
-`Important`: If a module exports `multiple procedures`, each procedure must be documented `separately` using the standard format below.
+**Important**: If a module exports `multiple procedures`, each procedure must be documented `separately` using the standard format below.
 
 1. #### Purpose
 Provide a short, high-level summary describing the overall purpose of the `module`.
@@ -91,7 +91,7 @@ List all declared files from the F-specs with relevant keywords. This includes d
 The explanation of global definitions can be found [here](/pages/task/explain_global_definitions.md).
 
 5. #### Procedures 
-List of the all procedures defined in the module, including their names brief description of its functionality.
+List of the all procedures defined in the module, including their names and a brief description of their functionality.
 
 ## sum_output
 

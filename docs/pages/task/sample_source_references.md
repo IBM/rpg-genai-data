@@ -42,25 +42,25 @@ end-proc;
 For example the `GetAccNo` procedure contains the following code to be explained.
 
 ```rpgle
-dcl-proc GetAccNo;
-  dcl-pi GetAccNo char(10);
-    P_UserId char(10) const;
-  end-pi;
+       dcl-proc GetAccNo;
+         dcl-pi GetAccNo char(10);
+            P_UserId char(10) const;
+         end-pi;
 
-  dcl-s FoundAccNo char(10);  
+         dcl-s FoundAccNo char(10);  
 
-  setll -loval AccPf;
-  read AccPf;
-  dow not %eof(AccPf);
-    if CustId = P_UserId;
-      FoundAccNo = AccNo;  
-      leave;
-    endif;
-    read AccPf;
-  enddo;
+         setll -loval AccPf;
+         read AccPf;
+         dow not %eof(AccPf);
+           if CustId = P_UserId;
+             FoundAccNo = AccNo;  
+             leave;
+           endif;
+           read AccPf;
+         enddo;
 
-  return FoundAccNo;
-end-proc;
+         return FoundAccNo;
+       end-proc;
 ```  
 
 Input and Context folder are not required for procedure or subroutine.  This is because the `source`, `start` and `end` attributes will define exactly which source and context is referenced.
@@ -73,15 +73,15 @@ The subprocedure `GetAccNo` is responsible for retrieving the account number (`A
 
 ### 2. Parameters
 
-| Parameter Name              | Type   | Length | Direction | Description                                                                                                                                                                                                                                                    |
-| --------------------------- | ------ | ------ | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `P_UserId`                  | `char` | 10     | Input     | The user ID passed to the subprocedure. It is compared with the `CustId` field in the `AccPf` file to find a matching record.                                                                                                                                  |
+| | Parameter Name              | Type  | Direction | Description      |
+|-| --------------------------- | ------ | ------ | --------- | 
+| 1 | `P_UserId`                  | `char(10)` | Input     | The user ID passed to the subprocedure. It is compared with the `CustId` field in the `AccPf` file to find a matching record. |
 
 ### 3. Return Value
 
-| Return Name | Type   | Length | Direction | Description                                                                                                  |
-|-------------|--------|--------|-----------|--------------------------------------------------------------------------------------------------------------|
-| `GetAccNo`  | `char` | 10     | Output    | Returns the account number (`AccNo`) from `AccPf` if a matching `CustId` is found. otherwise, returns blank. |
+|Type   | Description     |
+|-------------|----------------------------------------|
+| `char(10)`| Returns the account number (`AccNo`) from `AccPf` if a matching `CustId` is found. otherwise, returns blank. |
 
 ### 4. Inputs/Outputs
 
@@ -100,11 +100,11 @@ The subprocedure `GetAccNo` is responsible for retrieving the account number (`A
 #### 7.Usage Example
 
 ```rpgle
-dcl-s userid char(10);
-dcl-s account_number char(10);
+       dcl-s userid char(10);
+       dcl-s account_number char(10);
 
-userid = 'TEST01';
-account_number = GetAccno(userid);
+       userid = 'TEST01';
+       account_number = GetAccno(userid);
 ```
 
 - If a matching record is found:

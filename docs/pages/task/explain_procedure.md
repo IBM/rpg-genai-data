@@ -33,34 +33,29 @@ Provide a short insight into the purpose of the code for the procedure.
 
 2. #### Parameters
 List all entry parameters accepted by the code, specifying whether each one is an input.
-Example:
-|   | Name          | Usage        | Type           | Description                                         | Attributes                |
-|---|---------------|--------------|----------------|-----------------------------------------------------|---------------------------|
-| 1 | `CustomerID`  | Input        | char(10)       | Unique identifier for the customer                  | *NOPASS                   |
-| 2 | `OrderCount`  | Output       | int(5)         | Total number of orders processed                    | INZ(0) *OMIT              |
-| 3 | `info`        | Input        | Data structure | Data structure containing order details             | DIM(10) CONST             |
-|   | `info.number` |              | int(10)        | Number of orders processed in the current session   |                           |
-|   | `info.name`   |              | char(20)       | Name of the customer associated with the order      | VARYING                   |
+
+See [`How to explain parameters and return value`]((/pages/explain_parameters.md))
 
 3. #### Return Values
-List the return value accepted by the procedure
-Example:
-| Data Type   | Description                                                             |
-|-------------|-------------------------------------------------------------------------|
-| `char(10)`    | The status code indicating success or failure of the procedure          |
 
-4. #### Inputs/Outputs 
+See [`How to explain parameters and return value`]((/pages/explain_parameters.md))
+
+4. #### Inputs and Outputs 
   
-##### Variable I/O
-Describe varables used in the procedure, including their types and purposes. This includes any global variables are using `EXPORT` or `IMPORT` keywords.
+##### Global variables used
+
+See the Variables section in [`Global definitions`]((/pages/explain_global_definitions.md))
+
+Describe global variables used in the procedure, including their types and purposes. This includes any global variables are using `EXPORT` or `IMPORT` keywords. 
+
 Example:  
 | Name           | Data Type            | Usage        | Description                                 | Attributes |
 |----------------|--------------------- |-------------|---------------------------------------------|------------|
 | `customerId`   | char(10)             | Input       | The unique identifier for the customer      |            |
-| `orderTotal`   | packed(9:2), 5 bytes | Output      | The total amount of the order calculated    | INZ(0)     |
+| `orderTotal`   | packed(9:2), 5 bytes | Input, Output      | The total amount of the order calculated    | INZ(0)     |
 | `currencyCode` | char(3)              | Input       | The currency in which the order is placed   | CONST      |
 
-##### Files I/O
+##### File I/O
 Describe how the procedure reads from and writes to:
 - Data files (e.g., physical/logical files)
 - Device files (e.g., printers, displays)
@@ -91,18 +86,11 @@ Example:
 | `LIB1/MSG_QUEUE_1`    | Data Queue        | Used to send and receive asynchronous messages between batch and interactive jobs. |
 | `SALESERRS`           | Message File      | Used to retrieve error and validation messages. Assigned to `@MSGFILE`.     |
  
-6. #### Side Effects 
-Mention side effects which are not covered by the inputs and outputs, such as:
-  - Data area updates
-  - Global variable modifications
-  - Example: The procedure updates a global data area to track the last processed order ID.
-  - Example: The procedure modifies a global variable to store the last processed order count.
-
-7. #### Limitations & Assumptions 
+6. #### Limitations & Assumptions 
 Mention any assumptions the code makes, or scenarios where it may fail or behave incorrectly.
   - Example: The caller cannot update records it is only input. This means the procedure  is designed to read data but not modify it.
       
-8. #### Usage Example 
+7. #### Usage Example 
 This should show how to call the procedure, including any necessary setup for parameters, along with an example or description of how the caller would handle the return value or any output parameters.
 
   1. Parameter Setup

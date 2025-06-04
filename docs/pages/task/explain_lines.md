@@ -3,7 +3,7 @@
 The following explanation applies to specific lines from RPG source files that are included or referenced in other programs.  
 The [`scope`](/pages/metadata#scope) in `metadata.txt` will be `Line` in this case.
 
-# Imporant:
+# Important:
 
 - All the free-form snippets must be indented by at least 7 spaces before the code.
 - All fixed-form snippets must have exactly 5 spaces before the specification type.

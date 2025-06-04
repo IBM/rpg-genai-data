@@ -30,14 +30,18 @@ In either case the JSONL will contain data, where each line is of the format:
 ## Notes
 
 - Use `rpgle` for ILE RPG code blocks and `rpg` for OPM RPG code blocks.
-- Use `###` for first-level headings and `####` for sub-level headings.
-- Avoid using `**` for bold text use backticks ` ` to highlight quotations from the RPG source, such as variables and RPG syntax.
+- Use `####` for first-level headings and `#####` for sub-level headings.
+- Avoid using `**` for bold text. Instead, use backticks ` ` to highlight quotations from the RPG source, such as variables and RPG syntax.
 - Use the term `fully-free` instead of `full free format`.
 - Use `ILE RPG` instead of `RPGLE`.
 - Do not expand `RPG` as `Report Program Generator`. Always refer to it as `RPG`.
-- Data types should follow the format:  
-  - `Character, length 10`  
-  - `Packed numeric, length 7, with 2 decimals`
-- All `free-for` code snippets must be indented by `at least 7 spaces`. 
-- All `fixed-for` code snippets must be indented by `at least 5 spaces`.
-- If the \`\`\`rpgle to start the snippet is indented, the 5 or 7 spaces must start at the same indentation as the \`\`\`rpgle line.
+- Data types should follow this format. See [How to explain data types](/pages/task/explain_definitions.md):  
+  - `char(10)`  
+  - `packed(7:2), 4 bytes`
+  - `int(5), 2 bytes`
+  - `date(*iso)`
+  ### Indentation for rpg code snippets
+  - All `free-form` code snippets that do not start with `**free` must be indented by `at least 7 spaces`.
+  - If a code snippet starts with `**free`, the `**free` must not be indented and any indentation is fine for the actual code.
+  - All `fixed-for` code snippets must be indented by `at least 5 spaces`.
+  - If the \`\`\`rpgle to start the snippet is indented, the 5 or 7 spaces must start at the same indentation as the \`\`\`rpgle line.

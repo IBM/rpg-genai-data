@@ -87,9 +87,9 @@ The `GetActInf` module provides reusable subprocedures to retrieve account-relat
   Retrieves the account number (`AccNo`) associated with a given customer ID (`CustId`) from the physical file `AccPf`. The procedure reads the file sequentially and returns the first matched account number.
 
 #### Parameters 
-| Parameter Name | Direction | Data Type  | Description                                     |
-| -------------- | --------- | ---------- | ----------------------------------------------- |
-| `P_UserId`     | Input     | `char(10)` | Customer ID to search in the `AccPf` file       |
+| | Parameter Name | Direction | Data Type  | Description                                     |
+| -| -------------- | --------- | ---------- | ----------------------------------------------- |
+| 1 | `P_UserId`     | Input     | `char(10)` | Customer ID to search in the `AccPf` file       |
 
 #### Return Value
 | Data Type  | Description                                     |
@@ -130,10 +130,10 @@ The `GetActInf` module provides reusable subprocedures to retrieve account-relat
   Retrieves the account description (`AccDesc`) associated with a given customer ID (`CustId`) from the physical file `AccPf`. The procedure performs a sequential read and returns the description for the first matched customer record.
 
 #### Parameters
-| Parameter Name | Direction | Data Type  | Description                                                |
-| -------------- | --------- | ---------- | ---------------------------------------------------------- |
-| `P_UserId`     | Input     | `char(10)` | Customer ID to search for in the `AccPf` file              |
-| -Return Value- | Output    | `char(50)` | The account description associated with the input `CustId` |
+| | Parameter Name | Direction | Data Type  | Description                                                |
+| - | -------------- | --------- | ---------- | ---------------------------------------------------------- |
+| 1 | `P_UserId`     | Input     | `char(10)` | Customer ID to search for in the `AccPf` file              |
+| 2 |-Return Value- | Output    | `char(50)` | The account description associated with the input `CustId` |
 
 #### Inputs and Outputs
   ##### File I/O

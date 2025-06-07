@@ -22,7 +22,7 @@ The data type columns are `Data Type` and `Attributes`.
 For example
 - int(10), 4 bytes
 - uns(5), 2 bytes
-- packed(7:2), 4 bytes
+- packed(8:2), 5 bytes
 - zoned(7:2), 7 bytes
 - bindec(1:0), 2 bytes
 
@@ -31,7 +31,7 @@ For example
 | Types | Algorithm |
 |------|-----------|
 | int and uns | 3 digits = 1 byte, 5 digits = 2 bytes, 10 digits = 4 bytes, 20 digits = 8 bytes |
-| packed | If the number of digits is odd: (digits + 1) / 2. If the number of digits is even: (digits / 2)
+| packed | If the number of digits is odd: (digits + 1) / 2. If the number of digits is even: (digits + 2) / 2
 | zoned | The number of bytes is equal to the number of digits |
 | bindec | For 1 to 4 digits, the number of bytes is 2. For 5 - 9 digits, the number of bytes is 4. For 18 digits, the number of bytes is 8. |
 

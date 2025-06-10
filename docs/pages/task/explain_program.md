@@ -71,6 +71,11 @@ Provide a code snippet that demonstrates how to call the program.
           
       mypgm (parameters);
 ```
+  - Else, if it is a fixed-form program with a `*ENTRY PLIST`, use a fixed-form CALL operation
+```rpgle
+     C                   call      'MYPGM'
+     C                   parm                    parameter
+```
   - Otherwise, use a clle snippet to represent a call from the command line.
 ```clle 
         call mypgm parm(parameters)

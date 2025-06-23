@@ -69,52 +69,52 @@ Input and Context folder are not required for procedure or subroutine.  This is 
 
 ### 1. Purpose
 
-The subprocedure `GetAccNo` is responsible for retrieving the account number (`AccNo`) associated with a given user ID (`P_UserId`) from the `AccPf` physical file. It scans through the file records and returns the `AccNo` of the first record where the `CustId` matches the input `P_UserId`. If no matching record is found, it returns a blank value.
+The `GetAccNo` procedure retrieves the account number (`AccNo`) associated with a given user ID (`P_UserId`) from the `AccPf` physical file. It scans the file and returns the `AccNo` of the first record where `CustId` matches the input `P_UserId`. If no match is found, it returns a blank value.
 
 ### 2. Parameters
 
-| | Parameter Name              | Type  | Direction | Description      |
-|-| --------------------------- | ------ | ------ | --------- | 
-| 1 | `P_UserId`                  | `char(10)` | Input     | The user ID passed to the subprocedure. It is compared with the `CustId` field in the `AccPf` file to find a matching record. |
+|   | Name        | Usage | Data Type  | Description                                         | Attributes |
+|---|-------------|-------|------------|-----------------------------------------------------|------------|
+| 1 | `P_UserId`  | Input | char(10)   | The user ID to search for in the `AccPf` file.      | CONST      |
 
 ### 3. Return Value
 
-|Type   | Description     |
-|-------------|----------------------------------------|
-| `char(10)`| Returns the account number (`AccNo`) from `AccPf` if a matching `CustId` is found. otherwise, returns blank. |
+| Data Type | Description                                              |
+|-----------|---------------------------------------------------------|
+| char(10)  | Returns the account number (`AccNo`) if a match is found; otherwise, returns blank. |
 
-### 4. Inputs/Outputs
+### 4. Inputs and Outputs
 
-  - Inputs : `AccPf` – A physical file used to read account records.
-  - Outputs: No data is written to any file.
+#### Global variables used
 
-### 5. Side Effects
-- NA
+_None._
 
-### 6. Limitations
+#### File I/O
 
+| File Name | Type | Used  | Description                                      |
+|-----------|------|-------|--------------------------------------------------|
+| `AccPf`   | Data | Input | Reads account records to find a matching user ID |
+
+### 5. Dependencies
+
+_None. The procedure does not call external programs, service programs, data areas, data queues, or message files._
+
+### 6. Limitations & Assumptions
 - The procedure performs a linear read and stops at the first match only.
 - It does not handle duplicate `CustId` entries (returns the first match only).
 - If the required fields are missing in the `AccPf` file or improperly mapped, the procedure may return incorrect data or fail.
 
-#### 7.Usage Example
+### 7. Usage Example
 
 ```rpgle
-       dcl-s userid char(10);
-       dcl-s account_number char(10);
+   dcl-s userid char(10);
+   dcl-s account_number char(10);
 
-       userid = 'TEST01';
-       account_number = GetAccno(userid);
+   userid = 'TEST01';
+   account_number = GetAccNo(userid);
+
+   // account_number now contains the account number for 'TEST01', or blank if not found
 ```
-
-- If a matching record is found:
-  The subprocedure will return the corresponding `AccNo` (e.g., `'9876543210'`), and `account_number` will be set to this value.
-
-- If no match is found:
-  - On the first run: `account_number` will remain blank and will be returned as such.
-  - If called again without reinitializing `account_number`, it will still return a blank value unless the record is found.
-
-
 ## how_output
 
 ### 1. High-Level Purpose of the Program
@@ -122,33 +122,23 @@ The subprocedure `GetAccNo` is responsible for retrieving the account number (`A
 
 ### 2. Global Components
 
-#### 2.1 Procedure Interface
-The procedure interface defines the input parameters for a procedure. It allows data to be passed into the procedure when it is called, and specifies how the parameters are declared and used within the procedure.
+#### 2.1 Input Parameters
 
-- `dcl-pi GetAccNo char(10)`
-  - `GetAccNo`: The name of the procedure being defined.
-  - Attributes:
-    - `dcl-pi`: Declares the procedure interface.
-    - `char(10)`: Specifies that the return type of the procedure is a character variable with a length of 10 characters.
-  - Purpose: The return type indicates that the procedure returns an account number (`char(10)`).
+|   | Name        | Usage | Data Type  | Description                                    | Attributes |
+|---|-------------|-------|------------|------------------------------------------------|------------|
+| 1 | `P_UserId`  | Input | char(10)   | The user ID to search for in the `AccPf` file. | CONST      |
 
-- `P_UserId char(10) const`
-  - `P_UserId`: This is the input parameter representing the user ID for which the account number is being searched.
-  - Attributes:
-    - `char(10)`: Specifies that the parameter is a character variable with a length of 10.
-    - `const`: Indicates that the value of this parameter is constant and cannot be modified within the procedure.
-  - Purpose: The `P_UserId` holds the user ID passed to the procedure. It is used to compare against the `CustId` field in the file records to locate the corresponding account number.
+#### 2.2 Return Value
+
+| Data Type | Description                                              |
+|-----------|---------------------------------------------------------|
+| char(10)  | Returns the account number (`AccNo`) if a match is found. otherwise, returns blank. |
 
 #### 2.2 Stand-Alone Variables (Local Variables)
-Local variables are used to hold intermediate values or results that are needed during the execution of a procedure. These are variables declared within the procedure and are only accessible inside that procedure.
 
-- `dcl-s FoundAccNo char(10)`
-
-  - `FoundAccNo`: A character variable with a length of 10.
-  - Attributes:
-    - `dcl-s`: Declares a stand-alone (local) variable.
-    - `char(10)`: Specifies that the variable is alphanumeric with a length of 10 characters.
-  - Purpose: This variable is used to store the account number (`AccNo`) when a matching `CustId` is found. If a match is found, it holds the account number to be returned; otherwise, it is returned as blank.
+| Name         | Data Type | Description                                   | Attributes |
+|--------------|-----------|-----------------------------------------------|------------|
+| `FoundAccNo` | char(10)  | Stores the account number if a match is found |            |
 
 ### 3. Main Line Code
 - The program positions the file pointer at the lowest value in the file `AccPf` to prepare for sequential reading from the beginning.

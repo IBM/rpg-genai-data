@@ -45,33 +45,38 @@ The RPGLE program is designed to retrieve the account number (`AccNo`) for a giv
 
 ### 2. Parameters
 
-| |  `Parameter Name`  |   `Type` |  `Direction`  |  `Description`  |
-|-|-------------------|----------|------------|---------------|
-| 1 |`P_UserId`         | `char(10)`   | Input         | Represents the user ID provided as input to the program. Used to search for the corresponding account number in the `AccPf` file. |
-| 2| `P_AccNo`          | `char(10)` | Output        | Represents the account number retrieved from the `AccPf` file. Set by the program as the output. |
+|   | Name      | Usage  | Data Type | Description                                                        | Attributes |
+|---|-----------|--------|-----------|--------------------------------------------------------------------|------------|
+| 1 | `P_UserId`| Input  | char(10)  | User ID to search for in the `AccPf` file                          | CONST      |
+| 2 | `P_AccNo` | Output | char(10)  | Account number retrieved from the `AccPf` file for the given user  |            |
 
-### 3. Inputs and Outputs
-| File Name       | Type     | Used         | Description                                      |
-|-----------------|----------|--------------|--------------------------------------------------|
-| `ACCPF`      | Data     | Input        | A database file accessed in input mode with keyed access to retrieve account details based on `CustId`.            |
+### 3. File I/O
 
-### 4. Limitations
-- The program is designed to read data and return the account number but does not provide functionality to update records in the `AccPf` file.
+| File Name | Type      | Usage | Description                                                                 |
+|-----------|-----------|-------|-----------------------------------------------------------------------------|
+| `AccPf`   | Data file | Input | Reads account records using keyed access to retrieve account details by user |
 
-### 5. Usage Example
+### 4. Dependencies
 
-```clle
-dcl &accno type(*char) len(10)  /* Account number */
-dcl &userid type(*char) len(10) /* Userid */
+This program does not call any external programs, service programs, data areas, data queues, or message files directly. All dependencies are limited to the declared file `AccPf`.
 
-chgvar &userid 'TEST01';
-call GETACTINF PARM(&userid &accno);
+### 5. Limitations & Assumptions
+
+- The program only retrieves data; it does not update or delete records in `AccPf`.
+- If no matching record is found, `P_AccNo` remains unchanged.
+- No validation is performed on `P_UserId` (e.g., blank or invalid input).
+- The program reads sequentially from the start of the file, which may be inefficient for large files.
+
+### 6. Usage Example
+
+```rpgle
+     /copy qrpglesrc,getactinf
+
+       dcl-s UserId char(10) inz('USR000123');
+       dcl-s AccNo char(10);
+
+       getactinf(UserId : AccNo);
 ```
--If a matching record is found:  
-  The program sets `account_number` to the corresponding account number (e.g., `'9876543210'`).
--If no match is found: 
-  - `account_number` is not changed.
-
 
 ## how_output
 
@@ -80,61 +85,33 @@ call GETACTINF PARM(&userid &accno);
 
 ### 2. Control Specifications
 
-Control specifications in RPGLE are used to define the overall behavior and environment settings for the program. 
-```rpgle
-       ctl-opt dftactgrp(*no) actgrp(*new);
-```
-  - `dftactgrp(*no)`: Indicates that the program should not run in the default activation group.
-  - `actgrp(*new)`: Specifies that the program should run in a new activation group.
+| Keyword           | Description                                                                 |
+|-------------------|-----------------------------------------------------------------------------|
+| `dftactgrp(*no)`  | The program does not run in the default activation group.                   |
+| `actgrp(*new)`    | The program runs in a new activation group.                                 |
 
-### 3. File Specifications
+### 3. File Declarations
 
-These file specifications define how each file will be accessed and used within the program, ensuring that the necessary operations (input, update, add) can be performed on the files as required.
+| File Name | Type  | Used  | Description                                 |
+|-----------|-------|-------|---------------------------------------------|
+| `AccPf`   | Data  | Input | Reads account records for lookup operations |
 
-```rpgle
-       dcl-f AccPf keyed;
-```
-  - File Type: Physical file `ACCPF` declared.
-  - Attributes:
-    - `keyed`: Keyed access, meaning the file is accessed using a key field.
-    - Keywords assumed by default:
-      - `disk`: A database file
-      - `usage(*input)`: Used for input only
-      - `ext`: Externally described
+### 4. Global Definitions
 
-### 4. Global Components
+#### Variables
 
-#### 4.1 Variables
+| Name        | Data Type               | Description                                                        |
+|-------------|------------------------ |--------------------------------------------------------------------|
+| `TempAccNo` | like(P_AccNo), char(10) | Intended to hold the initial value of `P_AccNo` (not used further) |
 
-Stand alone variables in RPGLE are used to store data that is not directly associated with a file or data structure. These variables can be used for various purposes, such as holding intermediate values, parameters, and flags.
+#### Procedure Interface
 
-```rpgle
-       dcl-s TempAccNo like(P_AccNo);
-```
-| Name           | Data Type               | Description                                  |
-|----------------|------------------------ |----------------------------------------------|
-| `TempAccNo` | `like(P_AccNo)`, `char(10)` | It is not used, but was likely intended to hold the initial value of the `P_AccNo` parameter. |
+| Name      | Data Type | Usage  | Description                        | Attributes |
+|-----------|-----------|--------|------------------------------------|------------|
+| P_UserId  | char(10)  | Input  | User ID to search for              | CONST      |
+| P_AccNo   | char(10)  | Output | Account number to be returned      |            |
 
-#### 4.2 Procedure Interface
-
-The procedure interface in RPGLE defines the parameters that are passed to a procedure when it is called.
-```rpgle
-       dcl-pi *n;
-          P_UserId char(10) const;
-          P_AccNo char(10);
-       end-pi;
-```
-- `dcl-pi *n`: `*n` is used as a place-holder for the name of the procedure.
-- `P_UserId char(10) const`
-  - `P_UserId`: The name of the parameter, which represents the user ID.
-  - `char(10)`: Specifies that the parameter `P_UserId` is a character variable with a length of 10.
-  - `const`: Indicates that the parameter is a constant, meaning its value cannot be changed within the procedure.
-
-- `P_AccNo char(10)`
-  - `P_AccNo`: The name of the parameter, which represents the account number.
-  - `char(10)`: Specifies that the parameter `P_AccNo` is a character variable with a length of 10.
-
-### 6. Main Line Code
+### 5. Main Line Code
 - The program positions the file pointer at the lowest value in the file `AccPf` to prepare for sequential reading from the beginning.
 - It enters a loop that continues to execute as long as the end of the file has not been reached. This ensures that all records in the file are processed.
 - Inside the loop, the program checks if the `CustId` field from the current record matches the `P_UserId` parameter. If the condition is true, it means the record belongs to the user specified by `P_UserId`.
@@ -143,12 +120,12 @@ The procedure interface in RPGLE defines the parameters that are passed to a pro
 - If the condition is not met, the program reads the next record from the file `AccPf` and continues the loop.
 - Once the loop finishes (either by finding the record or reaching the end of the file), the program sets the last record indicator to `on`, indicating the end of the program and ensuring proper cleanup.
 
-### 7. Possible Problems with this Code
+### 6. Possible Problems with this Code
 - If the same program runs again without resetting `P_AccNo`, it retains the previous value, leading to incorrect or unintended output. This can happen in interactive or looped calls if the variable is not reinitialized.
 - The program does not check whether `P_UserId` is blank. If `P_UserId` is blank, the program will still attempt to find a matching record and may return an unintended account number.
 - The program reads through the entire `AccPf` file until it finds a match or reaches the end of the file. This can be inefficient for large files.
 
-### 8. Possible Improvements to this Code
+### 7. Possible Improvements to this Code
 - Ensure `P_AccNo` is initialized to an empty value at the start of the procedure to provide consistent results for the caller.
 - Add validation to check if `P_UserId` is blank before processing the file. This ensures that the program does not attempt to find a match for an empty user ID, which could lead to unintended results.
 - Implement error handling to manage cases where no matching record is found. This could involve returning a specific value or message indicating that no match was found, improving the program's robustness and user feedback.

@@ -23,13 +23,22 @@ The `api_output` part provides information to the caller about how to call the e
 Provide a short, high-level summary describing the overall purpose of the `module`.
 This summary should focus on what the module is designed to achieve functionally, without going into the individual procedure details.
 
-2. #### Exported Procedures
+2. #### Global Dependencies
+List all global dependencies required by the module, including any files, data areas, data queues, or message files that the module interacts with directly. Exclude any system APIs.
+
+3. #### Exported Procedures
 Each exported procedure should be documented using the following structure:
 
 #### Procedure: `<procedure_name>`
 
   ##### Purpose
   Provide a short, high-level summary describing the purpose of the procedure. This should be a concise statement that captures the main functionality or goal of the procedure.
+
+  ##### Parameters
+  Refer to the [How to explain parameters](/pages/task/explain_parameters.md) for detailed instructions for the Type and possible Attributes columns for the parameters 
+
+  ##### Return Value
+  Refer to the [How to explain Return Value](/pages/task/explain_parameters.md) for detailed instructions for the Type and possible Attributes columns for the return value.
 
   ##### Usage Example:
   Provide a code snippet that demonstrates how to call the procedure, including parameter setup and the call itself. This should be a complete and realistic example that users can follow as a reference.
@@ -91,7 +100,13 @@ List all declared files from the F-specs with relevant keywords. This includes d
 The explanation of global definitions can be found [here](/pages/task/explain_global_definitions.md).
 
 5. #### Procedures 
-List of the all procedures defined in the module, including their names and a brief description of their functionality.
+Each procedure defined in the module should be explained in detail, including its name, the parameters it accepts and what value it returns, if any. In addition, provide a clear description of the procedure’s functionality, outlining its main logic and how it contributes to the overall purpose of the module.
+
+6. #### Possible probelms with code 
+Identify potential issues that could arise during the execution of the program. Mention any problems that should be noted when discussing the final statement that ends the program.
+
+7. #### Possible improvements with code
+Identify areas where the code could be enhanced for better performance, readability, or functionality. This may include suggestions for error handling, optimization techniques, or alternative approaches to achieve the same result.
 
 ## sum_output
 

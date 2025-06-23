@@ -8,6 +8,8 @@ The parameters are described in a table with columns for the parameter number, `
 
 The column for the parameter number does not have a heading.
 
+If it is an unnamed parameter in a prototype, put `not named` in the name column. Also, add a point in the "Possible Improvements to this Code" that it's a good idea to give names to the parameters in a prototype
+
 Example:
 ```rpgle
      D MyProc          pi              n

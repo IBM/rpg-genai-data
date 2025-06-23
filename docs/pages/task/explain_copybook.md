@@ -12,6 +12,10 @@ The [`scope`](/pages/metadata#scope) in `metadata.txt` will be `COPYBOOK` in thi
 ## context
 The `Context` section is not required for the copybook because copybooks in RPGLE generally consist of reusable code snippets, such as procedure declarations (dcl-pr), variable definitions, constants, and data structure declarations, which are included in the main program or subroutines. These code snippets themselves do not depend on external files or resources, but instead serve as building blocks to be referenced and used by other RPGLE programs or modules
 
+## Input
+
+The input section stores the complete RPGLE source. 
+
 ## api_output
 The `api_output` section is not applicable for this copybook. Copybooks are not directly callable entities like APIs. Instead, they are included in programs to define procedures that can be called within those programs. 
 

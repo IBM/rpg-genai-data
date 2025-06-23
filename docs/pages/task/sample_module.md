@@ -77,174 +77,182 @@ Therefore the `context` directory would look like:
 The `GetActInf` module provides reusable subprocedures to retrieve account-related information from the `AccPf` physical file based on a given customer ID (`CustId`). Specifically, it allows external programs to obtain:
 
 - The account number (`AccNo`)
--  The account description (`AccDesc`)
+- The account description (`AccDesc`)
 
-### 2. Exported Procedures
+### 2. Global Dependencies
 
-#### 2.1 Procedure: `GetAccNo`
+| Dependency | Type  | Description                                      |
+|------------|-------|--------------------------------------------------|
+| `AccPf`    | File  | Physical file containing account records         |
+| `getactinfcpy` | Copybook | Contains prototypes for exported procedures |
 
-#### Description
-  Retrieves the account number (`AccNo`) associated with a given customer ID (`CustId`) from the physical file `AccPf`. The procedure reads the file sequentially and returns the first matched account number.
+### 3. Exported Procedures
 
-#### Parameters 
-| | Parameter Name | Direction | Data Type  | Description                                     |
-| -| -------------- | --------- | ---------- | ----------------------------------------------- |
-| 1 | `P_UserId`     | Input     | `char(10)` | Customer ID to search in the `AccPf` file       |
+#### Procedure: `GetAccNo`
 
-#### Return Value
-| Data Type  | Description                                     |
-| ---------- | ----------------------------------------------- |
-|  `char(10)` | The account number associated with the given ID |
+##### Purpose
+Retrieves the account number (`AccNo`) associated with a given customer ID (`CustId`) from the physical file `AccPf`. The procedure reads the file sequentially and returns the first matched account number.
 
-#### Inputs and Outputs
+##### Parameters
 
-  ##### File I/O
-  | File Name       | Type     | Used         | Description                                      |
-  |-----------------|----------|--------------|--------------------------------------------------|
-  | `ACCPF`      | Data     | Input        | Reads account records            |
+|   | Name       | Usage | Data Type  | Description                               | Attributes |
+|---|------------|-------|------------|-------------------------------------------|------------|
+| 1 | `P_UserId` | Input | char(10)   | Customer ID to search in the `AccPf` file | CONST      |
 
-#### Limitations & Assumptions
-  - The procedure assumes that `CustId` values are unique. only the first match will be returned.
-  - If the input `P_UserId` is blank or not found in the file, the returned account number will be blank.
-  - No validations are performed on input or output values.
-  - It assumes `AccPf` is not being exclusively locked or blocked by another job at the time of read.
+##### Return Value
 
-#### Usage Example
+| Data Type  | Description                                     | Attributes |
+|------------|-------------------------------------------------|------------|
+| char(10)   | The account number associated with the given ID |            |
+
+##### Usage Example
+
 ```rpgle
-       dcl-s userid char(10);
+       /copy getactinfcpy
+
+       dcl-s userid char(10) inz('TEST01');
        dcl-s account_number char(10);
 
-       /copy getactinfcpy;
-
-       userid = 'TEST01';
        account_number = GetAccNo(userid);
+
+       // account_number will contain the account number if found, or blank if not found
 ```
-- If a matching record is found:
-  `account_number` will contain the correct account number, such as `'9876543210'`.
-- If no match is found:
-  `account_number` will remain blank. The caller must ensure it is not reused across calls without resetting.
 
-#### 2.2 Procedure: `GetAccDesc`
+#### Procedure: `GetAccDesc`
 
-#### Description
-  Retrieves the account description (`AccDesc`) associated with a given customer ID (`CustId`) from the physical file `AccPf`. The procedure performs a sequential read and returns the description for the first matched customer record.
+##### Purpose
+Retrieves the account description (`AccDesc`) associated with a given customer ID (`CustId`) from the physical file `AccPf`. The procedure performs a sequential read and returns the description for the first matched customer record.
 
-#### Parameters
-| | Parameter Name | Direction | Data Type  | Description                                                |
-| - | -------------- | --------- | ---------- | ---------------------------------------------------------- |
-| 1 | `P_UserId`     | Input     | `char(10)` | Customer ID to search for in the `AccPf` file              |
-| 2 |-Return Value- | Output    | `char(50)` | The account description associated with the input `CustId` |
+##### Parameters
 
-#### Inputs and Outputs
-  ##### File I/O
-  | File Name       | Type     | Used         | Description                                      |
-  |-----------------|----------|--------------|--------------------------------------------------|
-  | `ACCPF`      | Data     | Input        | Reads account records            |
+|   | Name       | Usage | Data Type  | Description                               | Attributes |
+|---|------------|-------|------------|-------------------------------------------|------------|
+| 1 | `P_UserId` | Input | char(10)   | Customer ID to search in the `AccPf` file | CONST      |
 
-#### Limitations & Assumptions
-  - Only the first matching `CustId` will be considered.
-  - If the input `P_UserId` is not found or is blank, the return value will be blank.
-  - No trimming or validation of returned description text is performed.
-  - The procedure assumes `AccPf` is unlocked and available for read access during execution.
+##### Return Value
 
-#### Usage Example
+| Data Type  | Description                                         | Attributes |
+|------------|-----------------------------------------------------|------------|
+| char(50)   | The account description associated with the given ID|            |
+
+##### Usage Example
 
 ```rpgle
-       dcl-s userid char(10);
+       /copy getactinfcpy
+
+       dcl-s userid char(10) inz('TEST01');
        dcl-s account_desc char(50);
 
-       /copy getactinfcpy;
-
-       userid = 'TEST01';
        account_desc = GetAccDesc(userid);
+
+       // account_desc will contain the account description if found, or blank if not found
 ```
-- If a match is found:
-  `account_desc` will contain something like `'Premium Savings Account - Tier 1'`.
-- If no match is found:
-  `account_desc` will be blank. The calling logic should handle such cases to avoid misinterpretation.
 
 ## how_output
 
-### Purpose
-The RPGLE program provides reusable subprocedures to retrieve account-related information from the `AccPf` physical file based on a given customer ID (`CustId`). Specifically, it allows external programs to obtain:
+## how_output
 
+### 1. Purpose
+
+The RPGLE module provides reusable subprocedures to retrieve account-related information from the `AccPf` physical file based on a given customer ID (`CustId`). Specifically, it allows external programs to obtain:
 - The account number (`AccNo`)
 - The account description (`AccDesc`)
 
 ### 2. Control Specifications
-Control specifications in RPGLE are used to define the overall behavior and environment settings for the program.
-- `nomain`: Indicates that this module does not have a main procedure. It is typically used for service programs or modules that only contain procedures.
 
-### 3. File Specifications
+```rpgle
+       ctl-opt nomain;
+```
+- `nomain`: Indicates that this module does not have a main procedure. It is intended to be used as a service program or a module containing only procedures.
+
+### 3. File Declarations
+
+| File Name | Type | Used  | Description                                 |
+|-----------|------|-------|---------------------------------------------|
+| `AccPf`   | Data | Input | Reads account records for lookup operations |
 
 ```rpgle
        dcl-f AccPf usage(*input) keyed;
 ```
-  - `AccPf`: The name of the physical file.
-  - Attributes:
-    - `usage(*input)`: Input file, meaning the file can be read.
-    - `keyed`: Keyed access, meaning the file is accessed using a key field
-    - Thee keywords are assumed by default:
-      - `DISK`: A database file
-      - `EXT`: Externally-described
+- `AccPf`: Name of the physical file containing account records.
+- `usage(*input)`: The file is opened for input (read-only).
+- `keyed`: The file is accessed using a key field (typically `CustId`).
 
-### Procedure: GetAccNo
+### 4. Global Definitions
 
-Purpose: This procedure returns the account number (`AccNo`) for a given user ID (`P_UserId`).
+There are no global variables or data structures defined outside the procedures in this module.
 
-#### 1. Definitions
-  - Input Parameter: `P_UserId` (Type: `char(10)`, Constant): This is the user ID passed as an input parameter to the procedure. It is used to search for the corresponding account number in the `AccPf` file.
-  - Local Variable: `FoundAccNo` (Type: `char(10)`): This variable holds the account number of the user once it is found. It is initialized to an empty string (`inz('')`).
+### 5. Procedures
 
-#### 2. Main Logic
-- The procedure begins by positioning the file pointer to the first record in the `AccPf` file using `setll -loval AccPf`, ensuring that the search starts from the beginning of the file.
-- The first record is read from the file with `read AccPf`, bringing the record into memory for processing.
-- The procedure enters a `dow not %eof(AccPf)` loop that continues as long as there are records to process.
-    - Inside the loop, the `if CustId = P_UserId` condition is checked to see if the `CustId` from the current record matches the `P_UserId` parameter passed to the procedure.
-    - If a match is found:
-        - The account number (`AccNo`) from the current record is stored in the `FoundAccNo` variable.
-        - The loop is exited immediately using the `leave` statement, as the account number has been found.
-    - If the `CustId` does not match, the next record is read from the file with `read AccPf`, and the loop continues to the next record.
-- The loop continues processing records until either a match is found or the end of the file (`%eof(AccPf)`) is reached.
+#### Procedure: GetAccNo
 
-### 3. Possible Problems with this Code
-- If the procedure is called multiple times without reinitializing the `FoundAccNo` variable, it may retain the previous value, leading to incorrect results in subsequent calls.
-- The program does not validate whether the `P_UserId` parameter is blank or invalid before attempting to search the file. An empty or invalid user ID could cause the procedure to search unnecessarily or return incorrect data.
-- The loop exits as soon as a match is found, but there is no handling for scenarios where `CustId` is not found in the file. The procedure will return an empty string (`FoundAccNo`) without any indication that no match was found, which may be misleading.
+##### Purpose:
+  Returns the account number (`AccNo`) for a given user ID (`P_UserId`).
 
-### 4. Possible Improvements to this Code
-- Add validation to check if the `P_UserId` parameter is blank or invalid before performing the file search. If `P_UserId` is invalid, return an appropriate error or indication.
-- Consider optimizing the search by using a keyed read operation (`read(e) AccPf`) if `AccPf` is a keyed file and the `CustId` is a key field. This would significantly reduce search time compared to sequentially reading all records.
-- If no matching `CustId` is found, return a meaningful result or error message instead of an empty string. This would provide clarity that the user ID was not found in the records.
+##### Parameters:
 
+  |   | Name      | Usage | Data Type | Description                               | Attributes |
+  |---|-----------|-------|-----------|-------------------------------------------|------------|
+  | 1 | `P_UserId`| Input | char(10)  | Customer ID to search in the `AccPf` file | CONST      |
 
-### Procedure: GetAccDesc
-Purpose: This procedure returns the account description (`AccDesc`) for a given user ID (`P_UserId`).
+##### Local Variables:
 
-#### 1. Definitions
-  - Input Parameter: `P_UserId` (Type: `char(10)`, Constant): This is the user ID passed as an input parameter to the procedure. It is used to search for the corresponding account description in the `AccPf` file.
-  -  Local Variable: `FoundAccDesc` (Type: `char(50)`): This variable holds the account description of the user once it is found. It is initialized to an empty string (`inz('')`).
+  | Name         | Data Type | Description                              | Attributes |
+  |--------------|-----------|------------------------------------------|------------|
+  | `FoundAccNo` | char(10)  | Stores the found account number, blank if not found |            |
 
-#### 2. Main Logic
-- The procedure begins by positioning the file pointer to the first record in the `AccPf` file using `setll -loval AccPf`, ensuring that the search starts from the beginning of the file.
-- The first record is read from the file with `read AccPf`, bringing the record into memory for processing.
-- The procedure enters a `dow not %eof(AccPf)` loop that continues as long as there are records to process.
-  - Inside the loop, the `if CustId = P_UserId` condition is checked to see if the `CustId` from the current record matches the `P_UserId` parameter passed to the procedure.
-  - If a match is found:
-    - The account description (`AccDesc`) from the current record is stored in the `FoundAccDesc` variable.
-    - The loop is exited immediately using the `leave` statement, as the account description has been found.
-  - If the `CustId` does not match, the next record is read from the file with `read AccPf`, and the loop continues to the next record.
-- The loop continues processing records until either a match is found or the end of the file (`%eof(AccPf)`) is reached.
+##### Return Value:
 
-### 3. Possible Problems with this Code
-- If the procedure is called multiple times without reinitializing the `FoundAccDesc` variable, it may retain the previous value, leading to incorrect results in subsequent calls.
-- The program does not validate whether the `P_UserId` parameter is blank or invalid before attempting to search the file. An empty or invalid user ID could cause the procedure to search unnecessarily or return incorrect data.
-- The procedure will return an empty string (`FoundAccDesc`) if no match is found, but there is no indication that no match was found. This might be misleading, as users would not know whether the user ID was not found or if there was an error.
+  | Data Type | Description                                     | Attributes |
+  |-----------|-------------------------------------------------|------------|
+  | char(10)  | The account number associated with the given ID |            |
 
-### 4. Possible Improvements to this Code
-- Implement a check to verify if `P_UserId` is blank or invalid before performing the file search. If `P_UserId` is invalid, return an appropriate error or indication.
-- If `AccPf` is a keyed file, consider using a keyed read operation (`read(e) AccPf`) to directly access the record with the matching `CustId`, improving the performance by reducing search time.
-- If no matching `CustId` is found, return a meaningful result or error message instead of just an empty string. This would help clarify that the user ID was not found in the records, providing more informative feedback.
+##### Logic: 
+  - Positions to the start of the file.
+  - Reads each record sequentially.
+  - If `CustId` matches `P_UserId`, assigns `AccNo` to `FoundAccNo` and exits the loop.
+  - Returns `FoundAccNo` (blank if not found).
+
+#### Procedure: GetAccDesc
+
+##### Purpose: 
+  Returns the account description (`AccDesc`) for a given user ID (`P_UserId`).
+
+##### Parameters:
+
+  | # | Name      | Usage | Data Type | Description                               | Attributes |
+  |---|-----------|-------|-----------|-------------------------------------------|------------|
+  | 1 | `P_UserId`| Input | char(10)  | Customer ID to search in the `AccPf` file | CONST      |
+
+##### Local Variables:
+
+  | Name           | Data Type | Description                                   | Attributes |
+  |----------------|-----------|-----------------------------------------------|------------|
+  | `FoundAccDesc` | char(50)  | Stores the found account description, blank if not found |            |
+
+##### Return Value:
+
+  | Data Type | Description                                         | Attributes |
+  |-----------|-----------------------------------------------------|------------|
+  | char(50)  | The account description associated with the given ID|            |
+
+##### Logic:
+  - Positions to the start of the file.
+  - Reads each record sequentially.
+  - If `CustId` matches `P_UserId`, assigns `AccDesc` to `FoundAccDesc` and exits the loop.
+  - Returns `FoundAccDesc` (blank if not found).
+
+### 6. Possible Problems
+
+- If the procedures are called multiple times without reinitializing the local variables, previous values may persist.
+- No validation is performed on `P_UserId` (e.g., blank or invalid input).
+- If no match is found, the procedures return a blank value, which may not clearly indicate "not found" to the caller.
+
+### 7. Possible Improvements
+
+- Validate `P_UserId` before searching.
+- Use keyed read operations (`read(e) AccPf`) for better performance if `CustId` is a key.
+- Return a more meaningful result or error indicator if no match is found.
 
 ## sum_output
 

@@ -14,29 +14,40 @@
 ```
 
 ## how_output
-The copybook `getactinfcpy` contains the following declarations:
 
-1. Prototype for procedure `GetAccNo`:
-   ```rpgle
-          // Procedure declaration for GetAccNo
-          dcl-pr GetAccNo char(10);
-              P_UserId char(10) const;   
-          end-pr;
-   ```
-    - `dcl-pr` declares the prototype for procedure `GetAccNo`, which returns a 10-character account number.
-    - `P_UserId` is a constant input parameter for the `GetAccNo` procedure. It represents the user ID for which the corresponding account number is retrieved.
+### Purpose
+This code defines two procedure prototypes using free-form ILE RPG syntax. These prototypes specify the interface for a procedure and an external program that can be called from within an RPGLE program.
 
-2. Prototype for program `GETACCDESC`:
-   ```rpgle
-          // Prototype declaration for program GetAccDesc
-          dcl-pr GetAccDesc extpgm;
-              P_AccNo char(10) const;   
-              P_AccDesc char(50); 
-          end-pr;
-   ```
-    - `dcl-pr` declares the `GetAccDesc` prototype for program `GETACCDESC`.
-    - `P_AccNo` is a constant input parameter for the `GetAccDesc` procedure. It represents the account number for which the corresponding account description is retrieved.
-    - `P_AccDesc' is 50-character output variable that receives the account description.
+### Procedures
+
+#### GetAccNo
+This is a procedure prototype for a local procedure named `GetAccNo`.
+
+##### Parameters:
+
+| Name     | Usage | Data Type | Description                    | Attributes |
+|----------|-------|-----------|--------------------------------|------------|
+| P_UserId | Input | char(10)  | 10-character user identifier   | CONST      |
+
+##### Return value:
+
+| Data Type | Description                  |
+|-----------|------------------------------|
+| char(10)  | Returns a 10-character value |
+
+#### GetAccDesc
+This is a prototype for an external program named `GETACCDESC`.
+
+##### Parameters:
+
+| Name      | Usage | Data Type | Description                     | Attributes |
+|-----------|-------|-----------|---------------------------------|------------|
+| P_AccNo   | Input | char(10)  | 10-character account number     | CONST      |
+| P_AccDesc | Output| char(50)  | 50-character account description|            |
+
+##### Return value:
+
+- None (as it is an external program call, it returns values via parameters)
 
 ## sum_output
 
